@@ -3,6 +3,7 @@ import 'package:depi/widget/button.dart';
 import 'package:depi/widget/icon.dart';
 import 'package:depi/widget/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
@@ -20,13 +21,13 @@ class SignupPage extends StatelessWidget {
                 Container(
                   alignment: Alignment.topLeft,
                   width: double.infinity,
-                  height: 160,
-                  decoration: const BoxDecoration(
+                  height: 160.h,
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20).w,
+                      bottomRight: Radius.circular(20).w,
                     ),
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [
                         Color(0xff1E4174),
                         Color(0xff074799),
@@ -36,13 +37,13 @@ class SignupPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Positioned(
-                  top: 45,
-                  left: 15,
+                Positioned(
+                  top: 45.h,
+                  left: 15.w,
                   child: Text(
                     "Let's get you Registered !",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 24.sp,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -50,14 +51,14 @@ class SignupPage extends StatelessWidget {
                 ),
                 ///////////////////////////////////////////////
                 Positioned(
-                  left: 30,
-                  bottom: -20,
+                  left: 25.w,
+                  bottom: -20.h,
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(40).w,
+                      color: Color.fromARGB(255, 247, 73, 4),
                     ),
-                    width: 200,
+                    width: 180.w,
                     child: TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -69,10 +70,12 @@ class SignupPage extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text(
-                        "Sign up",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                      child: const Center(
+                        child: Text(
+                          "Sign up",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -80,14 +83,14 @@ class SignupPage extends StatelessWidget {
                 ),
                 ///////////////////////////////////////////////
                 Positioned(
-                  left: 170,
-                  bottom: -20,
+                  left: 160.w,
+                  bottom: -20.h,
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(40).w,
                       color: Colors.white,
                     ),
-                    width: 200,
+                    width: 180.w,
                     child: TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -113,53 +116,53 @@ class SignupPage extends StatelessWidget {
 
             /////////////////////////
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 19),
+              padding: const EdgeInsets.symmetric(horizontal: 20).w,
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
+                  SizedBox(height: 40.h),
                   const CustomTextField(
                     hintText: 'Full Name',
                     isPassword: false,
                   ),
-                  const SizedBox(height: 22),
+                  SizedBox(height: 22.h),
                   const CustomTextField(
                     hintText: 'Email Address',
                     isPassword: false,
                   ),
-                  const SizedBox(height: 22),
+                  SizedBox(height: 22.h),
                   const CustomTextField(
                     hintText: 'Password',
                     isPassword: true,
                   ),
-                  const SizedBox(height: 22),
+                  SizedBox(height: 22.h),
                   const CustomTextField(
                     hintText: 'Confirm Password',
                     isPassword: true,
                   ),
-                  const SizedBox(height: 18),
+                  SizedBox(height: 18.h),
                   CustomButton(
                     name: 'Register',
                   ),
-                  const SizedBox(height: 20),
-                  const Row(
+                  SizedBox(height: 20.h),
+                  Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Divider(
                           color: Colors.black,
                           thickness: 2,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        padding: EdgeInsets.symmetric(horizontal: 8).w,
                         child: Text(
                           'Or login with',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             color: Colors.black,
                           ),
                         ),
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Divider(
                           color: Colors.black,
                           thickness: 2,
@@ -167,7 +170,7 @@ class SignupPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -182,13 +185,14 @@ class SignupPage extends StatelessWidget {
                       Item(icon: Image.asset('assets/image/apple_731985.png')),
                     ],
                   ),
-                  const SizedBox(height: 80),
+                  SizedBox(height: 30.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        'Already Have An Account   ',
+                      Text(
+                        'Already Have An Account ? ',
                         style: TextStyle(
+                          fontSize: 13.sp,
                           color: Colors.black,
                         ),
                       ),
@@ -203,10 +207,10 @@ class SignupPage extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           'Login Now',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             color: Color.fromARGB(255, 247, 73, 4),
                             fontWeight: FontWeight.bold,
                           ),

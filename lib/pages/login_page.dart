@@ -3,6 +3,7 @@ import 'package:depi/widget/button.dart';
 import 'package:depi/widget/icon.dart';
 import 'package:depi/widget/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -20,7 +21,7 @@ class LoginPage extends StatelessWidget {
               Container(
                 alignment: Alignment.topLeft,
                 width: double.infinity,
-                height: 160,
+                height: 160.h,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
@@ -36,13 +37,13 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 top: 45,
                 left: 15,
                 child: Text(
                   "Let's get you Login !",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.sp,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
@@ -50,14 +51,14 @@ class LoginPage extends StatelessWidget {
               ),
               ///////////////////////////////////////////////
               Positioned(
-                left: 30,
-                bottom: -20,
+                left: 25.w,
+                bottom: -20.h,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     color: Colors.white,
                   ),
-                  width: 200,
+                  width: 180.w,
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -69,10 +70,12 @@ class LoginPage extends StatelessWidget {
                         ),
                       );
                     },
-                    child: const Text(
-                      "Sign up",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                    child: Center(
+                      child: const Text(
+                        "Sign up",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -80,14 +83,14 @@ class LoginPage extends StatelessWidget {
               ),
               ///////////////////////////////////////////////
               Positioned(
-                left: 170,
-                bottom: -20,
+                left: 160.w,
+                bottom: -20.h,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(40).w,
+                    color: Color.fromARGB(255, 247, 73, 4),
                   ),
-                  width: 200,
+                  width: 180.w,
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -112,56 +115,56 @@ class LoginPage extends StatelessWidget {
           ),
           //////////////////////////////////////////////////////////////
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 19),
+            padding: EdgeInsets.symmetric(horizontal: 19.r),
             child: Column(
               children: [
-                const SizedBox(height: 80),
+                SizedBox(height: 80.h),
                 const CustomTextField(
                   hintText: 'Enter your Email',
                   isPassword: false,
                 ),
-                const SizedBox(height: 22),
+                SizedBox(height: 22.h),
                 const CustomTextField(
                   hintText: 'Password',
                   isPassword: true,
                 ),
-                const SizedBox(height: 18),
-                const Row(
+                SizedBox(height: 18.h),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'Forget password ',
                       style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 17.sp,
                         color: Color.fromARGB(255, 247, 73, 4),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 18),
+                SizedBox(height: 18.h),
                 CustomButton(
                   name: 'Login',
                 ),
-                const SizedBox(height: 30),
-                const Row(
+                SizedBox(height: 30.h),
+                Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Divider(
                         color: Colors.black,
                         thickness: 2,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      padding: EdgeInsets.symmetric(horizontal: 8.r),
                       child: Text(
                         'Or login with',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: Colors.black,
                         ),
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                       child: Divider(
                         color: Colors.black,
                         thickness: 2,
@@ -169,7 +172,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -181,7 +184,7 @@ class LoginPage extends StatelessWidget {
                     Item(icon: Image.asset('assets/image/apple_731985.png')),
                   ],
                 ),
-                const SizedBox(height: 120),
+                SizedBox(height: 120.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -202,10 +205,10 @@ class LoginPage extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Register Here',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           color: Color.fromARGB(255, 247, 73, 4),
                           fontWeight: FontWeight.bold,
                         ),
@@ -213,7 +216,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
               ],
             ),
           ),
