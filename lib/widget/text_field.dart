@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({this.hintText, this.isPassword = false});
+  const CustomTextField({super.key, this.hintText, this.isPassword = false});
   final String? hintText;
   final bool isPassword;
 

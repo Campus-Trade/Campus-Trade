@@ -38,8 +38,8 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 45,
-                left: 15,
+                top: 20.h,
+                left: 15.w,
                 child: Text(
                   "Let's get you Login !",
                   style: TextStyle(
@@ -70,8 +70,8 @@ class LoginPage extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Center(
-                      child: const Text(
+                    child: const Center(
+                      child: Text(
                         "Sign up",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -88,7 +88,7 @@ class LoginPage extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40).w,
-                    color: Color.fromARGB(255, 247, 73, 4),
+                    color: const Color.fromARGB(255, 247, 73, 4),
                   ),
                   width: 180.w,
                   child: TextButton(
@@ -136,7 +136,7 @@ class LoginPage extends StatelessWidget {
                       'Forget password ',
                       style: TextStyle(
                         fontSize: 17.sp,
-                        color: Color.fromARGB(255, 247, 73, 4),
+                        color: const Color.fromARGB(255, 247, 73, 4),
                       ),
                     ),
                   ],
@@ -184,13 +184,14 @@ class LoginPage extends StatelessWidget {
                     Item(icon: Image.asset('assets/image/apple_731985.png')),
                   ],
                 ),
-                SizedBox(height: 120.h),
+                SizedBox(height: 20.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       'Don\'t Have An Account?   ',
                       style: TextStyle(
+                        fontSize: 16.sp,
                         color: Colors.black,
                       ),
                     ),
@@ -209,7 +210,7 @@ class LoginPage extends StatelessWidget {
                         'Register Here',
                         style: TextStyle(
                           fontSize: 16.sp,
-                          color: Color.fromARGB(255, 247, 73, 4),
+                          color: const Color.fromARGB(255, 247, 73, 4),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
