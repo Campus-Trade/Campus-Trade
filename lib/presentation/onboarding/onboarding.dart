@@ -1,11 +1,9 @@
-import 'package:campus_trade/campus_trade_app.dart';
 import 'package:campus_trade/presentation/onboarding/onboarding_data.dart';
 import 'package:campus_trade/presentation/resources/color_manager.dart';
 import 'package:campus_trade/presentation/sign_in/sign_in.dart';
 import 'package:campus_trade/utils/context_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:campus_trade/presentation/resources/text_styles.dart';
 import '../resources/image_manager.dart';
@@ -90,13 +88,15 @@ class _OnboardingState extends State<Onboarding> {
                 _onboardingData.length,
                 ((index) => Padding(
                       padding: EdgeInsets.all(5.r),
-                      child: AnimatedContainer(width: pageIndex == index? 40 : 10
-
-
-                          ,height:11 ,decoration:
-
-                          BoxDecoration(color:pageIndex== index?ColorManager.indicator:ColorManager.SecondaryColor ,borderRadius: BorderRadius.circular(43)),
-                          duration: Duration(milliseconds: 500)),
+                      child: AnimatedContainer(
+                          width: pageIndex == index ? 40 : 10,
+                          height: 11,
+                          decoration: BoxDecoration(
+                              color: pageIndex == index
+                                  ? ColorManager.indicator
+                                  : ColorManager.SecondaryColor,
+                              borderRadius: BorderRadius.circular(43)),
+                          duration: const Duration(milliseconds: 500)),
                     ))),
           ),
           SizedBox(

@@ -4,62 +4,47 @@ import 'package:campus_trade/presentation/resources/color_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextStyles {
-
   TextStyles._();
 
-
-  static  TextStyle black20Bold = TextStyle(
+  static TextStyle black20Bold = TextStyle(
     fontSize: 20.sp,
-      fontFamily:'Roboto_Condensed',
+    fontFamily: 'Roboto_Condensed',
     color: ColorManager.blackColor,
     fontWeight: FontWeight.w700,
   );
 
-  static  TextStyle black16Regular = TextStyle(
+  static TextStyle black16Regular = TextStyle(
     fontSize: 16.sp,
-    fontFamily:'Roboto_Condensed',
+    fontFamily: 'Roboto_Condensed',
     color: ColorManager.blackColor,
     fontWeight: FontWeight.w400,
   );
 
-
-  static  TextStyle blue14Bold= TextStyle(
+  static TextStyle blue14Bold = TextStyle(
     fontSize: 14.sp,
-    fontFamily:'Roboto_Condensed',
+    fontFamily: 'Roboto_Condensed',
     color: ColorManager.SecondaryColor,
     fontWeight: FontWeight.w700,
   );
 
-
-  static  TextStyle white14Bold= TextStyle(
+  static TextStyle white14Bold = TextStyle(
     fontSize: 14.sp,
-    fontFamily:'Roboto_Condensed',
+    fontFamily: 'Roboto_Condensed',
     color: ColorManager.PrimaryColor,
     fontWeight: FontWeight.w700,
   );
 
-
-  static  TextStyle grey12Regular= TextStyle(
+  static TextStyle grey12Regular = TextStyle(
     fontSize: 12.sp,
-    fontFamily:'Roboto_Condensed',
+    fontFamily: 'Roboto_Condensed',
     color: ColorManager.greyColor,
     fontWeight: FontWeight.w400,
   );
 
-
-  static  TextStyle  blue12Medium= TextStyle(
+  static TextStyle blue12Medium = TextStyle(
     fontSize: 12.sp,
-    fontFamily:'Roboto_Condensed',
+    fontFamily: 'Roboto_Condensed',
     color: ColorManager.SecondaryColor,
     fontWeight: FontWeight.w500,
   );
-
-
-
-
-
-
-
-
-
 }

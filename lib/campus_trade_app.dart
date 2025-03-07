@@ -7,8 +7,10 @@ class CampusTradeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ScreenUtilInit(designSize: Size(393, 852),minTextAdapt:true,
-        builder: (context,child)=>MaterialApp
-      (debugShowCheckedModeBanner: false,home:  Splash()));
+    return ScreenUtilInit(
+        designSize: const Size(393, 852),
+        minTextAdapt: true,
+        builder: (context, child) => const MaterialApp(
+            debugShowCheckedModeBanner: false, home: Splash()));
   }
 }

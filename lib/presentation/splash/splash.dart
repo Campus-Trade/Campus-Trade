@@ -1,7 +1,7 @@
 import 'package:campus_trade/presentation/onboarding/onboarding.dart';
 import 'package:campus_trade/presentation/resources/color_manager.dart';
-import 'package:campus_trade/presentation/resources/image_manager.dart';
 import 'package:flutter/material.dart';
+import '../resources/image_manager.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -35,5 +35,3 @@ class _SplashState extends State<Splash> {
     );
   }
 }
-
-
