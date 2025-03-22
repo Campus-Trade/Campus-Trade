@@ -6,11 +6,11 @@ import '../../../core/utils/resources/text_styles.dart';
 
 class AppBarUpload extends StatelessWidget implements PreferredSizeWidget {
   final bool isvisible;
-  AppBarUpload({required this.isvisible});
+  const AppBarUpload({super.key, required this.isvisible});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: AppBar(
         automaticallyImplyLeading: false,

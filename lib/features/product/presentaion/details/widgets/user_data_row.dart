@@ -1,6 +1,5 @@
 import 'package:campus_trade/core/utils/resources/icon_manager.dart';
 import 'package:campus_trade/features/auth/presentation/cubit/user_personal_data_cubit/user_cubit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +13,7 @@ import '../../../../auth/presentation/cubit/user_personal_data_cubit/user_state.
 class UserDataRow extends StatefulWidget {
   final String sellerId;
 
-  UserDataRow({super.key, required this.sellerId});
+  const UserDataRow({super.key, required this.sellerId});
 
   @override
   State<UserDataRow> createState() => _UserDataRowState();
@@ -49,7 +48,7 @@ class _UserDataRowState extends State<UserDataRow> {
                   user.firstName,
                   style: TextStyles.black14Bold,
                 ),
-                Spacer(),
+                const Spacer(),
                 SvgPicture.asset(
                   IconManager.phone,
                   width: 12.5.w,

@@ -1,4 +1,3 @@
-import 'package:campus_trade/features/product/presentaion/details/view/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../product/presentaion/cubit/present_product_cubit.dart';

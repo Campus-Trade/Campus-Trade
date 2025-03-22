@@ -7,7 +7,7 @@ import '../../../../core/utils/resources/text_styles.dart';
 class DoneButton extends StatefulWidget {
   String text;
   void Function()? Continue;
-  DoneButton({required this.text, this.Continue});
+  DoneButton({super.key, required this.text, this.Continue});
 
   @override
   State<DoneButton> createState() => _CustomselectbuttonState();

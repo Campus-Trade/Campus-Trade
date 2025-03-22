@@ -11,7 +11,7 @@ class NotificationScreen extends StatelessWidget {
       appBar: CommonAppBar(
         title: 'Notifications',
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: [NoteficationCard()],
         ),

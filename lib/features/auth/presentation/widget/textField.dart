@@ -43,6 +43,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           if (value == null || value.isEmpty) {
             return 'Field can\'t be empty ';
           }
+          return null;
         },
         obscureText: widget.isPassword ? _obscureText : false,
         keyboardType: widget.keyboardType,

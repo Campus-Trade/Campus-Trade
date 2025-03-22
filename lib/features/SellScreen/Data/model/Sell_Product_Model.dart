@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class SellProductModel {
   final String productName;
   final String description;

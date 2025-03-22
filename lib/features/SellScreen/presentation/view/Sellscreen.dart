@@ -13,6 +13,8 @@ import '../widget/DoneButton.dart';
 import '../widget/SegmentSellButton.dart';
 
 class SellScreen extends StatefulWidget {
+  const SellScreen({super.key});
+
   @override
   State<SellScreen> createState() => _SellscreenState();
 }
@@ -34,6 +36,7 @@ class _SellscreenState extends State<SellScreen> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocConsumer<AddDataCubit, AddDataState>(
@@ -80,10 +83,10 @@ class _SellscreenState extends State<SellScreen> {
                   );
                 },
               ),
-              AppBarUpload(isvisible: true),
+              const AppBarUpload(isvisible: true),
             ]),
             SizedBox(height: 20.h),
-            Segmentsellbutton(),
+            const Segmentsellbutton(),
             const SizedBox(height: 50),
             BlocConsumer<Testproduct, productState>(listener: (context, state) {
               if (state == productState.Sell) {}
@@ -126,7 +129,7 @@ class _SellscreenState extends State<SellScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
+                                builder: (context) => const HomeScreen()),
                           );
                         }
                       }

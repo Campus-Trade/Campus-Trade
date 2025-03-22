@@ -6,7 +6,7 @@ import '../../../../core/utils/resources/text_styles.dart';
 import '../cubit/TestProduct.dart';
 
 class Segmentsellbutton extends StatefulWidget {
-  Segmentsellbutton({super.key});
+  const Segmentsellbutton({super.key});
 
   @override
   State<Segmentsellbutton> createState() => _SegmentsellbuttonState();

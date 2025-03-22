@@ -52,8 +52,8 @@ class _UploadPhotoState extends State<UploadPhoto> {
               backgroundColor: Colors.grey[300],
               backgroundImage: selectedImage != null
                   ? FileImage(selectedImage!)
-                  : AssetImage(ImageManager.uploadPhoto),
-              child: isUploading ? CircularProgressIndicator() : null,
+                  : const AssetImage(ImageManager.uploadPhoto),
+              child: isUploading ? const CircularProgressIndicator() : null,
             ),
             SizedBox(height: 20.h),
 

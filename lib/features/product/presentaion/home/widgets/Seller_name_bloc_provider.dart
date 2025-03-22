@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +19,7 @@ class _SellerNameState extends State<SellerName> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          UserCubit(getIt<UserRepository>(), widget.sellerId!)..fetchUserData(),
+          UserCubit(getIt<UserRepository>(), widget.sellerId)..fetchUserData(),
       child: BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
           if (state is UserLoading) {

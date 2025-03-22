@@ -27,7 +27,7 @@ class _SplashState extends State<Splash> {
         context,
         MaterialPageRoute(
           builder: (context) =>
-              user != null ? HomeScreen() : const Onboarding(),
+              user != null ? const HomeScreen() : const Onboarding(),
         ),
       );
     });

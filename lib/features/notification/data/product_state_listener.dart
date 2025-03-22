@@ -15,7 +15,7 @@ class ProductStateListener {
         .listen((snapshot) async {
       for (final change in snapshot.docChanges) {
         if (change.type == DocumentChangeType.modified) {
-          final data = change.doc.data() as Map<String, dynamic>?;
+          final data = change.doc.data();
           final newState = data?['productState'];
           final productName = data?['name'] ?? 'Unnamed Product';
 

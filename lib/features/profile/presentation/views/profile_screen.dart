@@ -57,28 +57,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             InkWell(
               onTap: () {},
-              child: ProfileFeature(
+              child: const ProfileFeature(
                 title: "Pending Uploads",
                 iconPath: IconManager.pending,
               ),
             ),
             InkWell(
               onTap: () {},
-              child: ProfileFeature(
+              child: const ProfileFeature(
                 title: "Order History",
                 iconPath: IconManager.timing,
               ),
             ),
             InkWell(
               onTap: () {},
-              child: ProfileFeature(
+              child: const ProfileFeature(
                 title: "Info",
                 iconPath: IconManager.info,
               ),
             ),
             InkWell(
               onTap: () {},
-              child: ProfileFeature(
+              child: const ProfileFeature(
                 title: "Settings",
                 iconPath: IconManager.setting,
               ),
@@ -88,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 if (state is LogoutSuccess) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => SigninView()),
+                    MaterialPageRoute(builder: (context) => const SigninView()),
                   );
                 }
               },
@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: () {
                   context.read<LogoutCubit>().logout();
                 },
-                child: ProfileFeature(
+                child: const ProfileFeature(
                   title: "Log out",
                   iconPath: IconManager.exit,
                 ),

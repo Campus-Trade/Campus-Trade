@@ -26,12 +26,12 @@ class _SignupViewBodyBlocConsumerState
           log("User data stored successfully in Firestore!");
 
           if (mounted) {
-            SnackBar(
+            const SnackBar(
               content: Text("your data has added please sign in"),
             );
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => SigninView()),
+              MaterialPageRoute(builder: (context) => const SigninView()),
             );
           }
         }

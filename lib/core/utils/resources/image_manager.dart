@@ -1,7 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-
 class ImageManager {
   ImageManager._();
   static const String path = 'assets/images/';

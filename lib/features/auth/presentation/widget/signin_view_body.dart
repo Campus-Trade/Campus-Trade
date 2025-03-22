@@ -10,10 +10,9 @@ import '../view/forget_passowd_view.dart';
 import '../view/signup_view.dart';
 import 'textField.dart';
 import '../../../../core/shared_widgets/custom_button.dart';
-import 'upload_photo.dart';
 
 class SignInViewBody extends StatefulWidget {
-  SignInViewBody({super.key});
+  const SignInViewBody({super.key});
 
   @override
   State<SignInViewBody> createState() => _SignInViewBodyState();
@@ -25,7 +24,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +51,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                 if (value == null || value.isEmpty) {
                   return 'field can\'t be empty';
                 }
+                return null;
               },
               hintText: 'Email',
               keyboardType: TextInputType.emailAddress,
@@ -63,6 +63,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                 if (value == null || value.isEmpty) {
                   return 'field can\'t be empty';
                 }
+                return null;
               },
               hintText: 'Password',
               isPassword: true,
@@ -76,10 +77,10 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ForgetPasswordView()),
+                        builder: (context) => const ForgetPasswordView()),
                   );
                 },
-                child: Text(
+                child: const Text(
                   'Forgot Password?',
                   style: TextStyle(
                     color: Colors.grey,
@@ -140,7 +141,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) {
-                  return SignupView();
+                  return const SignupView();
                 }));
               },
             ),
