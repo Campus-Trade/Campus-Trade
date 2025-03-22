@@ -1,0 +1,2 @@
+C:/Users/layla/Desktop/campus_trade/Campus-Trade/android/app/.cxx/Debug/132f1l4j/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/layla/Desktop/campus_trade/Campus-Trade/android/app/.cxx/Debug/132f1l4j/armeabi-v7a/CMakeFiles/rebuild_cache.dir

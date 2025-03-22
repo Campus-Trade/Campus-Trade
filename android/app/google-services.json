@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "830177900227",
+    "project_id": "campus-trade1",
+    "storage_bucket": "campus-trade1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830177900227:android:32a21776f56b8003941476",
+        "android_client_info": {
+          "package_name": "com.example.depi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFLlgzAV9XVt4mGwqR6sNg9nr34x_oz9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
