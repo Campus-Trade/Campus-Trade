@@ -1,6 +1,6 @@
-##Campus_Trade
+## Campus_Trade
 
-##📜 Documentation
+## 📜 Documentation
 Find the detailed documentation here[https://github.com/Campus-Trade/Campus-Trade/blob/main/Documentation.pdf]
 
 ## 📊 System Analysis
