@@ -59,4 +59,28 @@ class TextStyles {
     color: ColorManager.PrimaryColor,
     fontWeight: FontWeight.w700,
   );
+  static TextStyle White20Bold = TextStyle(
+    fontSize: 20.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.lightBlue,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle black22Bold = TextStyle(
+    fontSize: 22.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.blackColor,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle black14Regular = TextStyle(
+    fontSize: 14.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.blackColor,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle grey16Medium = TextStyle(
+    fontSize: 16.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.greyColor,
+    fontWeight: FontWeight.w500,
+  );
 }

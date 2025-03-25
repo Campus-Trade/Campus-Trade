@@ -18,4 +18,5 @@ class ImageManager {
   static const String veterinary = '${path}veterinary.png';
   static const String rectangleT = '${path}rectangleT.png';
   static const String fineArts = '${path}fineArts.png';
+  static const String DefaultPic = '${path}pic.png';
 }

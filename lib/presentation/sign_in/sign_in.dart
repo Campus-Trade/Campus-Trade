@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:campus_trade/presentation/sign_in/widget/button.dart';
 import 'package:campus_trade/presentation/sign_in/widget/facebook_button.dart';
 import 'package:campus_trade/presentation/sign_in/widget/google_button.dart';

@@ -1,3 +1,4 @@
+import 'package:campus_trade/presentation/Upload/UploadScreen.dart';
 import 'package:campus_trade/presentation/chat/chat_screen.dart';
 import 'package:campus_trade/presentation/chat/widgets/chat_app_bar.dart';
 import 'package:campus_trade/presentation/home/widgets/appBar_home.dart';
@@ -48,7 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorManager.SecondaryColor,
         shape: const CircleBorder(),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Uploadscreen();
+          }));
+        },
         child: const Icon(
           Icons.add,
           color: ColorManager.PrimaryColor,
