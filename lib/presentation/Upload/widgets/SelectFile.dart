@@ -34,8 +34,13 @@ class _SelectfileState extends State<Selectfile> {
               padding:
                   EdgeInsets.only(top: 32.r, right: 162.5.r, left: 162.5.r),
               child: (widget.image == null)
-                  ? Image.asset(ImageManager.DefaultPic)
-                  : Image.file(widget.image!)),
+                  ? Image.asset(
+                      ImageManager.DefaultPic,
+                    )
+                  : Image.file(
+                      widget.image!,
+                      filterQuality: FilterQuality.high,
+                    )),
           Padding(
               padding:
                   EdgeInsets.only(top: 16.r, right: 120.5.r, left: 120.5.r),

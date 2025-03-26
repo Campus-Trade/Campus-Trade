@@ -1,24 +1,25 @@
 import 'dart:io';
-import 'package:campus_trade/presentation/Upload/widgets/AppBar_Upload.dart';
-import 'package:campus_trade/presentation/Upload/widgets/CustomSelectButton.dart';
-import 'package:campus_trade/presentation/Upload/widgets/SelectFile.dart';
-import 'package:campus_trade/presentation/resources/color_manager.dart';
-import 'package:campus_trade/presentation/resources/text_styles.dart';
-import 'package:campus_trade/presentation/sign_up/upload_photo.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:campus_trade/presentation/Cubit/Cubit_class.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Uploadscreen extends StatefulWidget {
-  const Uploadscreen({super.key});
+import '../Cubit/Cubit_State.dart';
+import '../SellScreen/Sellscreen.dart';
+import '../resources/color_manager.dart';
+import '../resources/text_styles.dart';
+import 'widgets/AppBar_Upload.dart';
+import 'widgets/CustomSelectButton.dart';
+import 'widgets/SelectFile.dart';
+
+class UploadScreen extends StatefulWidget {
+  const UploadScreen({super.key});
 
   @override
-  State<Uploadscreen> createState() => _UploadscreenState();
+  State<UploadScreen> createState() => _UploadScreenState();
 }
 
-class _UploadscreenState extends State<Uploadscreen> {
+class _UploadScreenState extends State<UploadScreen> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
 
@@ -29,12 +30,12 @@ class _UploadscreenState extends State<Uploadscreen> {
         setState(() {
           _image = File(image.path);
         });
-        print("📸 Image selected: ${image.path}");
+        print("Image selected: ${image.path}");
       } else {
-        print("❌ No image selected");
+        print("No image selected");
       }
     } catch (e) {
-      print("⚠️ Error picking image: $e");
+      print("Error picking image: $e");
     }
   }
 
@@ -42,56 +43,90 @@ class _UploadscreenState extends State<Uploadscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarUpload(isvisible: true),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                top: 20.r, right: 20.r, bottom: 8.r, left: 20.r),
-            child: Center(
-              child: Text(
-                "Upload a photo of your product",
-                style: TextStyles.black22Bold,
+      body: BlocConsumer<uploadCubit, UploadState>(
+        listener: (context, state) {
+          if (state is UploadFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error: ${state.errormessage}')),
+            );
+          }
+        },
+        builder: (context, state) {
+          return Column(
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 20, right: 20, bottom: 8, left: 20),
+                child: Center(
+                  child: Text(
+                    "Upload a photo of your product",
+                    style: TextStyles.black22Bold,
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: 8.r, right: 20.r, left: 20.r, bottom: 43.r),
-            child: Center(
-              child: Text(
-                textAlign: TextAlign.center,
-                "Please upload a clear, well-lit photo of your product. Use a clean background.",
-                style: TextStyles.black14Regular,
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8, right: 20, left: 20, bottom: 43),
+                child: Center(
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    "Please upload a clear, well-lit photo of your product. Use a clean background.",
+                    style: TextStyles.black14Regular,
+                  ),
+                ),
               ),
-            ),
-          ),
-          Selectfile(
-            image: _image,
-            UploadImage: () => pickImage(ImageSource.gallery),
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 20.r, left: 20.r, top: 60.r),
-            child: Row(
-              children: [
-                Container(width: 177, height: 1, color: ColorManager.greyColor),
-                Text("OR", style: TextStyles.grey12Regular),
-                Container(width: 177, height: 1, color: ColorManager.greyColor),
-              ],
-            ),
-          ),
-          Customselectbutton(
-            UploadImage: () => pickImage(ImageSource.camera),
-            icon: Icons.photo_camera,
-            text: "Open Camera",
-            top: 40,
-          ),
-          Customselectbutton(text: "Continue", top: 130),
-        ],
+              Selectfile(
+                image: _image,
+                UploadImage: () => pickImage(ImageSource.gallery),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 20, left: 20, top: 60),
+                child: Row(
+                  children: [
+                    Container(
+                        width: 177, height: 1, color: ColorManager.greyColor),
+                    Text("OR", style: TextStyles.grey12Regular),
+                    Container(
+                        width: 177, height: 1, color: ColorManager.greyColor),
+                  ],
+                ),
+              ),
+              Customselectbutton(
+                UploadImage: () => pickImage(ImageSource.camera),
+                icon: Icons.photo_camera,
+                text: "Open Camera",
+                top: 40,
+              ),
+              if (state is UploadLoading)
+                const Padding(
+                  padding: EdgeInsets.all(20),
+                  child: CircularProgressIndicator(),
+                ),
+              Customselectbutton(
+                text: "Continue",
+                top: 130,
+                UploadImage: () {
+                  if (_image != null) {
+                    context.read<uploadCubit>().uploadImage(context, _image);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Sellscreen(
+                        image: _image,
+                        imageUrl: _image!.path,
+                      );
+                    }));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text("Please select an image first!")),
+                    );
+                  }
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 }
-
-// void uploadImage() {
-//   final storageRef = FirebaseStorage.instance.ref();
-// }

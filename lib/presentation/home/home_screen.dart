@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: const CircleBorder(),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Uploadscreen();
+            return UploadScreen();
           }));
         },
         child: const Icon(
