@@ -1,4 +1,3 @@
-import 'package:campus_trade/presentation/Upload/UploadScreen.dart';
 import 'package:campus_trade/presentation/chat/chat_screen.dart';
 import 'package:campus_trade/presentation/chat/widgets/chat_app_bar.dart';
 import 'package:campus_trade/presentation/home/widgets/appBar_home.dart';
@@ -11,6 +10,8 @@ import 'package:campus_trade/presentation/home/widgets/item_show_widget.dart';
 import 'package:campus_trade/presentation/search/search_screen.dart';
 import 'package:campus_trade/presentation/search/widgets/appBar_search.dart';
 import 'package:flutter/material.dart';
+
+import '../Upload/UploadProductScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: const CircleBorder(),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return UploadScreen();
+            return UploadProductScreen();
           }));
         },
         child: const Icon(

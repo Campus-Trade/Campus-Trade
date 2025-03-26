@@ -12,14 +12,14 @@ import 'widgets/AppBar_Upload.dart';
 import 'widgets/CustomSelectButton.dart';
 import 'widgets/SelectFile.dart';
 
-class UploadScreen extends StatefulWidget {
-  const UploadScreen({super.key});
+class UploadProductScreen extends StatefulWidget {
+  const UploadProductScreen({super.key});
 
   @override
-  State<UploadScreen> createState() => _UploadScreenState();
+  State<UploadProductScreen> createState() => _UploadProductScreenState();
 }
 
-class _UploadScreenState extends State<UploadScreen> {
+class _UploadProductScreenState extends State<UploadProductScreen> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
 
