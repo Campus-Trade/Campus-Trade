@@ -69,7 +69,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -86,9 +86,9 @@ flutter:
   fonts:
     - family: Roboto_Condensed
       fonts:
-        - asset: fonts/Roboto_Condensed-Bold.ttf
+        - asset: assets/fonts/Roboto_Condensed-Bold.ttf
           weight: 700
-        - asset: fonts/Roboto_Condensed-Regular.ttf
+        - asset: assets/fonts/Roboto_Condensed-Regular.ttf
           weight: 400
   #   - family: Trajan Pro
   #     fonts:
