@@ -11,6 +11,7 @@ class AppBarUpload extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
+        width: double.infinity,
         decoration: BoxDecoration(
             color: ColorManager.SecondaryColor,
             borderRadius: BorderRadius.only(

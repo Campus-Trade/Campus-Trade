@@ -22,9 +22,6 @@ class uploadCubit extends Cubit<UploadState> {
       TaskSnapshot taskSnapshot = await uploadTask;
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       emit(UploadSuccess(imageUrl: downloadUrl));
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('success'),
-      ));
     } catch (ex) {
       emit(UploadFailure(errormessage: ex.toString()));
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

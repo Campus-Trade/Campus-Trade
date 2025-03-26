@@ -62,7 +62,7 @@ class _SellscreenState extends State<Sellscreen> {
             children: [
               Container(
                 width: double.infinity,
-                height: 200,
+                height: 300,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
