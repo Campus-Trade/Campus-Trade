@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:campus_trade/presentation/Cubit/Cubit_State.dart';
+import 'package:campus_trade/presentation/Cubit/UploadCubit_State.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class uploadCubit extends Cubit<UploadState> {
-  uploadCubit() : super(UploadIntial());
+class UploadCubit extends Cubit<UploadState> {
+  UploadCubit() : super(UploadIntial());
 
   void uploadImage(context, File? _image) async {
     if (_image == null) {
@@ -29,4 +29,8 @@ class uploadCubit extends Cubit<UploadState> {
       ));
     }
   }
+
+  // String getImageUrl() {
+  //   return _imageUrl;
+  // }
 }
