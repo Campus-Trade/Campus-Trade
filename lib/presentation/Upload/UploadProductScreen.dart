@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:campus_trade/presentation/Cubit/Cubit_class.dart';
+import 'package:campus_trade/presentation/Cubit/UploadCubit_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../Cubit/Cubit_State.dart';
+import '../Cubit/UploadCubit_State.dart';
 import '../SellScreen/Sellscreen.dart';
 import '../resources/color_manager.dart';
 import '../resources/text_styles.dart';
@@ -43,7 +43,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarUpload(isvisible: true),
-      body: BlocConsumer<uploadCubit, UploadState>(
+      body: BlocConsumer<UploadCubit, UploadState>(
         listener: (context, state) {
           if (state is UploadFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -107,13 +107,10 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                 top: 130,
                 UploadImage: () {
                   if (_image != null) {
-                    context.read<uploadCubit>().uploadImage(context, _image);
+                    context.read<UploadCubit>().uploadImage(context, _image);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return Sellscreen(
-                        image: _image,
-                        imageUrl: _image!.path,
-                      );
+                      return SellScreen();
                     }));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

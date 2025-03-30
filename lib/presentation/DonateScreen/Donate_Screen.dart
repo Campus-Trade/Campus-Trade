@@ -2,20 +2,19 @@ import 'package:campus_trade/presentation/Cubit/AddData_Class.dart';
 import 'package:campus_trade/presentation/Cubit/UploadCubit_State.dart';
 import 'package:campus_trade/presentation/SellScreen/views/SegmentSellButton.dart';
 import 'package:campus_trade/presentation/Upload/widgets/AppBar_Upload.dart';
-import 'package:campus_trade/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../SellScreen/views/DataTextField.dart';
+import '../SellScreen/views/DoneButton.dart';
 import '../Cubit/UploadCubit_class.dart';
-import 'views/DataTextField.dart';
-import 'views/DoneButton.dart';
 
-class SellScreen extends StatefulWidget {
+class DonateScreen extends StatefulWidget {
   @override
-  State<SellScreen> createState() => _SellscreenState();
+  State<DonateScreen> createState() => _DonateScreenState();
 }
 
-class _SellscreenState extends State<SellScreen> {
+class _DonateScreenState extends State<DonateScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,7 +31,7 @@ class _SellscreenState extends State<SellScreen> {
         }, builder: (context, state) {
           String? imageUrl;
           if (state is UploadLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           } else if (state is UploadSuccess) {
             imageUrl = state.imageUrl;
           }
@@ -67,21 +66,13 @@ class _SellscreenState extends State<SellScreen> {
                       hinttext: "Description",
                       Controller: addCubit.descriptionController),
                   Datatextfield(
-                      hinttext: "Price", Controller: addCubit.priceController),
-                  Datatextfield(
                       hinttext: "Your Address",
                       Controller: addCubit.addressController),
                   SizedBox(
                     height: 60.h,
                   ),
                   DoneButton(
-                    Continue: () {
-                      addCubit.addProductData(_formKey, context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return HomeScreen();
-                      }));
-                    },
+                    Continue: () => addCubit.addProductData(_formKey, context),
                     text: "Confirm",
                   )
                 ],
