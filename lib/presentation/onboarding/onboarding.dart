@@ -1,13 +1,13 @@
 import 'package:campus_trade/presentation/onboarding/onboarding_data.dart';
 import 'package:campus_trade/presentation/resources/color_manager.dart';
-import 'package:campus_trade/presentation/sign_in/sign_in.dart';
+import 'package:campus_trade/presentation/authentication/view/sign_in.dart';
 import 'package:campus_trade/utils/context_extension.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:campus_trade/presentation/resources/text_styles.dart';
 import '../resources/image_manager.dart';
-import '../sign_up/sign_up.dart';
+import '../authentication/view/sign_up.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -41,7 +41,7 @@ class _OnboardingState extends State<Onboarding> {
       if (pageIndex < _onboardingData.length - 1) {
         pageIndex++;
       } else {
-        context.navigateReplacementTo(const SignUp());
+        context.navigateReplacementTo(SignUp());
       }
     });
   }
@@ -49,12 +49,12 @@ class _OnboardingState extends State<Onboarding> {
   void _skipOnboarding() {
     setState(() {
       pageIndex = _onboardingData.length - 1;
-      context.navigateReplacementTo(const SignUp());
+      context.navigateReplacementTo(SignUp());
     });
   }
 
   void function() {
-    context.navigateReplacementTo(const SignIn());
+    context.navigateReplacementTo(SignIn());
   }
 
   @override

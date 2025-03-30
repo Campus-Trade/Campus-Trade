@@ -1,15 +1,16 @@
-import 'package:campus_trade/presentation/Cubit/AddData_Class.dart';
-import 'package:campus_trade/presentation/Cubit/TestProduct.dart';
-import 'package:campus_trade/presentation/Cubit/UploadCubit_State.dart';
-import 'package:campus_trade/presentation/SellScreen/views/SegmentSellButton.dart';
-import 'package:campus_trade/presentation/Upload/views/AppBar_Upload.dart';
-import 'package:campus_trade/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../Cubit/UploadCubit_class.dart';
+
+import '../Cubit/addproduct_cubit/AddData_Class.dart';
+import '../Cubit/addproduct_cubit/TestProduct.dart';
+import '../Cubit/addproduct_cubit/UploadCubit_State.dart';
+import '../Cubit/addproduct_cubit/UploadCubit_class.dart' show UploadCubit;
+import '../Upload/views/AppBar_Upload.dart';
+import '../home/home_screen.dart';
 import 'views/DataTextField.dart';
 import 'views/DoneButton.dart';
+import 'views/SegmentSellButton.dart';
 
 class SellScreen extends StatefulWidget {
   @override
@@ -60,22 +61,38 @@ class _SellscreenState extends State<SellScreen> {
             SizedBox(height: 20.h),
             Segmentsellbutton(),
             const SizedBox(height: 50),
-            BlocBuilder<Testproduct, productState>(builder: (context, state) {
+            BlocConsumer<Testproduct, productState>(listener: (context, state) {
+              if (state == productState.Sell) {
+                // addCubit.priceController.clear();
+                // addCubit.productNameController.clear();
+                // addCubit.descriptionController.clear();
+                // addCubit.addressController.clear();
+              }
+            }, builder: (context, state) {
               return Column(
                 children: [
                   Datatextfield(
-                      hinttext: "Product Name",
-                      Controller: addCubit.productNameController),
+                    hinttext: "Product Name",
+                    controller: addCubit.productNameController,
+                    currentState: state,
+                  ),
                   Datatextfield(
-                      hinttext: "Description",
-                      Controller: addCubit.descriptionController),
-                  if (state == productState.Sell)
-                    Datatextfield(
-                        hinttext: "Price",
-                        Controller: addCubit.priceController),
+                    hinttext: "Description",
+                    controller: addCubit.descriptionController,
+                    currentState: state,
+                  ),
                   Datatextfield(
-                      hinttext: "Your Address",
-                      Controller: addCubit.addressController),
+                    hinttext: "Price",
+                    controller: addCubit.priceController,
+                    isPriceField: true,
+                    currentState: state,
+                    isVisible: state == productState.Sell,
+                  ),
+                  Datatextfield(
+                    hinttext: "Your Address",
+                    controller: addCubit.addressController,
+                    currentState: state,
+                  ),
                   SizedBox(height: 60.h),
                   DoneButton(
                     Continue: () {

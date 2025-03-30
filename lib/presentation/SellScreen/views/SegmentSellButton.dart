@@ -1,4 +1,4 @@
-import 'package:campus_trade/presentation/Cubit/TestProduct.dart';
+import 'package:campus_trade/presentation/Cubit/addproduct_cubit/TestProduct.dart';
 import 'package:campus_trade/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

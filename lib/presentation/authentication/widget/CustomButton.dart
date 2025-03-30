@@ -1,22 +1,18 @@
 import 'package:campus_trade/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButtonnn extends StatelessWidget {
   final String name;
   final double width;
   final double height;
-  final Color backgroundColor;
-  final Color textColor;
   final Color borderColor;
   final Widget? icon;
   final VoidCallback? onPressed;
 
-  const CustomButton({
+  const CustomButtonnn({
     super.key,
     required this.name,
     this.onPressed,
-    required this.backgroundColor,
-    required this.textColor,
     required this.width,
     required this.height,
     this.borderColor = ColorManager.SecondaryColor,
@@ -32,7 +28,7 @@ class CustomButton extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: const Color(0xff378BCB),
           borderRadius: BorderRadius.circular(100),
           border: Border.all(
             color: borderColor,
@@ -47,7 +43,7 @@ class CustomButton extends StatelessWidget {
                 name,
                 style: TextStyle(
                   fontSize: 17,
-                  color: textColor,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),

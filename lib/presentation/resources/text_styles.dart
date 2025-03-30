@@ -65,6 +65,12 @@ class TextStyles {
     color: ColorManager.lightBlue,
     fontWeight: FontWeight.w700,
   );
+  static TextStyle White16Meduim = TextStyle(
+    fontSize: 20.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.PrimaryColor,
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle black22Bold = TextStyle(
     fontSize: 22.sp,
     fontFamily: 'Roboto_Condensed',
@@ -72,6 +78,12 @@ class TextStyles {
     fontWeight: FontWeight.w700,
   );
   static TextStyle black14Regular = TextStyle(
+    fontSize: 14.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.blackColor,
+    fontWeight: FontWeight.w400,
+  );
+  static TextStyle black14Bold = TextStyle(
     fontSize: 14.sp,
     fontFamily: 'Roboto_Condensed',
     color: ColorManager.blackColor,

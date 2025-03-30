@@ -1,3 +1,4 @@
+import 'package:campus_trade/presentation/Cubit/addproduct_cubit/TestProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -5,50 +6,102 @@ import '../../resources/color_manager.dart';
 import '../../resources/text_styles.dart';
 
 class Datatextfield extends StatelessWidget {
-  String hinttext;
-  TextEditingController Controller;
+  final String hinttext;
+  final TextEditingController controller;
+  final bool isRequired;
+  final bool isVisible;
+  final bool isPriceField;
+  final productState currentState;
 
-  Datatextfield({super.key, required this.hinttext, required this.Controller});
+  const Datatextfield({
+    super.key,
+    required this.hinttext,
+    required this.controller,
+    this.isRequired = true,
+    this.isPriceField = false,
+    this.isVisible = true,
+    required this.currentState,
+  });
+
+  String? _validateField(String? value) {
+    if (!isVisible) return null; // Skip validation if not visible
+
+    // Special handling for price field
+    if (isPriceField) {
+      if (currentState == productState.Sell) {
+        if (value == null || value.isEmpty) return 'Price is required';
+        if (double.tryParse(value) == null) return 'Enter a valid number';
+        if (double.parse(value) <= 0) return 'Price must be greater than 0';
+      }
+      return null;
+    }
+
+    if (isRequired && (value == null || value.trim().isEmpty)) {
+      switch (hinttext) {
+        case 'Product Name':
+          return 'Product name is required';
+        case 'Description':
+          return 'Description is required';
+        case 'Your Address':
+          return 'Address is required';
+        default:
+          return 'This field is required';
+      }
+    }
+
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: EdgeInsets.only(top: 20, left: 20.r),
-        child: Text(
-          "$hinttext",
-          style: TextStyles.black20Bold,
-        ),
-      ),
-      Padding(
-        padding:
-            EdgeInsets.only(top: 0.r, right: 20.r, left: 20.r, bottom: 0.r),
-        child: Container(
-          child: TextFormField(
-            minLines: 1,
-            maxLines: 3,
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return "The field is required";
-              }
-              return null;
-            },
-            controller: Controller,
-            decoration: InputDecoration(
+    return Visibility(
+      visible: isVisible,
+      maintainState: true,
+      // maintainAnimation: true,
+      // maintainSize: true,
+      // maintainInteractivity: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 20.h, left: 20.w),
+            child: Text(
+              hinttext,
+              style: TextStyles.black20Bold,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: TextFormField(
+              minLines: 1,
+              maxLines: hinttext == 'Description' ? 3 : 1,
+              validator: _validateField,
+              controller: controller,
+              keyboardType: isPriceField
+                  ? TextInputType.numberWithOptions(decimal: true)
+                  : TextInputType.text,
+              decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderSide:
-                      BorderSide(width: 2, color: ColorManager.greyColor),
-                  borderRadius: BorderRadius.circular(8),
+                      BorderSide(width: 2.w, color: ColorManager.greyColor),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
                 hintText: hinttext,
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1),
-                    borderRadius: BorderRadius.circular(8))),
+                  borderSide: BorderSide(width: 1.w),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1.w, color: Colors.red),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+              ),
+            ),
           ),
-        ),
-      )
-    ]);
+        ],
+      ),
+    );
   }
 }

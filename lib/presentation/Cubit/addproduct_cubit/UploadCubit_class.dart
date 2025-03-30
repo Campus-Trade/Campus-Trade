@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:campus_trade/presentation/Cubit/UploadCubit_State.dart';
+import 'package:campus_trade/presentation/Cubit/addproduct_cubit/UploadCubit_State.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

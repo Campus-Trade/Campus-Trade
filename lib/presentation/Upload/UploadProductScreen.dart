@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:campus_trade/presentation/Cubit/UploadCubit_class.dart';
+import 'package:campus_trade/presentation/Cubit/addproduct_cubit/UploadCubit_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../Cubit/UploadCubit_State.dart';
+import '../Cubit/addproduct_cubit/UploadCubit_State.dart';
 import '../SellScreen/Sellscreen.dart';
 import '../resources/color_manager.dart';
 import '../resources/text_styles.dart';
@@ -12,14 +12,14 @@ import 'views/AppBar_Upload.dart';
 import 'views/CustomSelectButton.dart';
 import 'views/SelectFile.dart';
 
-class UploadScreen extends StatefulWidget {
-  const UploadScreen({super.key});
+class UploadProductScreen extends StatefulWidget {
+  const UploadProductScreen({super.key});
 
   @override
-  State<UploadScreen> createState() => _UploadScreenState();
+  State<UploadProductScreen> createState() => _UploadProductScreenState();
 }
 
-class _UploadScreenState extends State<UploadScreen> {
+class _UploadProductScreenState extends State<UploadProductScreen> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
 

@@ -1,4 +1,4 @@
-import 'package:campus_trade/presentation/Cubit/AddData_State.dart';
+import 'package:campus_trade/presentation/Cubit/addproduct_cubit/AddData_State.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
