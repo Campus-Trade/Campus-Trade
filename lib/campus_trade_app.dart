@@ -1,3 +1,4 @@
+import 'package:campus_trade/presentation/Cubit/TestProduct.dart';
 import 'package:campus_trade/presentation/Cubit/UploadCubit_class.dart';
 import 'package:campus_trade/presentation/SellScreen/Sellscreen.dart';
 import 'package:campus_trade/presentation/splash/splash.dart';
@@ -15,7 +16,8 @@ class CampusTradeApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => UploadCubit()),
-          BlocProvider(create: (context) => AddData())
+          BlocProvider(create: (context) => AddData()),
+          BlocProvider(create: (context) => Testproduct())
         ],
         child: ScreenUtilInit(
           designSize: const Size(393, 852),

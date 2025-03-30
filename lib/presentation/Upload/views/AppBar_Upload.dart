@@ -9,15 +9,18 @@ class AppBarUpload extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: ColorManager.SecondaryColor,
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(42.r),
-                bottomRight: Radius.circular(42.r))),
-        child: Center(
+    return Container(
+      width: double.infinity,
+      child: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: ColorManager.SecondaryColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
+          ),
+        ),
+        toolbarHeight: 147,
+        title: Center(
           child: Padding(
             padding: EdgeInsets.all(12.r),
             child: Row(

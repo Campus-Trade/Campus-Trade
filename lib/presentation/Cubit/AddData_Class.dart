@@ -16,25 +16,23 @@ class AddData extends Cubit<AddDataState> {
   void addProductData(
       GlobalKey<FormState> formKey, BuildContext context) async {
     emit(AddLoading());
-    if (formKey.currentState!.validate()) {
-      try {
-        await products.add({
-          "name": productNameController.text,
-          "description": descriptionController.text,
-          "price": priceController.text,
-          "address": addressController.text,
-          "imageUrl": imageUrl,
-        });
-        print(imageUrl);
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Product added successfully!")));
+    try {
+      await products.add({
+        "name": productNameController.text,
+        "description": descriptionController.text,
+        "price": priceController.text,
+        "address": addressController.text,
+        "imageUrl": imageUrl,
+      });
+      print(imageUrl);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Product added successfully!")));
 
-        emit(AddSuccess());
-        clearData();
-      } catch (e) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Error adding product: $e")));
-      }
+      emit(AddSuccess());
+      clearData();
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Error adding product: $e")));
     }
   }
 

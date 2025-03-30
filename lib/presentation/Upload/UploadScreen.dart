@@ -8,9 +8,9 @@ import '../Cubit/UploadCubit_State.dart';
 import '../SellScreen/Sellscreen.dart';
 import '../resources/color_manager.dart';
 import '../resources/text_styles.dart';
-import 'widgets/AppBar_Upload.dart';
-import 'widgets/CustomSelectButton.dart';
-import 'widgets/SelectFile.dart';
+import 'views/AppBar_Upload.dart';
+import 'views/CustomSelectButton.dart';
+import 'views/SelectFile.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});

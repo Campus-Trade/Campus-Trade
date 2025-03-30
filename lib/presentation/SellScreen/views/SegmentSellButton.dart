@@ -1,67 +1,51 @@
+import 'package:campus_trade/presentation/Cubit/TestProduct.dart';
 import 'package:campus_trade/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
-import '../../DonateScreen/Donate_Screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../resources/text_styles.dart';
-import '../Sellscreen.dart';
 
 class Segmentsellbutton extends StatefulWidget {
-  const Segmentsellbutton({super.key});
+  Segmentsellbutton({super.key});
 
   @override
   State<Segmentsellbutton> createState() => _SegmentsellbuttonState();
 }
 
-enum selected { Sell, Donate }
-
 class _SegmentsellbuttonState extends State<Segmentsellbutton> {
-  selected selectedView = selected.Sell;
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SegmentedButton<selected>(
-          style: SegmentedButton.styleFrom(
-              selectedBackgroundColor: ColorManager.SecondaryColor,
-              selectedForegroundColor: ColorManager.PrimaryColor,
-              foregroundColor: ColorManager.PrimaryColor,
-              backgroundColor: ColorManager.greyColor),
-          segments: [
-            ButtonSegment(
-              value: selected.Sell,
-              label: Text(
-                "Sell",
-                style: selectedView == selected.Sell
-                    ? TextStyles.white14Bold
-                    : TextStyles.black14Regular,
-              ),
+    return BlocBuilder<Testproduct, productState>(builder: (context, state) {
+      return SegmentedButton<productState>(
+        style: SegmentedButton.styleFrom(
+            selectedBackgroundColor: ColorManager.SecondaryColor,
+            selectedForegroundColor: ColorManager.PrimaryColor,
+            foregroundColor: ColorManager.PrimaryColor,
+            backgroundColor: ColorManager.greyColor),
+        segments: [
+          ButtonSegment(
+            value: productState.Sell,
+            label: Text(
+              "Sell",
+              style: state == productState.Sell
+                  ? TextStyles.white14Bold
+                  : TextStyles.black14Regular,
             ),
-            ButtonSegment(
-              value: selected.Donate,
-              label: Text(
-                "Donate",
-                style: selectedView == selected.Donate
-                    ? TextStyles.white14Bold
-                    : TextStyles.black14Regular,
-              ),
+          ),
+          ButtonSegment(
+            value: productState.Donate,
+            label: Text(
+              "Donate",
+              style: state == productState.Donate
+                  ? TextStyles.white14Bold
+                  : TextStyles.black14Regular,
             ),
-          ],
-          selected: {selectedView},
-          onSelectionChanged: (Set<selected> newSelection) {
-            setState(() {
-              selectedView = newSelection.first;
-            });
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => selectedView == selected.Sell
-                    ? SellScreen()
-                    : DonateScreen(),
-              ),
-            );
-          },
-        ),
-      ],
-    );
+          ),
+        ],
+        selected: {state},
+        onSelectionChanged: (Set<productState> newSelection) {
+          context.read<Testproduct>().changeState(newSelection.first);
+        },
+      );
+    });
   }
 }
