@@ -9,7 +9,7 @@ abstract class AuthRepo {
       String firstName,
       String lastName,
       String mobileNumber,
-      String image,
+      String? image,
       String university,
       String faculty);
 }

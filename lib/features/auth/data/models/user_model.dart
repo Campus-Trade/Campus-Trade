@@ -1,4 +1,5 @@
 import 'package:campus_trade/features/auth/domain/entities/user_entity.dart';
+import 'package:campus_trade/presentation/resources/image_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -21,7 +22,10 @@ class UserModel extends UserEntity {
       lastName: userData['lastName'] as String? ?? '',
       mobileNumber: userData['mobileNumber'] as String? ?? '',
       email: user.email ?? '',
-      image: userData['image'] as String? ?? '',
+      image:
+          userData['image'] != null && userData['image'].toString().isNotEmpty
+              ? userData['image']
+              : ImageManager.uploadPhoto, // Default image if null
       university: userData['university'] as String? ?? '',
       faculty: userData['faculty'] as String? ?? '',
       uId: user.uid,
@@ -42,6 +46,6 @@ class UserModel extends UserEntity {
     } catch (e) {
       print('Error fetching user data: $e');
     }
-    return null; // Return null if the user doesn't exist or in case of an error
+    return null;
   }
 }

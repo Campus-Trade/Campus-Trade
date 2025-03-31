@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../resources/image_manager.dart';
 import 'package:campus_trade/presentation/resources/color_manager.dart';
 import '../../resources/text_styles.dart';
-import '../widget/CustomButton.dart';
-import '../widget/facebook_button.dart';
-import '../widget/google_button.dart';
+import '../view/signup_view.dart';
 import '../widget/textField.dart';
 import '../widget/custom_button.dart';
-import 'sign_up.dart';
 import 'upload_photo.dart';
 
-class SignIn extends StatelessWidget {
-  SignIn({super.key});
+class SignInViewBody extends StatelessWidget {
+  SignInViewBody({super.key});
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -103,7 +98,7 @@ class SignIn extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) {
-                  return SignUp();
+                  return SignupView();
                 }));
               },
             ),

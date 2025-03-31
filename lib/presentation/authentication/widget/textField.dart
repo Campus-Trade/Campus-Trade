@@ -6,15 +6,21 @@ class CustomTextFormField extends StatefulWidget {
     required this.hintText,
     this.isPassword = false,
     this.width,
+    this.onSaved,
     this.height,
     required this.keyboardType,
+    this.controller,
+    this.validator, // ✅ Added validator parameter
   });
 
   final String? hintText;
+  final void Function(String?)? onSaved;
   final bool isPassword;
   final double? width;
   final double? height;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator; // ✅ Validator function
 
   @override
   _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
@@ -23,41 +29,15 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _obscureText = true;
 
-  String _errorMessage(String? hintText) {
-    switch (hintText) {
-      case 'Mobile number or email.':
-        return 'Mobile number or email is empty';
-      case 'Password':
-        return 'Password is empty';
-      case 'First Name':
-        return 'First Name is empty';
-      case 'Last Name':
-        return 'Last Name is empty';
-      case 'Mobile number':
-        return 'Mobile number is empty';
-      case 'Email':
-        return 'Email is empty';
-      case 'Confirm Password':
-        return 'Confirm Password is empty';
-      case 'University':
-        return 'University is empty';
-      default:
-        return 'Field is empty';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
       height: widget.height,
       child: TextFormField(
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return _errorMessage(widget.hintText);
-          }
-          return null;
-        },
+        controller: widget.controller,
+        onSaved: widget.onSaved,
+        validator: widget.validator, // ✅ Use the validator here
         obscureText: widget.isPassword ? _obscureText : false,
         keyboardType: widget.keyboardType,
         decoration: InputDecoration(
