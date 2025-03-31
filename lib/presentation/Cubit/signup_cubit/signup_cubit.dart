@@ -7,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:meta/meta.dart';
-import 'package:path/path.dart';
 
 part 'signup_state.dart';
 
@@ -63,7 +62,7 @@ class SignupCubit extends Cubit<SignupState> {
       firstName,
       lastName,
       mobileNumber,
-      imageUrl, // Pass imageUrl instead of File
+      imageUrl,
       university,
       faculty,
     );

@@ -39,10 +39,10 @@ class AuthRepoImpl extends AuthRepo {
         'image': imageUrl ?? ImageManager.uploadPhoto,
         'university': university,
         'faculty': faculty,
-        'createdAt': FieldValue.serverTimestamp(), // ✅ Add timestamp
+        'createdAt': FieldValue.serverTimestamp(),
       });
 
-      print("✅ Firestore Write Successful"); // Debugging message
+      print(" Firestore Write Successful");
 
       return right(UserModel.fromFirebaseUser(
         user,
@@ -58,7 +58,7 @@ class AuthRepoImpl extends AuthRepo {
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
     } catch (e) {
-      print(" Firestore Write Failed: $e"); // Debugging message
+      print(" Firestore Write Failed: $e");
       return left(ServerFailure('An error occurred. Please try again later.'));
     }
   }

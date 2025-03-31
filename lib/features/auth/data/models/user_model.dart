@@ -15,7 +15,6 @@ class UserModel extends UserEntity {
     required super.uId,
   });
 
-  /// ✅ Factory constructor to create a UserModel from FirebaseAuth and Firestore data
   factory UserModel.fromFirebaseUser(User user, Map<String, dynamic> userData) {
     return UserModel(
       firstName: userData['firstName'] as String? ?? '',
@@ -25,7 +24,7 @@ class UserModel extends UserEntity {
       image:
           userData['image'] != null && userData['image'].toString().isNotEmpty
               ? userData['image']
-              : ImageManager.uploadPhoto, // Default image if null
+              : ImageManager.uploadPhoto,
       university: userData['university'] as String? ?? '',
       faculty: userData['faculty'] as String? ?? '',
       uId: user.uid,

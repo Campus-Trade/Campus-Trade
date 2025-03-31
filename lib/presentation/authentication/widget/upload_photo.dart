@@ -41,21 +41,20 @@ class _UploadPhotoState extends State<UploadPhoto> {
           children: [
             // Image preview
             CircleAvatar(
-              radius: 75.r, // ✅ Adjusted for screen scaling
+              radius: 75.r,
               backgroundColor: Colors.grey[300],
               backgroundImage: selectedImage != null
                   ? FileImage(selectedImage!)
                   : AssetImage(ImageManager.uploadPhoto) as ImageProvider,
             ),
-            SizedBox(height: 20.h), // ✅ Responsive spacing
+            SizedBox(height: 20.h),
 
-            // Upload Button
             CustomButton(
               labelText: 'Upload Profile Picture',
               backgroundColor: ColorManager.SecondaryColor,
               textStyle: TextStyles.White16Meduim,
-              width: 230.w, // ✅ Responsive width
-              height: 50.h, // ✅ Responsive height
+              width: 230.w,
+              height: 50.h,
               onPressed: pickImage,
             ),
 

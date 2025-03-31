@@ -142,7 +142,7 @@ class SignUpViewBody extends StatelessWidget {
                             _firstNameController.text,
                             _lastNameController.text,
                             _mobileNumberController.text,
-                            selectedImage, // ✅ Pass File instead of String
+                            selectedImage,
                             _universityController.text,
                             _facultyController.text,
                           );

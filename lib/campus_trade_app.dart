@@ -3,7 +3,6 @@ import 'package:campus_trade/core/services/get_it_sevice.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:campus_trade/presentation/Cubit/addproduct_cubit/UploadCubit_class.dart';
 import 'package:campus_trade/presentation/Cubit/signup_cubit/signup_cubit.dart';
-import 'package:campus_trade/presentation/Cubit/signup_cubit/upload_image_cubit.dart';
 import 'package:campus_trade/presentation/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +19,6 @@ class CampusTradeApp extends StatelessWidget {
           BlocProvider(create: (context) => UploadCubit()),
           BlocProvider(create: (context) => AddData()),
           BlocProvider(create: (context) => Testproduct()),
-          BlocProvider(create: (_) => UploadPhotoCubit()),
           BlocProvider(
               create: (context) => SignupCubit(
                     getIt<AuthRepo>(),

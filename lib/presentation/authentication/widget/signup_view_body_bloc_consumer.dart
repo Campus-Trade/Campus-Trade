@@ -21,7 +21,7 @@ class _SignupViewBodyBlocConsumerState
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          print("✅ User data stored successfully in Firestore!");
+          print("User data stored successfully in Firestore!");
 
           if (mounted) {
             Navigator.pushReplacement(
