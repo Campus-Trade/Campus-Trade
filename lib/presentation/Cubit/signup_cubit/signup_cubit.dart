@@ -40,18 +40,22 @@ class SignupCubit extends Cubit<SignupState> {
       return;
     }
 
-    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    // UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+    //   email: email,
+    //   password: password,
+    // );
 
-    String uid = userCredential.user!.uid;
+    // String uid = userCredential.user!.uid;
     String? imageUrl;
 
     if (imageFile != null) {
-      String fileName = "$uid.jpg";
-      TaskSnapshot snapshot =
-          await _storage.ref('profile_images/$fileName').putFile(imageFile);
+      String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      String uniqueFileName =
+          '${imageFile.path.split('/').last.split('.').first}_$timestamp.jpg';
+
+      TaskSnapshot snapshot = await _storage
+          .ref('profile_images/$uniqueFileName')
+          .putFile(imageFile);
 
       imageUrl = await snapshot.ref.getDownloadURL();
     }

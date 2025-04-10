@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../features/auth/data/models/user_model.dart';
 
 class AddData extends Cubit<AddDataState> {
   AddData() : super(AddInitial());
@@ -21,6 +22,11 @@ class AddData extends Cubit<AddDataState> {
       final currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser == null) {
         throw Exception("User not logged in");
+      }
+      final userModel = await UserModel.getUserModelFromFirestore(currentUser);
+
+      if (userModel == null) {
+        throw Exception("User data not found");
       }
       await products.add({
         "name": productNameController.text,

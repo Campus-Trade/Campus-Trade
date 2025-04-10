@@ -1,13 +1,15 @@
 import 'dart:io';
+import 'package:campus_trade/presentation/Cubit/signup_cubit/signup_cubit.dart';
 import 'package:campus_trade/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../resources/color_manager.dart';
 import '../../resources/image_manager.dart';
 import '../../resources/text_styles.dart';
 import 'custom_button.dart';
-
+import '../../Cubit/signup_cubit/signup_cubit.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadPhoto extends StatefulWidget {
@@ -33,6 +35,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
   @override
   Widget build(BuildContext context) {
+    final addCubit = context.read<SignupCubit>();
     return Scaffold(
       backgroundColor: ColorManager.PrimaryColor,
       body: Center(
@@ -86,7 +89,11 @@ class _UploadPhotoState extends State<UploadPhoto> {
                   width: 208.w,
                   height: 50.h,
                   onPressed: () {
-                    Navigator.pop(context, selectedImage);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                    // Navigator.pop(context, selectedImage);
                   },
                   borderColor: ColorManager.PrimaryColor,
                 ),
