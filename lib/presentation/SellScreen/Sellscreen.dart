@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../Cubit/addproduct_cubit/AddData_Class.dart';
 import '../Cubit/addproduct_cubit/TestProduct.dart';
 import '../Cubit/addproduct_cubit/UploadCubit_State.dart';
@@ -62,12 +61,7 @@ class _SellscreenState extends State<SellScreen> {
             Segmentsellbutton(),
             const SizedBox(height: 50),
             BlocConsumer<Testproduct, productState>(listener: (context, state) {
-              if (state == productState.Sell) {
-                // addCubit.priceController.clear();
-                // addCubit.productNameController.clear();
-                // addCubit.descriptionController.clear();
-                // addCubit.addressController.clear();
-              }
+              if (state == productState.Sell) {}
             }, builder: (context, state) {
               return Column(
                 children: [
@@ -97,6 +91,13 @@ class _SellscreenState extends State<SellScreen> {
                   DoneButton(
                     Continue: () {
                       if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Product added successfully! Wait for admin response'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
                         addCubit.addProductData(_formKey, context);
                         Navigator.pushReplacement(
                           context,

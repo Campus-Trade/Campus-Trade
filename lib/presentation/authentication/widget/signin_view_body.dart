@@ -1,3 +1,4 @@
+import 'package:campus_trade/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../../resources/image_manager.dart';
 import 'package:campus_trade/presentation/resources/color_manager.dart';
@@ -57,10 +58,16 @@ class SignInViewBody extends StatelessWidget {
               textStyle: TextStyles.white14Bold,
               onPressed: () {
                 if (_globalKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Login Successful!'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const UploadPhoto(),
+                      builder: (context) => const HomeScreen(),
                     ),
                   );
                 }

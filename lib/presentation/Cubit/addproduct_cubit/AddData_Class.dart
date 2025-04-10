@@ -1,5 +1,6 @@
 import 'package:campus_trade/presentation/Cubit/addproduct_cubit/AddData_State.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,12 +18,17 @@ class AddData extends Cubit<AddDataState> {
       GlobalKey<FormState> formKey, BuildContext context) async {
     emit(AddLoading());
     try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
+        throw Exception("User not logged in");
+      }
       await products.add({
         "name": productNameController.text,
         "description": descriptionController.text,
         "price": priceController.text,
         "address": addressController.text,
         "imageUrl": imageUrl,
+        "userId": currentUser.uid,
       });
       print(imageUrl);
       ScaffoldMessenger.of(context)
