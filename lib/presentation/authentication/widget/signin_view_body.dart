@@ -1,5 +1,8 @@
 import 'package:campus_trade/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../Cubit/signin_cubit/signin_cubit.dart';
 import '../../resources/image_manager.dart';
 import 'package:campus_trade/presentation/resources/color_manager.dart';
 import '../../resources/text_styles.dart';
@@ -8,38 +11,60 @@ import '../widget/textField.dart';
 import '../widget/custom_button.dart';
 import 'upload_photo.dart';
 
-class SignInViewBody extends StatelessWidget {
+class SignInViewBody extends StatefulWidget {
   SignInViewBody({super.key});
+
+  @override
+  State<SignInViewBody> createState() => _SignInViewBodyState();
+}
+
+class _SignInViewBodyState extends State<SignInViewBody> {
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+
+  late String email, password;
+
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.PrimaryColor,
       body: Form(
         key: _globalKey,
+        autovalidateMode: autovalidateMode,
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
           children: [
-            const SizedBox(height: 70),
+            SizedBox(height: 70.h),
             Center(
               child: Image.asset(
                 ImageManager.logoText,
-                width: 171.84,
-                height: 101,
+                width: 171.84.w,
+                height: 101.h,
               ),
             ),
-            const SizedBox(height: 60),
-            const CustomTextFormField(
-              hintText: 'Mobile number or email.',
-              keyboardType: TextInputType.emailAddress,
-            ),
-            const SizedBox(height: 14),
-            const CustomTextFormField(
+            SizedBox(height: 60.h),
+            CustomTextFormField(
+                onSaved: (value) {
+                  email = value!;
+                },
+                hintText: 'Email',
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'field can\'t be empty';
+                  }
+                }),
+            SizedBox(height: 14.h),
+            CustomTextFormField(
+              onSaved: (value) {
+                password = value!;
+              },
               hintText: 'Password',
               isPassword: true,
               keyboardType: TextInputType.text,
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -58,18 +83,12 @@ class SignInViewBody extends StatelessWidget {
               textStyle: TextStyles.white14Bold,
               onPressed: () {
                 if (_globalKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Login Successful!'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
-                    ),
-                  );
+                  _globalKey.currentState!.save();
+
+                  context.read<SigninCubit>().signin(email, password);
+                } else {
+                  autovalidateMode = AutovalidateMode.always;
+                  setState(() {}); // error
                 }
               },
             ),

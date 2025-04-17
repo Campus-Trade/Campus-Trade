@@ -12,4 +12,6 @@ abstract class AuthRepo {
       String? image,
       String university,
       String faculty);
+  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
+      String email, String password);
 }

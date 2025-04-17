@@ -53,40 +53,60 @@ class SignUpViewBody extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomTextFormField(
-                        controller: _firstNameController,
-                        hintText: 'First Name',
-                        keyboardType: TextInputType.name,
-                      ),
+                          controller: _firstNameController,
+                          hintText: 'First Name',
+                          keyboardType: TextInputType.name,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'field can\'t be empty';
+                            }
+                          }),
                     ),
                     SizedBox(width: 16.w),
                     Expanded(
                       child: CustomTextFormField(
-                        controller: _lastNameController,
-                        hintText: 'Last Name',
-                        keyboardType: TextInputType.name,
-                      ),
+                          controller: _lastNameController,
+                          hintText: 'Last Name',
+                          keyboardType: TextInputType.name,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'field can\'t be empty';
+                            }
+                          }),
                     ),
                   ],
                 ),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
-                  controller: _mobileNumberController,
-                  hintText: 'Mobile number',
-                  keyboardType: TextInputType.phone,
-                ),
+                    controller: _mobileNumberController,
+                    hintText: 'Mobile number',
+                    keyboardType: TextInputType.phone,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'field can\'t be empty';
+                      }
+                    }),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
-                  controller: _emailController,
-                  hintText: 'Email',
-                  keyboardType: TextInputType.emailAddress,
-                ),
+                    controller: _emailController,
+                    hintText: 'Email',
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'field can\'t be empty';
+                      }
+                    }),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
-                  controller: _passwordController,
-                  hintText: 'Password',
-                  isPassword: true,
-                  keyboardType: TextInputType.text,
-                ),
+                    controller: _passwordController,
+                    hintText: 'Password',
+                    isPassword: true,
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'field can\'t be empty';
+                      }
+                    }),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
                   controller: _confirmPasswordController,
@@ -95,7 +115,7 @@ class SignUpViewBody extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Confirm Password is empty';
+                      return 'field can\'t be empty';
                     } else if (value != _passwordController.text) {
                       return 'Passwords do not match';
                     }
@@ -104,16 +124,24 @@ class SignUpViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
-                  controller: _universityController,
-                  hintText: 'University',
-                  keyboardType: TextInputType.text,
-                ),
+                    controller: _universityController,
+                    hintText: 'University',
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'field can\'t be empty';
+                      }
+                    }),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
-                  controller: _facultyController,
-                  hintText: 'Faculty',
-                  keyboardType: TextInputType.text,
-                ),
+                    controller: _facultyController,
+                    hintText: 'Faculty',
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'field can\'t be empty';
+                      }
+                    }),
                 SizedBox(height: 30.h),
                 CustomButton(
                   labelText: "Sign Up",

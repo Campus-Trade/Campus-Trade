@@ -10,7 +10,7 @@ class CustomTextFormField extends StatefulWidget {
     this.height,
     required this.keyboardType,
     this.controller,
-    this.validator, // ✅ Added validator parameter
+    this.validator,
   });
 
   final String? hintText;
@@ -20,7 +20,7 @@ class CustomTextFormField extends StatefulWidget {
   final double? height;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
-  final String? Function(String?)? validator; // ✅ Validator function
+  final String? Function(String?)? validator;
 
   @override
   _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
@@ -37,7 +37,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       child: TextFormField(
         controller: widget.controller,
         onSaved: widget.onSaved,
-        validator: widget.validator, // ✅ Use the validator here
+        // validator: widget.validator,
+
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Field can\'t be empty ';
+          }
+        },
         obscureText: widget.isPassword ? _obscureText : false,
         keyboardType: widget.keyboardType,
         decoration: InputDecoration(
