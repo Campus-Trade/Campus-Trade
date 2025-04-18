@@ -1,21 +1,23 @@
-class UserEntity {
-  final String uId;
+class RegisterRequestModel {
   final String firstName;
   final String lastName;
-  final String mobileNumber;
+  final String phone;
   final String email;
-  final String image;
+  final String password;
+  final String confirmPassword;
   final String university;
   final String faculty;
+  final String? image;
 
-  UserEntity({
-    required this.uId,
+  RegisterRequestModel({
     required this.firstName,
     required this.lastName,
-    required this.mobileNumber,
+    required this.phone,
     required this.email,
-    required this.image,
+    required this.password,
+    required this.confirmPassword,
     required this.university,
     required this.faculty,
+    this.image,
   });
 }

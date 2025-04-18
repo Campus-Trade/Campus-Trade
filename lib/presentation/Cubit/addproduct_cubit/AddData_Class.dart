@@ -23,11 +23,11 @@ class AddData extends Cubit<AddDataState> {
       if (currentUser == null) {
         throw Exception("User not logged in");
       }
-      final userModel = await UserModel.getUserModelFromFirestore(currentUser);
+      // final userModel = await UserModel.getUserModelFromFirestore(currentUser);
 
-      if (userModel == null) {
-        throw Exception("User data not found");
-      }
+      // if (userModel == null) {
+      //   throw Exception("User data not found");
+      // }
       await products.add({
         "name": productNameController.text,
         "description": descriptionController.text,

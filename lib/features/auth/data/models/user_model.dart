@@ -1,50 +1,53 @@
-import 'package:campus_trade/features/auth/domain/entities/user_entity.dart';
-import 'package:campus_trade/presentation/resources/image_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class UserModel extends UserEntity {
+class UserModel {
+  final String uId;
+  final String firstName;
+  final String lastName;
+  final String mobileNumber;
+  final String email;
+  final String image;
+  final String university;
+  final String faculty;
+  final Timestamp createdAt;
+
   UserModel({
-    required super.firstName,
-    required super.lastName,
-    required super.mobileNumber,
-    required super.email,
-    required super.image,
-    required super.university,
-    required super.faculty,
-    required super.uId,
+    required this.firstName,
+    required this.lastName,
+    required this.mobileNumber,
+    required this.email,
+    required this.image,
+    required this.university,
+    required this.faculty,
+    required this.uId,
+    required this.createdAt,
   });
 
-  factory UserModel.fromFirebaseUser(User user, Map<String, dynamic> userData) {
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      firstName: userData['firstName'] as String? ?? '',
-      lastName: userData['lastName'] as String? ?? '',
-      mobileNumber: userData['mobileNumber'] as String? ?? '',
-      email: user.email ?? '',
-      image:
-          userData['image'] != null && userData['image'].toString().isNotEmpty
-              ? userData['image']
-              : ImageManager.uploadPhoto,
-      university: userData['university'] as String? ?? '',
-      faculty: userData['faculty'] as String? ?? '',
-      uId: user.uid,
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      mobileNumber: json['mobileNumber'],
+      email: json['email'],
+      image: json['image'],
+      university: json['university'],
+      faculty: json['faculty'],
+      uId: json['uId'],
+      createdAt: json['createdAt'],
     );
   }
 
-  static Future<UserModel?> getUserModelFromFirestore(User user) async {
-    try {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-
-      if (userDoc.exists && userDoc.data() != null) {
-        return UserModel.fromFirebaseUser(
-            user, userDoc.data() as Map<String, dynamic>);
-      }
-    } catch (e) {
-      print('Error fetching user data: $e');
-    }
-    return null;
+  Map<String, dynamic> toJson() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'mobileNumber': mobileNumber,
+      'email': email,
+      'image': image,
+      'university': university,
+      'faculty': faculty,
+      'uId': uId,
+      'createdAt': createdAt,
+    };
   }
 }

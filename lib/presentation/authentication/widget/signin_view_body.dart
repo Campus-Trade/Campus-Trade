@@ -1,3 +1,4 @@
+import 'package:campus_trade/features/auth/data/models/login_request_model.dart';
 import 'package:campus_trade/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,8 +85,11 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               onPressed: () {
                 if (_globalKey.currentState!.validate()) {
                   _globalKey.currentState!.save();
-
-                  context.read<SigninCubit>().signin(email, password);
+                  LoginRequestModel loginRequestModel = LoginRequestModel(
+                    email: email,
+                    password: password,
+                  );
+                  context.read<SigninCubit>().signin(loginRequestModel);
                 } else {
                   autovalidateMode = AutovalidateMode.always;
                   setState(() {}); // error

@@ -165,14 +165,14 @@ class SignUpViewBody extends StatelessWidget {
                       context
                           .read<SignupCubit>()
                           .createUserWithEmailAndPassword(
-                            _emailController.text,
-                            _passwordController.text,
-                            _firstNameController.text,
-                            _lastNameController.text,
-                            _mobileNumberController.text,
-                            selectedImage,
-                            _universityController.text,
-                            _facultyController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            firstName: _firstNameController.text,
+                            lastName: _lastNameController.text,
+                            mobileNumber: _mobileNumberController.text,
+                            imageFile: selectedImage,
+                            university: _universityController.text,
+                            faculty: _facultyController.text,
                           );
                     }
                   },

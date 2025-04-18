@@ -2,12 +2,14 @@ import 'package:campus_trade/core/errors/exception.dart';
 import 'package:campus_trade/core/errors/failure.dart';
 import 'package:campus_trade/core/services/firebase_auth_services.dart';
 import 'package:campus_trade/features/auth/data/models/user_model.dart';
-import 'package:campus_trade/features/auth/domain/entities/user_entity.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:campus_trade/presentation/resources/image_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
+import '../models/login_request_model.dart';
+import '../models/regiter_request_model.dart';
 
 class AuthRepoImpl extends AuthRepo {
   final FirebaseAuthServices firebaseAuthServices;
@@ -17,80 +19,48 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl({required this.firebaseAuthServices});
 
   @override
-  Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword(
-    String email,
-    String password,
-    String firstName,
-    String lastName,
-    String mobileNumber,
-    String? imageUrl,
-    String university,
-    String faculty,
+  Future<Either<Failure, UserModel>> createUserWithEmailAndPassword(
+    RegisterRequestModel registerRequestModel,
   ) async {
     try {
       var user = await firebaseAuthServices.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: registerRequestModel.email,
+        password: registerRequestModel.password,
+      );
 
-      await firestore.collection('users').doc(user.uid).set({
-        'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-        'mobileNumber': mobileNumber,
-        'image': imageUrl ?? ImageManager.uploadPhoto,
-        'university': university,
-        'faculty': faculty,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
+      UserModel userModel = UserModel(
+        firstName: registerRequestModel.firstName,
+        lastName: registerRequestModel.lastName,
+        mobileNumber: registerRequestModel.phone,
+        email: registerRequestModel.email,
+        image: registerRequestModel.image ?? ImageManager.DefaultPic,
+        university: registerRequestModel.university,
+        faculty: registerRequestModel.faculty,
+        uId: user.uid,
+        createdAt: Timestamp.now(),
+      );
 
-      print(" Firestore Write Successful");
-
-      return right(UserModel.fromFirebaseUser(
-        user,
-        {
-          'firstName': firstName,
-          'lastName': lastName,
-          'mobileNumber': mobileNumber,
-          'image': imageUrl ?? ImageManager.uploadPhoto,
-          'university': university,
-          'faculty': faculty,
-        },
-      ));
+      return right(userModel);
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
     } catch (e) {
-      print(" Firestore Write Failed: $e");
       return left(ServerFailure('An error occurred. Please try again later.'));
     }
   }
 
   @override
-  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
-      String email, String password) async {
+  Future<Either<Failure, String>> signInWithEmailAndPassword(
+    LoginRequestModel loginRequestModel,
+  ) async {
     try {
       var user = await firebaseAuthServices.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: loginRequestModel.email,
+        password: loginRequestModel.password,
       );
-
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-
-      if (userDoc.exists && userDoc.data() != null) {
-        var userModel = UserModel.fromFirebaseUser(
-          user,
-          userDoc.data() as Map<String, dynamic>,
-        );
-        return right(userModel);
-      } else {
-        return left(ServerFailure('User data not found'));
-      }
+      return right(user.uid);
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
     } catch (e) {
-      print(
-          'Exception in AuthRepoImpl.signInWithEmailAndPassword: ${e.toString()}');
       return left(ServerFailure('Something went wrong please try again later'));
     }
   }
