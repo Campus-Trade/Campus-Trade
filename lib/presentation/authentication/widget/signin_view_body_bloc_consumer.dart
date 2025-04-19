@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:campus_trade/presentation/authentication/widget/signin_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +18,7 @@ class SigninViewBodyBlocConsumer extends StatelessWidget {
     return BlocConsumer<SigninCubit, SigninState>(
       listener: (context, state) {
         if (state is SigninSuccess) {
-          print("correct email and password");
+          log("correct email and password");
           Navigator.push(
             context,
             MaterialPageRoute(

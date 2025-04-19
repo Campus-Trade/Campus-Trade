@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:campus_trade/presentation/authentication/widget/signup_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +23,7 @@ class _SignupViewBodyBlocConsumerState
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          print("User data stored successfully in Firestore!");
+          log("User data stored successfully in Firestore!");
 
           if (mounted) {
             Navigator.pushReplacement(

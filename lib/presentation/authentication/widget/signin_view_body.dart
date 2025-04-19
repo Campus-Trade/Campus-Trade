@@ -22,7 +22,8 @@ class SignInViewBody extends StatefulWidget {
 class _SignInViewBodyState extends State<SignInViewBody> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
-  late String email, password;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
@@ -46,20 +47,22 @@ class _SignInViewBodyState extends State<SignInViewBody> {
             ),
             SizedBox(height: 60.h),
             CustomTextFormField(
-                onSaved: (value) {
-                  email = value!;
-                },
-                hintText: 'Email',
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'field can\'t be empty';
-                  }
-                }),
+              controller: _emailController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'field can\'t be empty';
+                }
+              },
+              hintText: 'Email',
+              keyboardType: TextInputType.emailAddress,
+            ),
             SizedBox(height: 14.h),
             CustomTextFormField(
-              onSaved: (value) {
-                password = value!;
+              controller: _passwordController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'field can\'t be empty';
+                }
               },
               hintText: 'Password',
               isPassword: true,
@@ -86,8 +89,8 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                 if (_globalKey.currentState!.validate()) {
                   _globalKey.currentState!.save();
                   LoginRequestModel loginRequestModel = LoginRequestModel(
-                    email: email,
-                    password: password,
+                    email: _emailController.text,
+                    password: _passwordController.text,
                   );
                   context.read<SigninCubit>().signin(loginRequestModel);
                 } else {
