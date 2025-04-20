@@ -11,4 +11,6 @@ abstract class AuthRepo {
   Future<Either<Failure, String>> signInWithEmailAndPassword(
     LoginRequestModel loginRequestModel,
   );
+  Future<Either<Failure, String>> signInWithGoogle();
+  Future<Either<Failure, String>> signInWithFacebook();
 }

@@ -142,7 +142,9 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               borderColor: ColorManager.greyColor,
               textStyle: TextStyles.black14Bold,
               iconPath: ImageManager.google,
-              onPressed: () {},
+              onPressed: () {
+                context.read<SigninCubit>().signinWithGoogle();
+              },
             ),
             const SizedBox(height: 12),
             CustomButton(
@@ -151,19 +153,20 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               borderColor: ColorManager.brightBlue,
               textStyle: TextStyles.white14Bold,
               iconPath: ImageManager.facebook,
-              onPressed: () {},
+              onPressed: () {
+                context.read<SigninCubit>().signinWithFacebook();
+              },
             ),
-            const SizedBox(height: 12),
 
-            const SizedBox(height: 70),
+            SizedBox(height: 82.h),
             /////////////////////////////////////////////
             const Center(
               child: Text.rich(
                 TextSpan(
                   text: 'By signing up, you accept our\n',
                   style: TextStyle(
-                    fontSize: 12,
                     color: Colors.black,
+                    fontSize: 12,
                   ),
                   children: [
                     TextSpan(

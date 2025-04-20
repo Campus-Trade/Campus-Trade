@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:campus_trade/core/errors/exception.dart';
 import 'package:campus_trade/core/errors/failure.dart';
 import 'package:campus_trade/core/services/firebase_auth_services.dart';
@@ -63,5 +65,37 @@ class AuthRepoImpl extends AuthRepo {
     } catch (e) {
       return left(ServerFailure('Something went wrong please try again later'));
     }
+  }
+
+  @override
+  Future<Either<Failure, String>> signInWithGoogle() async {
+    try {
+      var userCredential = await firebaseAuthServices.signInWithGoogle();
+      final uid = userCredential.user?.uid;
+      if (uid != null) {
+        return right(uid);
+      } else {
+        return left(ServerFailure("User UID is null"));
+      }
+    } catch (e) {
+      print('Exception in google auth ${e.toString()}');
+    }
+    return left(ServerFailure("try again"));
+  }
+
+  @override
+  Future<Either<Failure, String>> signInWithFacebook() async {
+    try {
+      var userCredential = await firebaseAuthServices.signInWithFacebook();
+      final uid = userCredential.user?.uid;
+      if (uid != null) {
+        return right(uid);
+      } else {
+        return left(ServerFailure("User UID is null"));
+      }
+    } catch (e) {
+      print('Exception in facebook auth ${e.toString()}');
+    }
+    return left(ServerFailure("try again"));
   }
 }
