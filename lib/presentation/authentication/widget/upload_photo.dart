@@ -1,12 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../Cubit/signup_cubit/signup_cubit.dart';
 import '../../resources/color_manager.dart';
-import '../../resources/image_manager.dart';
 import '../../resources/text_styles.dart';
 import '../view/signin_view.dart';
 import 'custom_button.dart';
@@ -22,6 +19,10 @@ class UploadPhoto extends StatefulWidget {
 class _UploadPhotoState extends State<UploadPhoto> {
   File? selectedImage;
   bool isUploading = false;
+
+  // الصورة الافتراضية
+  final String defaultImageUrl =
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPD-5TiLjrkRIwC5KaPYx2WYclvpS65PWudhgr9hGd6dKLnulBmuUFEwk&s';
 
   Future<void> pickImage() async {
     final pickedFile =
@@ -45,14 +46,14 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
     try {
       final signupCubit = context.read<SignupCubit>();
-      // استدعاء دالة رفع الصورة مباشرة من الـSignupCubit
-      //final imageUrl = await signupCubit.uploadProfileImage(selectedImage!);
+
+      final imageUrl = await signupCubit.uploadProfileImage(selectedImage!);
 
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => SigninView(),
-       //   settings: RouteSettings(arguments: imageUrl),
+          settings: RouteSettings(arguments: imageUrl),
         ),
       );
     } catch (e) {
@@ -62,6 +63,16 @@ class _UploadPhotoState extends State<UploadPhoto> {
     } finally {
       setState(() => isUploading = false);
     }
+  }
+
+  void _skipAndNavigate(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SigninView(),
+        settings: RouteSettings(arguments: defaultImageUrl),
+      ),
+    );
   }
 
   @override
@@ -78,7 +89,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
               backgroundColor: Colors.grey[300],
               backgroundImage: selectedImage != null
                   ? FileImage(selectedImage!)
-                  : AssetImage(ImageManager.uploadPhoto) as ImageProvider,
+                  : NetworkImage(defaultImageUrl) as ImageProvider,
               child: isUploading ? CircularProgressIndicator() : null,
             ),
             SizedBox(height: 20.h),
@@ -106,12 +117,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                     backgroundColor: ColorManager.PrimaryColor,
                     width: 135.w,
                     height: 50.h,
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SigninView()),
-                      );
-                    },
+                    onPressed: () => _skipAndNavigate(context),
                   ),
                   SizedBox(width: 10.w),
                   CustomButton(

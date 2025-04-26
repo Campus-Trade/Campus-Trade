@@ -27,8 +27,7 @@ class AuthRepoImpl extends AuthRepo {
     RegisterRequestModel registerRequestModel,
   ) async {
     try {
-      // 1. تحقق من وجود صورة ورفعها إذا كانت موجودة
-      String? imageUrl;
+      late String? imageUrl;
       if (registerRequestModel.image != null &&
           registerRequestModel.image is File) {
         final imageFile = registerRequestModel.image as File;
@@ -37,27 +36,24 @@ class AuthRepoImpl extends AuthRepo {
         imageUrl = registerRequestModel.image as String;
       }
 
-      // 2. إنشاء المستخدم في Firebase Auth
       var user = await firebaseAuthServices.createUserWithEmailAndPassword(
         email: registerRequestModel.email,
         password: registerRequestModel.password,
       );
 
-      // 3. إنشاء نموذج المستخدم مع الصورة المرفوعة أو الصورة الافتراضية
       UserModel userModel = UserModel(
         firstName: registerRequestModel.firstName,
         lastName: registerRequestModel.lastName,
         mobileNumber: registerRequestModel.phone,
         email: registerRequestModel.email,
         image: imageUrl ??
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPD-5TiLjrkRIwC5KaPYx2WYclvpS65PWudhgr9hGd6dKLnulBmuUFEwk&s',
+            '', //   image: imageUrl!, user isn't added to data base due to null exception
         university: registerRequestModel.university,
         faculty: registerRequestModel.faculty,
         uId: user.uid,
         createdAt: Timestamp.now(),
       );
 
-      // 4. حفظ بيانات المستخدم في Firestore
       await firestore.collection('users').doc(user.uid).set(userModel.toMap());
 
       return right(userModel);
@@ -68,19 +64,15 @@ class AuthRepoImpl extends AuthRepo {
     }
   }
 
-// دالة مساعدة لرفع الصورة إلى Firebase Storage
   Future<String> _uploadImageToStorage(File imageFile) async {
     try {
-      // إنشاء اسم فريد للصورة
       String fileName = 'profile_${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-      // رفع الصورة إلى Storage
       Reference ref =
           FirebaseStorage.instance.ref().child('profile_images/$fileName');
       UploadTask uploadTask = ref.putFile(imageFile);
       TaskSnapshot snapshot = await uploadTask;
 
-      // الحصول على رابط التنزيل
       String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {
@@ -117,7 +109,6 @@ class AuthRepoImpl extends AuthRepo {
         return left(ServerFailure("User is null"));
       }
 
-      // تحقق إذا كان المستخدم موجود بالفعل في Firestore
       final userDoc = await firestore.collection('users').doc(user.uid).get();
 
       UserModel userModel;
