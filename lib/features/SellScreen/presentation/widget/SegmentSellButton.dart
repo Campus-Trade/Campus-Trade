@@ -29,7 +29,7 @@ class _SegmentsellbuttonState extends State<Segmentsellbutton> {
               "Sell",
               style: state == productState.Sell
                   ? TextStyles.white14Bold
-                  : TextStyles.black14Regular,
+                  : TextStyles.black14Regular400,
             ),
           ),
           ButtonSegment(
@@ -38,7 +38,7 @@ class _SegmentsellbuttonState extends State<Segmentsellbutton> {
               "Donate",
               style: state == productState.Donate
                   ? TextStyles.white14Bold
-                  : TextStyles.black14Regular,
+                  : TextStyles.black14Regular400,
             ),
           ),
         ],

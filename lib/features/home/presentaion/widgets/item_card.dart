@@ -6,7 +6,18 @@ import '../../../../core/utils/resources/image_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({super.key});
+  String userName;
+  String productName;
+  String productPrice;
+  String productAddress;
+  String productImage;
+  ItemCard(
+      {super.key,
+      required this.userName,
+      required this.productName,
+      required this.productPrice,
+      required this.productAddress,
+      required this.productImage});
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +30,20 @@ class ItemCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            ImageManager.rectangleT,
+          Image.network(
+            width: 191.w,
+            height: 136.h,
+            productImage,
             fit: BoxFit.fill,
           ),
           Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Text(
-              'Mohab Mohamed',
-              style: TextStyles.white14regulare,
-            ),
+            child: Text(userName, style: TextStyles.black14Regular400),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Text(
-              'Ati T580A - KT800R Plastic T Ruler, 80 cm Length',
+              productName,
               style: TextStyles.white14Bold.copyWith(
                 color: ColorManager.blackColor,
               ),
@@ -61,7 +71,7 @@ class ItemCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'Mansoura',
+                          productAddress,
                           style: TextStyles.black16Regular,
                         ),
                         SizedBox(
@@ -77,7 +87,7 @@ class ItemCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '550 EGP',
+                  productPrice,
                   style: TextStyles.black16Regular.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../presentation/view/UploadCubit_State.dart';
+import 'UploadCubit_State.dart';
 
 class UploadCubit extends Cubit<UploadState> {
   UploadCubit() : super(UploadIntial());

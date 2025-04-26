@@ -78,7 +78,7 @@ class TextStyles {
     color: ColorManager.blackColor,
     fontWeight: FontWeight.w700,
   );
-  static TextStyle black14Regular = TextStyle(
+  static TextStyle black14Regular400 = TextStyle(
     fontSize: 14.sp,
     fontFamily: 'Roboto_Condensed',
     color: ColorManager.blackColor,

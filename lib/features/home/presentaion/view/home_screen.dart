@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/resources/color_manager.dart';
 import '../../../Upload/view/UploadProductScreen.dart';
@@ -8,6 +9,7 @@ import '../../../profile/presentation/views/profile_screen.dart';
 import '../../../profile/presentation/widgets/appBar_profile.dart';
 import '../../../search/presentation/view/search_screen.dart';
 import '../../../search/presentation/widgets/appBar_search.dart';
+import '../cubit/present_product_cubit.dart';
 import '../widgets/appBar_home.dart';
 import '../widgets/card_home.dart';
 import '../widgets/item_card_list.dart';
@@ -22,6 +24,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    // لما الشاشة تفتح تحدث المنتجات
+    context.read<ProductCubit>().fetchAllProducts();
+  }
 
   final List<Widget> screens = [
     const HomeContent(),
@@ -62,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: screens[selectedIndex],
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
+        shape: CircularNotchedRectangle(),
         notchMargin: 6.0,
         color: ColorManager.SecondaryColor,
         child: Row(
@@ -118,7 +126,7 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: SingleChildScrollView(
         child: Column(

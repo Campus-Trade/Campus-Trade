@@ -10,7 +10,7 @@ import '../../../core/utils/resources/text_styles.dart';
 
 import '../../SellScreen/cubit/UploadCubit_class.dart';
 import '../../SellScreen/presentation/view/Sellscreen.dart';
-import '../../SellScreen/presentation/view/UploadCubit_State.dart';
+import '../../SellScreen/cubit/UploadCubit_State.dart';
 
 import '../widget/AppBar_Upload.dart';
 import '../widget/CustomSelectButton.dart';
@@ -75,7 +75,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                   child: Text(
                     textAlign: TextAlign.center,
                     "Please upload a clear, well-lit photo of your product. Use a clean background.",
-                    style: TextStyles.black14Regular,
+                    style: TextStyles.black14Regular400,
                   ),
                 ),
               ),

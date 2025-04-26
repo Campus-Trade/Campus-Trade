@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Upload/Cubit/addproduct_cubit/AddData_Class.dart';
 import '../../../Upload/Cubit/addproduct_cubit/TestProduct.dart';
+import '../../../home/presentaion/cubit/present_product_cubit.dart';
 import '../../../home/presentaion/view/home_screen.dart';
 import '../../cubit/UploadCubit_class.dart';
 import '../../../Upload/widget/AppBar_Upload.dart';
 import '../widget/DataTextField.dart';
 import '../widget/DoneButton.dart';
 import '../widget/SegmentSellButton.dart';
-import 'UploadCubit_State.dart';
+import '../../cubit/UploadCubit_State.dart';
 
 class SellScreen extends StatefulWidget {
   @override
@@ -90,20 +91,21 @@ class _SellscreenState extends State<SellScreen> {
                   ),
                   SizedBox(height: 60.h),
                   DoneButton(
-                    Continue: () {
+                    Continue: () async {
                       if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                                'Product added successfully! Wait for admin response'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-                        addCubit.addProductData(_formKey, context);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                        );
+                        // أضف هذا الجزء لتحديث البيانات
+                        if (mounted) {
+                          addCubit.addProductData(_formKey, context);
+                          context
+                              .read<ProductCubit>()
+                              .fetchAllProducts(); // تحديث القائمة
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()),
+                          );
+                        }
                       }
                     },
                     text: "Confirm",
