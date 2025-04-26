@@ -4,10 +4,12 @@ import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:campus_trade/presentation/Cubit/addproduct_cubit/UploadCubit_class.dart';
 import 'package:campus_trade/presentation/Cubit/signin_cubit/signin_cubit.dart';
 import 'package:campus_trade/presentation/Cubit/signup_cubit/signup_cubit.dart';
+import 'package:campus_trade/presentation/Cubit/user_personal_data_cubit/user_cubit.dart';
 import 'package:campus_trade/presentation/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'features/auth/data/repos/user_repo_impl.dart';
 import 'presentation/Cubit/addproduct_cubit/AddData_Class.dart';
 
 class CampusTradeApp extends StatelessWidget {
@@ -27,7 +29,11 @@ class CampusTradeApp extends StatelessWidget {
           BlocProvider(
               create: (context) => SigninCubit(
                     getIt<AuthRepo>(),
-                  ))
+                  )),
+          BlocProvider<UserCubit>(
+            create: (context) =>
+                UserCubit(getIt<UserRepository>())..fetchUserData(),
+          ),
         ],
         child: ScreenUtilInit(
           designSize: const Size(393, 852),

@@ -1,4 +1,5 @@
 import 'package:campus_trade/features/auth/data/models/login_request_model.dart';
+import 'package:campus_trade/presentation/authentication/view/forget_passowd_view.dart';
 import 'package:campus_trade/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,14 +70,23 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               keyboardType: TextInputType.text,
             ),
             SizedBox(height: 8.h),
-            const Align(
+            Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Forgot Password?',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgetPasswordView()),
+                  );
+                },
+                child: Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

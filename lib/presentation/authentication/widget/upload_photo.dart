@@ -1,15 +1,15 @@
 import 'dart:io';
-import 'package:campus_trade/presentation/Cubit/signup_cubit/signup_cubit.dart';
-import 'package:campus_trade/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../Cubit/signup_cubit/signup_cubit.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/image_manager.dart';
 import '../../resources/text_styles.dart';
+import '../view/signin_view.dart';
 import 'custom_button.dart';
-import '../../Cubit/signup_cubit/signup_cubit.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadPhoto extends StatefulWidget {
@@ -21,11 +21,11 @@ class UploadPhoto extends StatefulWidget {
 
 class _UploadPhotoState extends State<UploadPhoto> {
   File? selectedImage;
+  bool isUploading = false;
 
   Future<void> pickImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
       setState(() {
         selectedImage = File(pickedFile.path);
@@ -33,9 +33,39 @@ class _UploadPhotoState extends State<UploadPhoto> {
     }
   }
 
+  Future<void> _uploadAndNavigate(BuildContext context) async {
+    if (selectedImage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please upload an image first')),
+      );
+      return;
+    }
+
+    setState(() => isUploading = true);
+
+    try {
+      final signupCubit = context.read<SignupCubit>();
+      // استدعاء دالة رفع الصورة مباشرة من الـSignupCubit
+      //final imageUrl = await signupCubit.uploadProfileImage(selectedImage!);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SigninView(),
+       //   settings: RouteSettings(arguments: imageUrl),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to upload image: $e')),
+      );
+    } finally {
+      setState(() => isUploading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final addCubit = context.read<SignupCubit>();
     return Scaffold(
       backgroundColor: ColorManager.PrimaryColor,
       body: Center(
@@ -49,56 +79,52 @@ class _UploadPhotoState extends State<UploadPhoto> {
               backgroundImage: selectedImage != null
                   ? FileImage(selectedImage!)
                   : AssetImage(ImageManager.uploadPhoto) as ImageProvider,
+              child: isUploading ? CircularProgressIndicator() : null,
             ),
             SizedBox(height: 20.h),
 
-            CustomButton(
-              labelText: 'Upload Profile Picture',
-              backgroundColor: ColorManager.SecondaryColor,
-              textStyle: TextStyles.White16Meduim,
-              width: 230.w,
-              height: 50.h,
-              onPressed: pickImage,
-            ),
+            if (!isUploading)
+              CustomButton(
+                labelText: 'Upload Profile Picture',
+                backgroundColor: ColorManager.SecondaryColor,
+                textStyle: TextStyles.White16Meduim,
+                width: 230.w,
+                height: 50.h,
+                onPressed: pickImage,
+              ),
 
             SizedBox(height: 50.h),
 
-            // Navigation Buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomButton(
-                  labelText: 'Skip',
-                  textStyle: TextStyles.blue14Bold,
-                  borderColor: ColorManager.SecondaryColor,
-                  backgroundColor: ColorManager.PrimaryColor,
-                  width: 135.w,
-                  height: 50.h,
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                  },
-                ),
-                SizedBox(width: 10.w),
-                CustomButton(
-                  labelText: 'Start',
-                  backgroundColor: ColorManager.SecondaryColor,
-                  textStyle: TextStyles.white14Bold,
-                  width: 208.w,
-                  height: 50.h,
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                    // Navigator.pop(context, selectedImage);
-                  },
-                  borderColor: ColorManager.PrimaryColor,
-                ),
-              ],
-            ),
+            if (!isUploading)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButton(
+                    labelText: 'Skip',
+                    textStyle: TextStyles.blue14Bold,
+                    borderColor: ColorManager.SecondaryColor,
+                    backgroundColor: ColorManager.PrimaryColor,
+                    width: 135.w,
+                    height: 50.h,
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => SigninView()),
+                      );
+                    },
+                  ),
+                  SizedBox(width: 10.w),
+                  CustomButton(
+                    labelText: 'Start',
+                    backgroundColor: ColorManager.SecondaryColor,
+                    textStyle: TextStyles.white14Bold,
+                    width: 208.w,
+                    height: 50.h,
+                    onPressed: () => _uploadAndNavigate(context),
+                    borderColor: ColorManager.PrimaryColor,
+                  ),
+                ],
+              ),
           ],
         ),
       ),

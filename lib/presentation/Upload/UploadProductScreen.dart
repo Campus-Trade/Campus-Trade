@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:campus_trade/presentation/Cubit/addproduct_cubit/UploadCubit_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../Cubit/addproduct_cubit/UploadCubit_State.dart';
@@ -84,10 +85,14 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                 child: Row(
                   children: [
                     Container(
-                        width: 177, height: 1, color: ColorManager.greyColor),
+                        width: 170.w,
+                        height: 1.h,
+                        color: ColorManager.greyColor),
                     Text("OR", style: TextStyles.grey12Regular),
                     Container(
-                        width: 177, height: 1, color: ColorManager.greyColor),
+                        width: 170.w,
+                        height: 1.h,
+                        color: ColorManager.greyColor),
                   ],
                 ),
               ),
@@ -100,7 +105,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
               if (state is UploadLoading)
                 const Padding(
                   padding: EdgeInsets.all(20),
-                  child: CircularProgressIndicator(),
+                  // child: CircularProgressIndicator(),
                 ),
               Customselectbutton(
                 text: "Continue",

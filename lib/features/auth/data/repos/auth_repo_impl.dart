@@ -1,3 +1,5 @@
+import 'dart:ffi';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:campus_trade/core/errors/exception.dart';
@@ -5,7 +7,7 @@ import 'package:campus_trade/core/errors/failure.dart';
 import 'package:campus_trade/core/services/firebase_auth_services.dart';
 import 'package:campus_trade/features/auth/data/models/user_model.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
-import 'package:campus_trade/presentation/resources/image_manager.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -25,28 +27,66 @@ class AuthRepoImpl extends AuthRepo {
     RegisterRequestModel registerRequestModel,
   ) async {
     try {
+      // 1. تحقق من وجود صورة ورفعها إذا كانت موجودة
+      String? imageUrl;
+      if (registerRequestModel.image != null &&
+          registerRequestModel.image is File) {
+        final imageFile = registerRequestModel.image as File;
+        imageUrl = await _uploadImageToStorage(imageFile);
+      } else if (registerRequestModel.image is String) {
+        imageUrl = registerRequestModel.image as String;
+      }
+
+      // 2. إنشاء المستخدم في Firebase Auth
       var user = await firebaseAuthServices.createUserWithEmailAndPassword(
         email: registerRequestModel.email,
         password: registerRequestModel.password,
       );
 
+      // 3. إنشاء نموذج المستخدم مع الصورة المرفوعة أو الصورة الافتراضية
       UserModel userModel = UserModel(
         firstName: registerRequestModel.firstName,
         lastName: registerRequestModel.lastName,
         mobileNumber: registerRequestModel.phone,
         email: registerRequestModel.email,
-        image: registerRequestModel.image ?? ImageManager.DefaultPic,
+        image: imageUrl ??
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPD-5TiLjrkRIwC5KaPYx2WYclvpS65PWudhgr9hGd6dKLnulBmuUFEwk&s',
         university: registerRequestModel.university,
         faculty: registerRequestModel.faculty,
         uId: user.uid,
         createdAt: Timestamp.now(),
       );
 
+      // 4. حفظ بيانات المستخدم في Firestore
+      await firestore.collection('users').doc(user.uid).set(userModel.toMap());
+
       return right(userModel);
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
     } catch (e) {
       return left(ServerFailure('An error occurred. Please try again later.'));
+    }
+  }
+
+// دالة مساعدة لرفع الصورة إلى Firebase Storage
+  Future<String> _uploadImageToStorage(File imageFile) async {
+    try {
+      // إنشاء اسم فريد للصورة
+      String fileName = 'profile_${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+      // رفع الصورة إلى Storage
+      Reference ref =
+          FirebaseStorage.instance.ref().child('profile_images/$fileName');
+      UploadTask uploadTask = ref.putFile(imageFile);
+      TaskSnapshot snapshot = await uploadTask;
+
+      // الحصول على رابط التنزيل
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      throw CustomException(
+        message: 'Failed to upload image',
+      );
     }
   }
 
@@ -68,19 +108,47 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, String>> signInWithGoogle() async {
+  Future<Either<Failure, UserModel>> signInWithGoogle() async {
     try {
       var userCredential = await firebaseAuthServices.signInWithGoogle();
-      final uid = userCredential.user?.uid;
-      if (uid != null) {
-        return right(uid);
-      } else {
-        return left(ServerFailure("User UID is null"));
+      final user = userCredential.user;
+
+      if (user == null) {
+        return left(ServerFailure("User is null"));
       }
+
+      // تحقق إذا كان المستخدم موجود بالفعل في Firestore
+      final userDoc = await firestore.collection('users').doc(user.uid).get();
+
+      UserModel userModel;
+
+      if (!userDoc.exists) {
+        userModel = UserModel(
+          firstName: user.displayName?.split(' ').first ?? 'No Name',
+          lastName: user.displayName?.split(' ').last ?? '',
+          mobileNumber: user.phoneNumber ?? '',
+          email: user.email ?? '',
+          image: user.photoURL ?? '',
+          university: '',
+          faculty: '',
+          uId: user.uid,
+          createdAt: Timestamp.now(),
+        );
+
+        await firestore
+            .collection('users')
+            .doc(user.uid)
+            .set(userModel.toMap());
+      } else {
+        // إذا كان مستخدم موجود، استرجع بياناته
+        userModel = UserModel.fromMap(userDoc.data()!);
+      }
+
+      return right(userModel);
     } catch (e) {
       print('Exception in google auth ${e.toString()}');
+      return left(ServerFailure(e.toString()));
     }
-    return left(ServerFailure("try again"));
   }
 
   @override
@@ -97,5 +165,15 @@ class AuthRepoImpl extends AuthRepo {
       print('Exception in facebook auth ${e.toString()}');
     }
     return left(ServerFailure("try again"));
+  }
+
+  @override
+  Future<Either<Failure, String>> forgetPassword(String email) async {
+    try {
+      await firebaseAuthServices.sendPasswordResetEmail(email);
+      return Right("Reset email sent successfully");
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 }

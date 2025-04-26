@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import '../Upload/UploadProductScreen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const HomeContent(),
     const SearchScreen(),
     const ChatScreen(),
-    const ProfileScreen()
+    ProfileScreen()
   ];
   final List<PreferredSizeWidget> appBar = [
     const AppbarHome(),

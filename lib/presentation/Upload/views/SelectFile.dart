@@ -23,6 +23,7 @@ class _SelectfileState extends State<Selectfile> {
       width: 353.w,
       height: 150.h,
       decoration: BoxDecoration(
+          // image: DecorationImage(image: ),
           border: Border.all(
               color: ColorManager.SecondaryColor,
               width: 3,
@@ -31,8 +32,7 @@ class _SelectfileState extends State<Selectfile> {
       child: Column(
         children: [
           Padding(
-              padding:
-                  EdgeInsets.only(top: 32.r, right: 162.5.r, left: 162.5.r),
+              padding: EdgeInsets.only(top: 15.r, right: 0.r, left: 0.r),
               child: (widget.image == null)
                   ? Image.asset(
                       ImageManager.DefaultPic,
@@ -40,10 +40,11 @@ class _SelectfileState extends State<Selectfile> {
                   : Image.file(
                       widget.image!,
                       filterQuality: FilterQuality.high,
+                      width: 100.w,
+                      height: 100.h,
                     )),
           Padding(
-              padding:
-                  EdgeInsets.only(top: 16.r, right: 120.5.r, left: 120.5.r),
+              padding: EdgeInsets.only(top: 5.r, right: 120.5.r, left: 120.5.r),
               child: InkWell(
                   onTap: widget.UploadImage,
                   child: Text(

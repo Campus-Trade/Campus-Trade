@@ -83,4 +83,8 @@ class FirebaseAuthServices {
     return await FirebaseAuth.instance
         .signInWithCredential(facebookAuthCredential);
   }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
 }

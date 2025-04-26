@@ -25,15 +25,17 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      mobileNumber: json['mobileNumber'],
-      email: json['email'],
-      image: json['image'],
-      university: json['university'],
-      faculty: json['faculty'],
-      uId: json['uId'],
-      createdAt: json['createdAt'],
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
+      mobileNumber: json['mobileNumber'] ?? '',
+      email: json['email'] ?? '',
+      image: json['image'] ?? '',
+      university: json['university'] ?? '',
+      faculty: json['faculty'] ?? '',
+      uId: json['uId'] ?? '',
+      createdAt: json['createdAt'] is Timestamp
+          ? json['createdAt'] as Timestamp
+          : Timestamp.now(),
     );
   }
 
@@ -46,8 +48,25 @@ class UserModel {
       'image': image,
       'university': university,
       'faculty': faculty,
+      'uId': uId, // تأكد من أن الحقل هو uId هنا
+      'createdAt': createdAt,
+    };
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'mobileNumber': mobileNumber,
+      'image': image,
+      'university': university,
+      'faculty': faculty,
       'uId': uId,
       'createdAt': createdAt,
     };
   }
+
+  factory UserModel.fromMap(Map<String, dynamic> map) =>
+      UserModel.fromJson(map);
 }

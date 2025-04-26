@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../Cubit/signup_cubit/signup_cubit.dart';
-import '../../home/home_screen.dart';
+import '../view/signin_view.dart';
 
 class SignupViewBodyBlocConsumer extends StatefulWidget {
   const SignupViewBodyBlocConsumer({super.key});
@@ -26,9 +26,12 @@ class _SignupViewBodyBlocConsumerState
           log("User data stored successfully in Firestore!");
 
           if (mounted) {
+            SnackBar(
+              content: Text("your data has added please sign in"),
+            );
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => SigninView()),
             );
           }
         }
