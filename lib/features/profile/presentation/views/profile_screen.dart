@@ -1,0 +1,50 @@
+import 'package:campus_trade/features/auth/data/repos/user_repo_impl.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/utils/resources/text_styles.dart';
+import '../../../auth/presentation/cubit/user_personal_data_cubit/user_cubit.dart';
+import '../widgets/profile_feture_list.dart';
+import '../widgets/profile_image.dart';
+
+class ProfileScreen extends StatefulWidget {
+  ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (state is UserLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is UserError) {
+            return Center(child: Text(state.message));
+          }
+          if (state is UserLoaded) {
+            final user = state.user;
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  ProfileImage(imageUrl: user.image),
+                  Text(
+                    user.firstName, // Display the user's first name
+                    style: TextStyles.black20Bold,
+                  ),
+                  ProfileFetureList(),
+                ],
+              ),
+            );
+          }
+          return const Center(child: Text('Something went wrong'));
+        },
+      ),
+    );
+  }
+}
