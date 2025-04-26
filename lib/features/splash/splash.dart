@@ -1,4 +1,3 @@
-import 'package:campus_trade/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/utils/resources/color_manager.dart';
