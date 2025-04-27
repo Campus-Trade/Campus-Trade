@@ -5,11 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/auth/data/repos/user_repo_impl.dart';
-import '../../features/home/data/repo/present_product_repo.dart';
-import '../../features/home/presentaion/cubit/present_product_cubit.dart';
+import '../../features/product/data/repo/present_product_repo.dart';
+import '../../features/product/presentaion/cubit/present_product_cubit.dart';
 
 final getIt = GetIt.instance;
-
 void setup() {
   getIt.registerSingleton<FirebaseAuthServices>(FirebaseAuthServices());
   getIt.registerSingleton<AuthRepo>(

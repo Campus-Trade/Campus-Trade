@@ -1,4 +1,6 @@
+import 'package:campus_trade/core/services/get_it_sevice.dart';
 import 'package:campus_trade/features/auth/data/repos/user_repo_impl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +12,7 @@ import '../widgets/profile_image.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
-
+  final uid = FirebaseAuth.instance.currentUser?.uid;
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -18,32 +20,36 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<UserCubit, UserState>(
-        builder: (context, state) {
-          if (state is UserLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is UserError) {
-            return Center(child: Text(state.message));
-          }
-          if (state is UserLoaded) {
-            final user = state.user;
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  ProfileImage(imageUrl: user.image),
-                  Text(
-                    user.firstName, // Display the user's first name
-                    style: TextStyles.black20Bold,
-                  ),
-                  ProfileFetureList(),
-                ],
-              ),
-            );
-          }
-          return const Center(child: Text('Something went wrong'));
-        },
+    return BlocProvider(
+      create: (context) => UserCubit(getIt<UserRepository>(), widget.uid!)
+        ..fetchUserData(), //pass uid
+      child: Scaffold(
+        body: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            if (state is UserLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is UserError) {
+              return Center(child: Text(state.message));
+            }
+            if (state is UserLoaded) {
+              final user = state.user;
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ProfileImage(imageUrl: user.image),
+                    Text(
+                      user.firstName,
+                      style: TextStyles.black20Bold,
+                    ),
+                    ProfileFetureList(),
+                  ],
+                ),
+              );
+            }
+            return const Center(child: Text('Something went wrong'));
+          },
+        ),
       ),
     );
   }

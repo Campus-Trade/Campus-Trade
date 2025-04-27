@@ -27,6 +27,12 @@ class TextStyles {
     color: ColorManager.SecondaryColor,
     fontWeight: FontWeight.w700,
   );
+  static TextStyle blue12Bold = TextStyle(
+    fontSize: 12.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.SecondaryColor,
+    fontWeight: FontWeight.w700,
+  );
 
   static TextStyle white14Bold = TextStyle(
     fontSize: 14.sp,

@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Upload/Cubit/addproduct_cubit/AddData_Class.dart';
 import '../../../Upload/Cubit/addproduct_cubit/TestProduct.dart';
-import '../../../home/presentaion/cubit/present_product_cubit.dart';
-import '../../../home/presentaion/view/home_screen.dart';
+import '../../../product/presentaion/cubit/present_product_cubit.dart';
+import '../../../product/presentaion/home/view/home_screen.dart';
 import '../../cubit/UploadCubit_class.dart';
 import '../../../Upload/widget/AppBar_Upload.dart';
 import '../widget/DataTextField.dart';
@@ -93,12 +93,9 @@ class _SellscreenState extends State<SellScreen> {
                   DoneButton(
                     Continue: () async {
                       if (_formKey.currentState!.validate()) {
-                        // أضف هذا الجزء لتحديث البيانات
                         if (mounted) {
                           addCubit.addProductData(_formKey, context);
-                          context
-                              .read<ProductCubit>()
-                              .fetchAllProducts(); // تحديث القائمة
+                          context.read<ProductCubit>().fetchAllProducts();
 
                           Navigator.pushReplacement(
                             context,

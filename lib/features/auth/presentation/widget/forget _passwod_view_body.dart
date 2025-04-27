@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/resources/color_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';
 import '../cubit/forget_password_cubit/forget_password_cubit.dart';
-import 'custom_button.dart';
+import '../../../../core/shared_widgets/custom_button.dart';
 
 class ForgetPasswordViewBody extends StatelessWidget {
   TextEditingController emailController = TextEditingController();

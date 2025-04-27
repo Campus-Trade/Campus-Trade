@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:campus_trade/features/home/data/model/product_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/errors/failure.dart';
+import '../../data/model/product_model.dart';
 import '../../data/repo/present_product_repo.dart';
 
 part 'present_product_state.dart';

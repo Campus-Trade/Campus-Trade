@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/resources/color_manager.dart';
-import '../../../Upload/view/UploadProductScreen.dart';
-import '../../../chat/presentation/view/chat_screen.dart';
-import '../../../chat/presentation/widgets/chat_app_bar.dart';
-import '../../../profile/presentation/views/profile_screen.dart';
-import '../../../profile/presentation/widgets/appBar_profile.dart';
-import '../../../search/presentation/view/search_screen.dart';
-import '../../../search/presentation/widgets/appBar_search.dart';
-import '../cubit/present_product_cubit.dart';
+import '../../../../../core/shared_widgets/common_app_bar.dart';
+import '../../../../../core/utils/resources/color_manager.dart';
+import '../../../../Upload/view/UploadProductScreen.dart';
+import '../../../../chat/presentation/view/chat_screen.dart';
+import '../../../../profile/presentation/views/profile_screen.dart';
+import '../../../../profile/presentation/widgets/appBar_profile.dart';
+import '../../../../search/presentation/view/search_screen.dart';
+import '../../../../search/presentation/widgets/appBar_search.dart';
+import '../../cubit/present_product_cubit.dart';
 import '../widgets/appBar_home.dart';
 import '../widgets/card_home.dart';
 import '../widgets/item_card_list.dart';
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // لما الشاشة تفتح تحدث المنتجات
+
     context.read<ProductCubit>().fetchAllProducts();
   }
 
@@ -38,9 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
     ProfileScreen()
   ];
   final List<PreferredSizeWidget> appBar = [
-    const AppbarHome(),
+    AppbarHome(),
     const AppbarSearch(),
-    const ChatAppBar(),
+    CommonAppBar(
+      title: "",
+    ),
     const AppbarProfile()
   ];
 

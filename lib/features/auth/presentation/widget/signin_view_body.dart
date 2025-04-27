@@ -11,7 +11,7 @@ import '../cubit/signin_cubit/signin_cubit.dart';
 import '../view/forget_passowd_view.dart';
 import '../view/signup_view.dart';
 import 'textField.dart';
-import 'custom_button.dart';
+import '../../../../core/shared_widgets/custom_button.dart';
 import 'upload_photo.dart';
 
 class SignInViewBody extends StatefulWidget {

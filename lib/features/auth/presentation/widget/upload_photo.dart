@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/resources/color_manager.dart';
 import '../../../../core/utils/resources/image_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';
-import 'custom_button.dart';
+import '../../../../core/shared_widgets/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadPhoto extends StatefulWidget {

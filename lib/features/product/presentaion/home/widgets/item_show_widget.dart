@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/resources/color_manager.dart';
-import '../../../../core/utils/resources/text_styles.dart';
+import '../../../../../core/utils/resources/color_manager.dart';
+import '../../../../../core/utils/resources/text_styles.dart';
 
 class ItemShowWidget extends StatelessWidget {
   const ItemShowWidget({super.key, required this.title, required this.text});

@@ -4,8 +4,7 @@ import 'package:campus_trade/features/auth/presentation/widget/signin_view_body.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
-import '../../../home/presentaion/view/home_screen.dart';
+import '../../../product/presentaion/home/view/home_screen.dart';
 import '../cubit/signin_cubit/signin_cubit.dart';
 
 class SigninViewBodyBlocConsumer extends StatelessWidget {

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/resources/color_manager.dart';
-import '../../../../core/utils/resources/image_manager.dart';
-import '../../../../core/utils/resources/text_styles.dart';
-import '../../../notification/presentaion/views/notification_screen.dart';
+import '../utils/resources/color_manager.dart';
+import '../utils/resources/image_manager.dart';
+import '../utils/resources/text_styles.dart';
+import '../../features/notification/presentaion/views/notification_screen.dart';
 
-class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ChatAppBar({super.key});
+class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
+  String title;
+  CommonAppBar({super.key, required this.title});
   @override
   Size get preferredSize => Size.fromHeight(140.h);
   @override
@@ -27,7 +28,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           const Spacer(),
           Text(
-            'Chat',
+            title,
             style: TextStyles.white24Bold,
           ),
           const Spacer(),

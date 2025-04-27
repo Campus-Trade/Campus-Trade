@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data/models/user_model.dart';
@@ -9,19 +8,20 @@ part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   final UserRepository userRepository;
+  final String uid;
 
-  UserCubit(this.userRepository) : super(UserInitial());
+  UserCubit(this.userRepository, this.uid) : super(UserInitial());
 
   Future<void> fetchUserData() async {
+    // Removed the unnecessary parameter
     emit(UserLoading());
     try {
-      final uid = FirebaseAuth.instance.currentUser?.uid;
-      if (uid == null) {
-        emit(UserError("Not logged in"));
+      if (uid.isEmpty) {
+        emit(UserError("User ID is required"));
         return;
       }
 
-      print("Firebase UID: $uid");
+      print("User ID: $uid");
 
       final result = await userRepository.getUserById(uid);
       result.fold(

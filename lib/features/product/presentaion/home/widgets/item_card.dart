@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/resources/color_manager.dart';
-import '../../../../core/utils/resources/image_manager.dart';
-import '../../../../core/utils/resources/text_styles.dart';
+import '../../../../../core/utils/resources/color_manager.dart';
+import '../../../../../core/utils/resources/text_styles.dart';
 
 class ItemCard extends StatelessWidget {
-  String userName;
+  final Widget sellerNameWidget;
   String productName;
   String productPrice;
   String productAddress;
   String productImage;
   ItemCard(
       {super.key,
-      required this.userName,
+      required this.sellerNameWidget,
       required this.productName,
       required this.productPrice,
       required this.productAddress,
@@ -38,7 +37,7 @@ class ItemCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Text(userName, style: TextStyles.black14Regular400),
+            child: sellerNameWidget,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8),

@@ -1,10 +1,10 @@
-import 'package:campus_trade/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/services/get_it_sevice.dart';
-import '../cubit/present_product_cubit.dart';
+import '../../../../../core/services/get_it_sevice.dart';
+import '../../cubit/present_product_cubit.dart';
+import 'Seller_name_bloc_provider.dart';
 import 'item_card.dart';
 
 class ItemCardList extends StatelessWidget {
@@ -31,30 +31,18 @@ class ItemCardList extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   final product = state.productModel[index];
-                  return FutureBuilder<String>(
-                    future: context
-                        .read<ProductCubit>()
-                        .getSellerNameForProduct(product.userId),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      final sellerName = snapshot.data ?? 'Unknown Seller';
-                      return ItemCard(
-                        userName: sellerName,
-                        productName: product.name,
-                        productPrice: '\$${product.price}',
-                        productAddress: product.address,
-                        productImage: product.imageUrl,
-                      );
-                    },
+                  return ItemCard(
+                    sellerNameWidget: SellerName(sellerId: product.userId),
+                    productName: product.name,
+                    productPrice: '\$${product.price}',
+                    productAddress: product.address,
+                    productImage: product.imageUrl,
                   );
                 },
                 separatorBuilder: (context, index) => SizedBox(width: 16.w),
                 itemCount: state.productModel.length,
               );
             }
-
             return const Center(child: Text('No products available'));
           },
         ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/resources/color_manager.dart';
-import '../../../../core/utils/resources/image_manager.dart';
-import '../../../../core/utils/resources/text_styles.dart';
-import '../../../search/presentation/view/search_screen.dart';
+import '../../../../../core/utils/resources/color_manager.dart';
+import '../../../../../core/utils/resources/image_manager.dart';
+import '../../../../../core/utils/resources/text_styles.dart';
+import '../../../../search/presentation/view/search_screen.dart';
 
 class CardHome extends StatelessWidget {
   const CardHome({super.key});
