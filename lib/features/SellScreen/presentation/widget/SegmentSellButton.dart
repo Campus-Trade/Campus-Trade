@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/resources/color_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';
-import '../../../Upload/Cubit/addproduct_cubit/TestProduct.dart';
+import '../cubit/TestProduct.dart';
 
 class Segmentsellbutton extends StatefulWidget {
   Segmentsellbutton({super.key});

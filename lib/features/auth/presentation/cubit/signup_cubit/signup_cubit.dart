@@ -1,14 +1,12 @@
+import 'dart:developer';
 import 'dart:io';
-import 'dart:math';
-
+import 'package:bloc/bloc.dart';
+import 'package:campus_trade/features/auth/data/models/regiter_request_model.dart';
+import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../core/errors/exception.dart';
-import '../../../data/models/regiter_request_model.dart';
-import '../../../domain/repos/auth_repo.dart';
-import 'signup_state.dart';
+part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
   final AuthRepo authRepo;
@@ -30,7 +28,7 @@ class SignupCubit extends Cubit<SignupState> {
     String? imageUrl;
 
     imageUrl = imageFile != null ? await uploadProfileImage(imageFile) : '';
-    log('Image URL: $imageUrl' as num);
+    log('Image URL: $imageUrl');
 
     RegisterRequestModel registerRequestModel = RegisterRequestModel(
       firstName: firstName,
@@ -60,27 +58,28 @@ class SignupCubit extends Cubit<SignupState> {
   Future<String> uploadProfileImage(File imageFile) async {
     try {
       String fileName = 'profile_${DateTime.now().millisecondsSinceEpoch}.jpg';
-      log('Generated file name: $fileName' as num);
+      log('Generated file name: $fileName');
 
       Reference ref =
           FirebaseStorage.instance.ref().child('profile_images/$fileName');
-      log('Reference to storage path created' as num);
+      log('Reference to storage path created');
 
       UploadTask uploadTask = ref.putFile(imageFile);
       TaskSnapshot snapshot = await uploadTask;
-      log('Image uploaded successfully' as num);
+      log('Image uploaded successfully');
 
       String downloadUrl = await snapshot.ref.getDownloadURL();
-      log('Download URL retrieved: $downloadUrl' as num);
+      log('Download URL retrieved: $downloadUrl');
 
       return downloadUrl;
     } catch (e) {
-      log('Error uploading image: $e' as num);
+      log('Error uploading image: $e');
       throw CustomException(message: 'Failed to upload image');
     }
   }
 
   Future<void> _createUserInFirestore(userModel) async {
+    // It's a good practice to separate Firestore logic into a repository.
     await _firestore
         .collection('users')
         .doc(userModel.uId)
@@ -88,7 +87,7 @@ class SignupCubit extends Cubit<SignupState> {
           userModel.toJson(),
         )
         .then((value) {
-      log('User created successfully in Firestore' as num);
+      log('User created successfully in Firestore');
     });
   }
 }

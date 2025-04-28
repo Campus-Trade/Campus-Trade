@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/resources/color_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';
-import '../../../Upload/Cubit/addproduct_cubit/TestProduct.dart';
+import '../cubit/TestProduct.dart';
 
 class Datatextfield extends StatelessWidget {
   final String hinttext;

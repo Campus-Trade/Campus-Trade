@@ -9,7 +9,7 @@ import 'UploadCubit_State.dart';
 class UploadCubit extends Cubit<UploadState> {
   UploadCubit() : super(UploadIntial());
 
-  void uploadImage(context, File? _image) async {
+  void uploadImage(File? _image) async {
     if (_image == null) {
       emit(UploadFailure(errormessage: "No image Selected"));
     }
@@ -25,13 +25,6 @@ class UploadCubit extends Cubit<UploadState> {
       emit(UploadSuccess(imageUrl: downloadUrl));
     } catch (ex) {
       emit(UploadFailure(errormessage: ex.toString()));
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(ex.toString()),
-      ));
     }
   }
-
-  // String getImageUrl() {
-  //   return _imageUrl;
-  // }
 }

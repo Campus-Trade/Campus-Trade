@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../cubit/signup_cubit/signup_cubit.dart';
-import '../cubit/signup_cubit/signup_state.dart';
 import '../view/signin_view.dart';
 
 class SignupViewBodyBlocConsumer extends StatefulWidget {

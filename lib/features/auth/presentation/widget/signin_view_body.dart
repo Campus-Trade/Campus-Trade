@@ -1,9 +1,7 @@
 import 'package:campus_trade/features/auth/data/models/login_request_model.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/utils/resources/color_manager.dart';
 import '../../../../core/utils/resources/image_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';

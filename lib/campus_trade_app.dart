@@ -1,11 +1,12 @@
 import 'package:campus_trade/core/services/get_it_sevice.dart';
+import 'package:campus_trade/features/SellScreen/Data/repo/sell_product_repo.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'features/SellScreen/cubit/UploadCubit_class.dart';
-import 'features/Upload/Cubit/addproduct_cubit/AddData_Class.dart';
-import 'features/Upload/Cubit/addproduct_cubit/TestProduct.dart';
+import 'features/Upload/Cubit/UploadCubit_class.dart';
+import 'features/SellScreen/presentation/cubit/AddData_Class.dart';
+import 'features/SellScreen/presentation/cubit/TestProduct.dart';
 import 'features/auth/presentation/cubit/signin_cubit/signin_cubit.dart';
 import 'features/auth/presentation/cubit/signup_cubit/signup_cubit.dart';
 import 'features/product/data/repo/present_product_repo.dart';
@@ -19,7 +20,10 @@ class CampusTradeApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => UploadCubit()),
-          BlocProvider(create: (context) => AddData()),
+          BlocProvider(
+              create: (context) => AddDataCubit(
+                    getIt<SellProductRepo>(),
+                  )),
           BlocProvider(create: (context) => Testproduct()),
           BlocProvider(
               create: (context) => SigninCubit(

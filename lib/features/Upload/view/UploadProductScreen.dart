@@ -8,9 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import '../../../core/utils/resources/color_manager.dart';
 import '../../../core/utils/resources/text_styles.dart';
 
-import '../../SellScreen/cubit/UploadCubit_class.dart';
+import '../Cubit/UploadCubit_class.dart';
 import '../../SellScreen/presentation/view/Sellscreen.dart';
-import '../../SellScreen/cubit/UploadCubit_State.dart';
+import '../Cubit/UploadCubit_State.dart';
 
 import '../widget/AppBar_Upload.dart';
 import '../widget/CustomSelectButton.dart';
@@ -52,6 +52,16 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
           if (state is UploadFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Error: ${state.errormessage}')),
+            );
+          }
+          if (state is UploadSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Image uploaded successfully')),
+            );
+          }
+          if (state is UploadLoading) {
+            Center(
+              child: CircularProgressIndicator(),
             );
           }
         },
@@ -108,14 +118,13 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
               if (state is UploadLoading)
                 const Padding(
                   padding: EdgeInsets.all(20),
-                  // child: CircularProgressIndicator(),
                 ),
               Customselectbutton(
                 text: "Continue",
                 top: 130,
                 UploadImage: () {
                   if (_image != null) {
-                    context.read<UploadCubit>().uploadImage(context, _image);
+                    context.read<UploadCubit>().uploadImage(_image);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return SellScreen();

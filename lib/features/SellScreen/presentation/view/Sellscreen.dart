@@ -1,17 +1,16 @@
+import 'package:campus_trade/features/SellScreen/presentation/cubit/AddData_State.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../Upload/Cubit/addproduct_cubit/AddData_Class.dart';
-import '../../../Upload/Cubit/addproduct_cubit/TestProduct.dart';
-import '../../../product/presentaion/cubit/present_product_cubit.dart';
+import '../../../Upload/Cubit/UploadCubit_State.dart';
+import '../../../Upload/Cubit/UploadCubit_class.dart';
+import '../cubit/AddData_Class.dart';
+import '../cubit/TestProduct.dart';
 import '../../../product/presentaion/home/view/home_screen.dart';
-import '../../cubit/UploadCubit_class.dart';
 import '../../../Upload/widget/AppBar_Upload.dart';
 import '../widget/DataTextField.dart';
 import '../widget/DoneButton.dart';
 import '../widget/SegmentSellButton.dart';
-import '../../cubit/UploadCubit_State.dart';
 
 class SellScreen extends StatefulWidget {
   @override
@@ -20,42 +19,66 @@ class SellScreen extends StatefulWidget {
 
 class _SellscreenState extends State<SellScreen> {
   final _formKey = GlobalKey<FormState>();
-  @override
-  Widget build(BuildContext context) {
-    final addCubit = context.read<AddData>();
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  String? imageUrl;
 
+  @override
+  void dispose() {
+    productNameController.dispose();
+    descriptionController.dispose();
+    priceController.dispose();
+    addressController.dispose();
+    super.dispose();
+  }
+
+  Widget build(BuildContext context) {
     return Scaffold(
-        body:
-            BlocConsumer<UploadCubit, UploadState>(listener: (context, state) {
-      if (state is UploadSuccess) {
-        addCubit.imageUrl = state.imageUrl;
+        body: BlocConsumer<AddDataCubit, AddDataState>(
+            listener: (context, state) {
+      if (state is AddFailure) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(state.errorMessage),
+        ));
+      } else if (state is AddSuccess) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Product added successfully"),
+        ));
+      } else if (state is AddLoading) {
+        const Center(
+          child: CircularProgressIndicator(),
+        );
       }
     }, builder: (context, state) {
-      String? imageUrl;
-      if (state is UploadLoading) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (state is UploadSuccess) {
-        imageUrl = state.imageUrl;
-      }
-
       return Form(
           key: _formKey,
           child: SingleChildScrollView(
               child: Column(children: [
             Stack(children: [
-              Container(
-                width: double.infinity,
-                height: 377.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: imageUrl != null
-                      ? DecorationImage(
-                          image: NetworkImage(imageUrl),
-                          fit: BoxFit.cover,
-                        )
-                      : null,
-                  color: Colors.grey[300],
-                ),
+              BlocConsumer<UploadCubit, UploadState>(
+                listener: (context, state) {
+                  if (state is UploadSuccess) {
+                    imageUrl = state.imageUrl;
+                  }
+                },
+                builder: (context, state) {
+                  return Container(
+                    width: double.infinity,
+                    height: 377.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: imageUrl != null
+                          ? DecorationImage(
+                              image: NetworkImage(imageUrl!),
+                              fit: BoxFit.cover,
+                            )
+                          : null,
+                      color: Colors.grey[300],
+                    ),
+                  );
+                },
               ),
               AppBarUpload(isvisible: true),
             ]),
@@ -69,24 +92,24 @@ class _SellscreenState extends State<SellScreen> {
                 children: [
                   Datatextfield(
                     hinttext: "Product Name",
-                    controller: addCubit.productNameController,
+                    controller: productNameController,
                     currentState: state,
                   ),
                   Datatextfield(
                     hinttext: "Description",
-                    controller: addCubit.descriptionController,
+                    controller: descriptionController,
                     currentState: state,
                   ),
                   Datatextfield(
                     hinttext: "Price",
-                    controller: addCubit.priceController,
+                    controller: priceController,
                     isPriceField: true,
                     currentState: state,
                     isVisible: state == productState.Sell,
                   ),
                   Datatextfield(
                     hinttext: "Your Address",
-                    controller: addCubit.addressController,
+                    controller: addressController,
                     currentState: state,
                   ),
                   SizedBox(height: 60.h),
@@ -94,9 +117,12 @@ class _SellscreenState extends State<SellScreen> {
                     Continue: () async {
                       if (_formKey.currentState!.validate()) {
                         if (mounted) {
-                          addCubit.addProductData(_formKey, context);
-                          context.read<ProductCubit>().fetchAllProducts();
-
+                          context.read<AddDataCubit>().addProduct(
+                              productName: productNameController.text,
+                              description: descriptionController.text,
+                              price: priceController.text,
+                              address: addressController.text,
+                              imageUrl: imageUrl!);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
