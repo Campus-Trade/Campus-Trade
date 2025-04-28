@@ -23,6 +23,24 @@ class UserModel {
     required this.createdAt,
   });
 
+  // Add this static method to fetch user from Firestore
+  static Future<UserModel?> getUserModelFromFirestore(String userId) async {
+    try {
+      final docSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+
+      if (docSnapshot.exists) {
+        return UserModel.fromJson(docSnapshot.data()!);
+      }
+      return null;
+    } catch (e) {
+      print('Error fetching user: $e');
+      return null;
+    }
+  }
+
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       firstName: json['firstName'] ?? '',
@@ -48,7 +66,7 @@ class UserModel {
       'image': image,
       'university': university,
       'faculty': faculty,
-      'uId': uId, // تأكد من أن الحقل هو uId هنا
+      'uId': uId,
       'createdAt': createdAt,
     };
   }

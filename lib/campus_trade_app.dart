@@ -1,16 +1,16 @@
-import 'package:campus_trade/presentation/Cubit/addproduct_cubit/TestProduct.dart';
 import 'package:campus_trade/core/services/get_it_sevice.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
-import 'package:campus_trade/presentation/Cubit/addproduct_cubit/UploadCubit_class.dart';
-import 'package:campus_trade/presentation/Cubit/signin_cubit/signin_cubit.dart';
-import 'package:campus_trade/presentation/Cubit/signup_cubit/signup_cubit.dart';
-import 'package:campus_trade/presentation/Cubit/user_personal_data_cubit/user_cubit.dart';
-import 'package:campus_trade/presentation/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'features/auth/data/repos/user_repo_impl.dart';
-import 'presentation/Cubit/addproduct_cubit/AddData_Class.dart';
+import 'features/SellScreen/cubit/UploadCubit_class.dart';
+import 'features/Upload/Cubit/addproduct_cubit/AddData_Class.dart';
+import 'features/Upload/Cubit/addproduct_cubit/TestProduct.dart';
+import 'features/auth/presentation/cubit/signin_cubit/signin_cubit.dart';
+import 'features/auth/presentation/cubit/signup_cubit/signup_cubit.dart';
+import 'features/product/data/repo/present_product_repo.dart';
+import 'features/product/presentaion/cubit/present_product_cubit.dart';
+import 'features/splash/splash.dart';
 
 class CampusTradeApp extends StatelessWidget {
   const CampusTradeApp({super.key});
@@ -22,16 +22,16 @@ class CampusTradeApp extends StatelessWidget {
           BlocProvider(create: (context) => AddData()),
           BlocProvider(create: (context) => Testproduct()),
           BlocProvider(
-              create: (context) => SignupCubit(
-                    getIt<AuthRepo>(),
-                  )),
-          BlocProvider(
               create: (context) => SigninCubit(
                     getIt<AuthRepo>(),
                   )),
-          BlocProvider<UserCubit>(
+          BlocProvider(
+              create: (context) => SignupCubit(
+                    getIt<AuthRepo>(),
+                  )),
+          BlocProvider<ProductCubit>(
             create: (context) =>
-                UserCubit(getIt<UserRepository>())..fetchUserData(),
+                ProductCubit(getIt<PresentDataRepo>())..fetchAllProducts(),
           ),
         ],
         child: ScreenUtilInit(

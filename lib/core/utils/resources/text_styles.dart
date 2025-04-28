@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../core/utils/resources/color_manager.dart';
+import 'color_manager.dart';
 
 class TextStyles {
   TextStyles._();
@@ -22,6 +23,12 @@ class TextStyles {
 
   static TextStyle blue14Bold = TextStyle(
     fontSize: 14.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.SecondaryColor,
+    fontWeight: FontWeight.w700,
+  );
+  static TextStyle blue12Bold = TextStyle(
+    fontSize: 12.sp,
     fontFamily: 'Roboto_Condensed',
     color: ColorManager.SecondaryColor,
     fontWeight: FontWeight.w700,
@@ -77,7 +84,7 @@ class TextStyles {
     color: ColorManager.blackColor,
     fontWeight: FontWeight.w700,
   );
-  static TextStyle black14Regular = TextStyle(
+  static TextStyle black14Regular400 = TextStyle(
     fontSize: 14.sp,
     fontFamily: 'Roboto_Condensed',
     color: ColorManager.blackColor,
