@@ -1,15 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:campus_trade/features/auth/data/models/regiter_request_model.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:meta/meta.dart';
-
 import '../../../core/errors/exception.dart';
-
 part 'signup_state.dart';
 
 class SignupCubit extends Cubit<SignupState> {
@@ -83,7 +80,6 @@ class SignupCubit extends Cubit<SignupState> {
   }
 
   Future<void> _createUserInFirestore(userModel) async {
-    // It's a good practice to separate Firestore logic into a repository.
     await _firestore
         .collection('users')
         .doc(userModel.uId)

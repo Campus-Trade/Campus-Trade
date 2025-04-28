@@ -14,7 +14,6 @@ import 'presentation/Cubit/addproduct_cubit/AddData_Class.dart';
 
 class CampusTradeApp extends StatelessWidget {
   const CampusTradeApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

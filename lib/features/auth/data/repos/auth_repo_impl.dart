@@ -1,17 +1,14 @@
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
-
 import 'package:campus_trade/core/errors/exception.dart';
 import 'package:campus_trade/core/errors/failure.dart';
 import 'package:campus_trade/core/services/firebase_auth_services.dart';
 import 'package:campus_trade/features/auth/data/models/user_model.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import '../models/login_request_model.dart';
 import '../models/regiter_request_model.dart';
 
