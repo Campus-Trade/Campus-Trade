@@ -1,13 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/utils/resources/color_manager.dart';
 import '../../../../core/utils/resources/image_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';
 import '../../../../core/shared_widgets/custom_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class UploadPhoto extends StatefulWidget {
   const UploadPhoto({super.key});
@@ -20,8 +20,14 @@ class _UploadPhotoState extends State<UploadPhoto> {
   File? selectedImage;
   bool isUploading = false;
 
-  final String defaultImageUrl =
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPD-5TiLjrkRIwC5KaPYx2WYclvpS65PWudhgr9hGd6dKLnulBmuUFEwk&s';
+  // Method to get default image as File (only call this if you NEED a File)
+  Future<File> getDefaultImageFile() async {
+    final byteData = await rootBundle.load('assets/images/defaultAvatar.png');
+    final tempDir = await getTemporaryDirectory();
+    final file = File('${tempDir.path}/defaultAvatar.png');
+    await file.writeAsBytes(byteData.buffer.asUint8List());
+    return file;
+  }
 
   Future<void> pickImage() async {
     final pickedFile =
@@ -47,7 +53,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
               backgroundColor: Colors.grey[300],
               backgroundImage: selectedImage != null
                   ? FileImage(selectedImage!)
-                  : AssetImage(ImageManager.uploadPhoto) as ImageProvider,
+                  : AssetImage(ImageManager.uploadPhoto),
               child: isUploading ? CircularProgressIndicator() : null,
             ),
             SizedBox(height: 20.h),
@@ -75,7 +81,14 @@ class _UploadPhotoState extends State<UploadPhoto> {
                     backgroundColor: ColorManager.PrimaryColor,
                     width: 135.w,
                     height: 50.h,
-                    onPressed: () => Navigator.pop(context, selectedImage),
+                    onPressed: () async {
+                      // Get the default image as File when skipped
+                      final defaultFile = await getDefaultImageFile();
+                      setState(() {
+                        selectedImage = defaultFile;
+                      });
+                      Navigator.pop(context, selectedImage);
+                    },
                   ),
                   SizedBox(width: 10.w),
                   CustomButton(

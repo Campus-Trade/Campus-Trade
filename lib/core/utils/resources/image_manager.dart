@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+
 class ImageManager {
   ImageManager._();
   static const String path = 'assets/images/';
@@ -21,4 +25,5 @@ class ImageManager {
   static const String rectangleT = '${path}rectangleT.png';
   static const String fineArts = '${path}fineArts.png';
   static const String DefaultPic = '${path}pic.png';
+  static const String DefaultUserAvatar = '${path}defaultAvatar.png';
 }
