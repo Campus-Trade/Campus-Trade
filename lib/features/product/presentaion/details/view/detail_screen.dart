@@ -45,92 +45,99 @@ class _DetailScreenState extends State<DetailScreen> {
                 (p) => p.productId == widget.productId,
                 orElse: () => throw Exception('Product not found'),
               );
-
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    CommonAppBar(title: "Description"),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(30.r),
-                          bottomRight: Radius.circular(30.r),
-                        ),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              product.imageUrl), // Use actual product image
-                          fit: BoxFit.cover,
-                        ),
+              return Stack(
+                children: [
+                  Container(
+                    height: 400.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(20.r),
+                          bottomLeft: Radius.circular(20.r)),
+                      image: DecorationImage(
+                        image: NetworkImage(product.imageUrl),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
                       ),
-                      width: 393.w,
-                      height: 377.h,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 20.h),
-                          UserDataRow(sellerId: product.userId),
-                          SizedBox(height: 10.h),
-                          Row(
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        // AppBar
+                        CommonAppBar(title: "Description"),
+
+                        SizedBox(height: 300.h),
+
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  product.name,
-                                  style: TextStyles.black16Bold,
-                                ),
+                              UserDataRow(sellerId: product.userId),
+                              SizedBox(height: 10.h),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      product.name,
+                                      style: TextStyles.black16Bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${product.price} EGP",
+                                    style: TextStyles.black16Bold,
+                                  ),
+                                ],
                               ),
+                              SizedBox(height: 20.h),
                               Text(
-                                "${product.price} EGP",
+                                "Description",
                                 style: TextStyles.black16Bold,
                               ),
+                              Text(
+                                product.description,
+                                style: TextStyles.black14Regular400,
+                              ),
+                              SizedBox(height: 20.h),
+                              Text(
+                                "Address",
+                                style: TextStyles.black16Bold,
+                              ),
+                              Text(
+                                product.address,
+                                style: TextStyles.black14Regular400,
+                              ),
+                              SizedBox(height: 30.h),
+                              CustomButton(
+                                backgroundColor: ColorManager.SecondaryColor,
+                                textStyle: TextStyles.white14Bold,
+                                labelText: "Add to Cart",
+                                onPressed: () {},
+                                width: 353.w,
+                                height: 42.h,
+                              ),
+                              SizedBox(height: 18.h),
+                              CustomButton(
+                                backgroundColor: ColorManager.PrimaryColor,
+                                textStyle: TextStyles.blue14Bold,
+                                labelText: "Chat with Seller",
+                                borderColor: ColorManager.SecondaryColor,
+                                onPressed: () {},
+                                width: 353.w,
+                                height: 42.h,
+                              ),
+                              SizedBox(height: 20.h),
                             ],
                           ),
-                          SizedBox(height: 20.h),
-                          Text(
-                            "Description",
-                            style: TextStyles.black16Bold,
-                          ),
-                          Text(
-                            product.description, // Actual description
-                            style: TextStyles.black14Regular400,
-                          ),
-                          SizedBox(height: 20.h),
-                          Text(
-                            "Address",
-                            style: TextStyles.black16Bold,
-                          ),
-                          Text(
-                            product.address, // Actual address
-                            style: TextStyles.black14Regular400,
-                          ),
-                          SizedBox(height: 30.h),
-                          CustomButton(
-                            backgroundColor: ColorManager.SecondaryColor,
-                            textStyle: TextStyles.white14Bold,
-                            labelText: "Add to Cart",
-                            onPressed: () {},
-                            width: 353.w,
-                            height: 42.h,
-                          ),
-                          SizedBox(height: 18.h),
-                          CustomButton(
-                            backgroundColor: ColorManager.PrimaryColor,
-                            textStyle: TextStyles.blue14Bold,
-                            labelText: "Chat with Seller",
-                            borderColor: ColorManager.SecondaryColor,
-                            onPressed: () {},
-                            width: 353.w,
-                            height: 42.h,
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             }
+
             return const Center(child: Text('No products available'));
           },
         ),
