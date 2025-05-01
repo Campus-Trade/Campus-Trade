@@ -23,8 +23,13 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.h, 30.h),
       child: Row(
         children: [
-          Image.asset(
-            ImageManager.backButton,
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Image.asset(
+              ImageManager.backButton,
+            ),
           ),
           const Spacer(),
           Text(

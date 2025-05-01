@@ -13,6 +13,12 @@ class TextStyles {
     color: ColorManager.blackColor,
     fontWeight: FontWeight.w700,
   );
+  static TextStyle black16Bold = TextStyle(
+    fontSize: 16.sp,
+    fontFamily: 'Roboto_Condensed',
+    color: ColorManager.blackColor,
+    fontWeight: FontWeight.w700,
+  );
 
   static TextStyle black16Regular = TextStyle(
     fontSize: 16.sp,

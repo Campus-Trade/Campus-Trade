@@ -20,7 +20,6 @@ class _UploadPhotoState extends State<UploadPhoto> {
   File? selectedImage;
   bool isUploading = false;
 
-  // Method to get default image as File (only call this if you NEED a File)
   Future<File> getDefaultImageFile() async {
     final byteData = await rootBundle.load('assets/images/defaultAvatar.png');
     final tempDir = await getTemporaryDirectory();

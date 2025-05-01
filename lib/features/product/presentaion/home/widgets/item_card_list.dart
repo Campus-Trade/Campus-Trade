@@ -27,20 +27,30 @@ class ItemCardList extends StatelessWidget {
             }
 
             if (state is PresentProductLoaded) {
+              final approvedProducts = state.productModel
+                  .where((product) => product.productState == "approved")
+                  .toList();
+
+              if (approvedProducts.isEmpty) {
+                return const Center(
+                    child: Text('No approved products available!'));
+              }
+
               return ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  final product = state.productModel[index];
+                  final product = approvedProducts[index];
                   return ItemCard(
                     sellerNameWidget: SellerName(sellerId: product.userId),
                     productName: product.name,
                     productPrice: '\$${product.price}',
                     productAddress: product.address,
                     productImage: product.imageUrl,
+                    productId: product.productId,
                   );
                 },
                 separatorBuilder: (context, index) => SizedBox(width: 16.w),
-                itemCount: state.productModel.length,
+                itemCount: approvedProducts.length,
               );
             }
             return const Center(child: Text('No products available!'));

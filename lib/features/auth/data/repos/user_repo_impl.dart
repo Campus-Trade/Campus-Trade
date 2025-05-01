@@ -10,7 +10,7 @@ class UserRepository {
 
   Future<Either<Failure, UserModel>> getUserById(String uid) async {
     try {
-      final uid = FirebaseAuth.instance.currentUser?.uid;
+      //  final uid = FirebaseAuth.instance.currentUser?.uid;
       print("Fetching user with UID: $uid");
 
       final docSnapshot = await firestore

@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'features/Upload/Cubit/UploadCubit_class.dart';
 import 'features/SellScreen/presentation/cubit/AddData_Class.dart';
 import 'features/SellScreen/presentation/cubit/TestProduct.dart';
+import 'features/auth/presentation/cubit/logout_cubit/logout_cubit.dart';
 import 'features/auth/presentation/cubit/signin_cubit/signin_cubit.dart';
 import 'features/auth/presentation/cubit/signup_cubit/signup_cubit.dart';
 import 'features/product/data/repo/present_product_repo.dart';
@@ -37,6 +38,7 @@ class CampusTradeApp extends StatelessWidget {
             create: (context) =>
                 ProductCubit(getIt<PresentDataRepo>())..fetchAllProducts(),
           ),
+          BlocProvider(create: (context) => getIt<LogoutCubit>()),
         ],
         child: ScreenUtilInit(
           designSize: const Size(393, 852),

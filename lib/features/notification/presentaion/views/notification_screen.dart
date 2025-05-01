@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/appBar_notofications.dart';
+import '../../../../core/shared_widgets/common_app_bar.dart';
 import '../widgets/notefication_card.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -8,8 +7,10 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: AppbarNotifications(),
+    return Scaffold(
+      appBar: CommonAppBar(
+        title: 'Notifications',
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [NoteficationCard()],

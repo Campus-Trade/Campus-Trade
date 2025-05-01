@@ -1,3 +1,4 @@
+import 'package:campus_trade/core/utils/resources/icon_manager.dart';
 import 'package:campus_trade/features/auth/presentation/cubit/user_personal_data_cubit/user_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _UserDataRowState extends State<UserDataRow> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          UserCubit(getIt<UserRepository>(), widget.sellerId!)..fetchUserData(),
+          UserCubit(getIt<UserRepository>(), widget.sellerId)..fetchUserData(),
       child: BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
           if (state is UserLoading) {
@@ -39,7 +40,7 @@ class _UserDataRowState extends State<UserDataRow> {
               children: [
                 CircleAvatar(
                   backgroundImage: NetworkImage(user.image),
-                  radius: 38.r,
+                  radius: 25.r,
                 ),
                 SizedBox(
                   width: 8.w,
@@ -48,14 +49,21 @@ class _UserDataRowState extends State<UserDataRow> {
                   user.firstName,
                   style: TextStyles.black14Bold,
                 ),
+                Spacer(),
                 SvgPicture.asset(
-                  'assets/icons/phone_icon',
+                  IconManager.phone,
                   width: 12.5.w,
                   height: 12.5.h,
+                ),
+                SizedBox(
+                  width: 10.w,
                 ),
                 Text(
                   user.mobileNumber,
                   style: TextStyles.blue12Bold,
+                ),
+                SizedBox(
+                  width: 10.w,
                 ),
                 Container(
                   width: 36.w,
@@ -64,9 +72,10 @@ class _UserDataRowState extends State<UserDataRow> {
                       color: ColorManager.veryLightBlue,
                       borderRadius: BorderRadius.circular(50.r)),
                   child: SvgPicture.asset(
-                    'assets/icons/chat_icon',
+                    IconManager.chat,
                     width: 24.w,
                     height: 24.h,
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
               ],

@@ -13,5 +13,6 @@ abstract class AuthRepo {
   );
   Future<Either<Failure, UserModel>> signInWithGoogle();
   Future<Either<Failure, String>> signInWithFacebook();
+  Future<Either<Failure, void>> logOut();
   Future<Either<Failure, String>> forgetPassword(String email);
 }

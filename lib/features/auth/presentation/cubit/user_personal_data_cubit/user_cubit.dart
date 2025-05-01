@@ -10,7 +10,6 @@ class UserCubit extends Cubit<UserState> {
   UserCubit(this.userRepository, this.uid) : super(UserInitial());
 
   Future<void> fetchUserData() async {
-    // Removed the unnecessary parameter
     emit(UserLoading());
     try {
       if (uid.isEmpty) {

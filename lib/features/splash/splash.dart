@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/utils/resources/color_manager.dart';
 import '../../core/utils/resources/image_manager.dart';
 import '../onboarding/presentation/onboarding.dart';
+import '../product/presentaion/home/view/home_screen.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -19,9 +21,14 @@ class _SplashState extends State<Splash> {
     Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
 
+      final user = FirebaseAuth.instance.currentUser;
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Onboarding()),
+        MaterialPageRoute(
+          builder: (context) =>
+              user != null ? HomeScreen() : const Onboarding(),
+        ),
       );
     });
   }

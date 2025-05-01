@@ -1,32 +1,35 @@
+import 'package:campus_trade/core/utils/resources/icon_manager.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/svg.dart';
 import '../../../../core/utils/resources/text_styles.dart';
-import '../views/profile_data_model.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class ProfileFeture extends StatelessWidget {
-  const ProfileFeture({super.key, required this.profileDataModel});
-  final ProfileDataModel profileDataModel;
+class ProfileFeature extends StatelessWidget {
+  final String iconPath;
+  final String title;
+
+  const ProfileFeature({
+    super.key,
+    required this.title,
+    required this.iconPath,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 23),
       child: Row(
         children: [
-          Icon(
-            profileDataModel.icon,
-            size: 35,
-          ),
+          SvgPicture.asset(iconPath),
           const Spacer(),
           Text(
-            profileDataModel.title,
+            title,
             style: TextStyles.black16Regular.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
           const Spacer(),
-          const Icon(
-            Icons.arrow_forward_ios,
-          )
+          SvgPicture.asset(IconManager.arrow),
         ],
       ),
     );

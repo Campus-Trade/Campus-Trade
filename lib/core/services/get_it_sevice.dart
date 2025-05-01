@@ -6,6 +6,7 @@ import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/auth/data/repos/user_repo_impl.dart';
+import '../../features/auth/presentation/cubit/logout_cubit/logout_cubit.dart';
 import '../../features/product/data/repo/present_product_repo.dart';
 import '../../features/product/presentaion/cubit/present_product_cubit.dart';
 
@@ -27,4 +28,5 @@ void setup() {
   getIt.registerFactory<AddDataCubit>(
     () => AddDataCubit(getIt<SellProductRepo>()),
   );
+  getIt.registerFactory(() => LogoutCubit(getIt<AuthRepo>()));
 }

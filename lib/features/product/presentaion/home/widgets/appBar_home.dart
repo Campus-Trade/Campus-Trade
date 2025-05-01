@@ -22,7 +22,6 @@ class AppbarHome extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ensure that uid is not null before proceeding
     if (uid == null) {
       return const Center(child: Text('User not logged in'));
     }

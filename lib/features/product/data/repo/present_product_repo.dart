@@ -11,9 +11,7 @@ class PresentDataRepo {
 
   Future<Either<Failure, List<ProductModel>>> getAllProducts() async {
     try {
-      final querySnapshot = await firestore
-          .collection('products') // Changed from 'users' to 'products'
-          .get();
+      final querySnapshot = await firestore.collection('products').get();
 
       if (querySnapshot.docs.isNotEmpty) {
         final products = querySnapshot.docs

@@ -8,7 +8,9 @@ import 'package:campus_trade/features/auth/data/models/user_model.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../models/login_request_model.dart';
 import '../models/regiter_request_model.dart';
 
@@ -162,6 +164,27 @@ class AuthRepoImpl extends AuthRepo {
       return Right("Reset email sent successfully");
     } catch (e) {
       return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> logOut() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      final isGoogleUser = user?.providerData.any(
+            (info) => info.providerId == 'google.com',
+          ) ??
+          false;
+      await FirebaseAuth.instance.signOut();
+      if (isGoogleUser) {
+        await GoogleSignIn().signOut();
+      }
+
+      return const Right(null);
+    } on FirebaseAuthException catch (e) {
+      return Left(ServerFailure(e.message ?? 'Logout failed'));
+    } catch (e) {
+      return Left(ServerFailure('Unexpected error during logout'));
     }
   }
 }
