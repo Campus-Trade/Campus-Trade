@@ -5,12 +5,43 @@ import '../../../../core/utils/resources/color_manager.dart';
 import '../../../../core/utils/resources/image_manager.dart';
 import '../../../notification/presentaion/views/notification_screen.dart';
 
-class AppbarSearch extends StatelessWidget implements PreferredSizeWidget {
-  const AppbarSearch({super.key});
+class AppbarSearch extends StatefulWidget implements PreferredSizeWidget {
+  final TextEditingController? controller;
+  final Function(String)? onSubmitted;
+
+  const AppbarSearch({
+    super.key,
+    this.controller,
+    this.onSubmitted,
+  });
 
   @override
   Size get preferredSize => Size.fromHeight(140.h);
 
+  @override
+  State<AppbarSearch> createState() => _AppbarSearchState();
+}
+
+class _AppbarSearchState extends State<AppbarSearch> {
+  late final TextEditingController _internalController;
+  late final bool _usingExternalController;
+
+  @override
+  void initState() {
+    super.initState();
+    _usingExternalController = widget.controller != null;
+    _internalController = widget.controller ?? TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    if (!_usingExternalController) {
+      _internalController.dispose();
+    }
+    super.dispose();
+  }
+
+  Size get preferredSize => Size.fromHeight(140.h);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,14 +57,16 @@ class AppbarSearch extends StatelessWidget implements PreferredSizeWidget {
       child: Row(
         children: [
           InkWell(
-            onTap: () {},
-            child: Image.asset(
-              ImageManager.backButton,
-            ),
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Image.asset(ImageManager.backButton),
           ),
           SizedBox(width: 10.w),
           Expanded(
             child: TextField(
+              controller: _internalController,
+              onSubmitted: widget.onSubmitted,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 hintText: "Search Here",

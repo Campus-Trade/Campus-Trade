@@ -8,7 +8,6 @@ import '../../../../chat/presentation/view/chat_screen.dart';
 import '../../../../profile/presentation/views/profile_screen.dart';
 import '../../../../profile/presentation/widgets/appBar_profile.dart';
 import '../../../../search/presentation/view/search_screen.dart';
-import '../../../../search/presentation/widgets/appBar_search.dart';
 import '../../cubit/present_product_cubit.dart';
 import '../widgets/appBar_home.dart';
 import '../widgets/card_home.dart';
@@ -24,10 +23,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+
   @override
   void initState() {
     super.initState();
-
     context.read<ProductCubit>().fetchAllProducts();
   }
 
@@ -37,12 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
     const ChatScreen(),
     ProfileScreen()
   ];
-  final List<PreferredSizeWidget> appBar = [
+
+  // Change this line only:
+  final List<PreferredSizeWidget?> appBar = [
     AppbarHome(),
-    const AppbarSearch(),
-    CommonAppBar(
-      title: "",
-    ),
+    null,
+    CommonAppBar(title: ""),
     const AppbarProfile()
   ];
 

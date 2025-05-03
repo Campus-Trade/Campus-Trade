@@ -9,6 +9,7 @@ part 'present_product_state.dart';
 class ProductCubit extends Cubit<PresentProductState> {
   final PresentDataRepo productRepository;
   final Map<String, String> _sellerNamesCache = {};
+  List<ProductModel> _allProducts = [];
 
   ProductCubit(this.productRepository) : super(PresentProductInitial());
 
@@ -16,10 +17,12 @@ class ProductCubit extends Cubit<PresentProductState> {
     emit(PresentProductLoading());
     try {
       final result = await productRepository.getAllProducts();
+
       result.fold(
         (failure) => emit(PresentProductError(failure.message)),
         (products) {
           emit(PresentProductLoaded(productModel: products));
+          _allProducts = products;
         },
       );
     } catch (e) {
@@ -40,5 +43,22 @@ class ProductCubit extends Cubit<PresentProductState> {
 
     _sellerNamesCache[sellerId] = sellerName;
     return sellerName;
+  }
+
+  void searchProducts(String query) {
+    if (state is! PresentProductLoaded) return;
+
+    if (query.isEmpty) {
+    } else {
+      final allApprovedProducts = _allProducts
+          .where((product) => product.productState == "approved")
+          .toList();
+      final filtered = allApprovedProducts.where((product) {
+        return product.name.toLowerCase().contains(query.toLowerCase()) ||
+            product.description.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+
+      emit(PresentProductLoaded(productModel: filtered));
+    }
   }
 }
