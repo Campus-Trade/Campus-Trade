@@ -15,7 +15,7 @@ class ItemCardList extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ProductCubit>()..fetchAllProducts(),
       child: SizedBox(
-        height: 250.h,
+        height: 265.h,
         child: BlocBuilder<ProductCubit, PresentProductState>(
           builder: (context, state) {
             if (state is PresentProductLoading) {
@@ -43,7 +43,7 @@ class ItemCardList extends StatelessWidget {
                   return ItemCard(
                     sellerNameWidget: SellerName(sellerId: product.userId),
                     productName: product.name,
-                    productPrice: '\$${product.price}',
+                    productPrice: '${product.price}EGP',
                     productAddress: product.address,
                     productImage: product.imageUrl,
                     productId: product.productId,
