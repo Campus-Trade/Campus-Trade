@@ -1,6 +1,4 @@
-import 'dart:ffi';
 import 'dart:io';
-import 'dart:math';
 import 'package:campus_trade/core/errors/exception.dart';
 import 'package:campus_trade/core/errors/failure.dart';
 import 'package:campus_trade/core/services/firebase_auth_services.dart';
@@ -161,7 +159,7 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Failure, String>> forgetPassword(String email) async {
     try {
       await firebaseAuthServices.sendPasswordResetEmail(email);
-      return Right("Reset email sent successfully");
+      return const Right("Reset email sent successfully");
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

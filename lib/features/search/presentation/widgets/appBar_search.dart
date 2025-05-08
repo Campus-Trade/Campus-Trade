@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/utils/resources/color_manager.dart';
+import '../../../../core/utils/resources/icon_manager.dart';
 import '../../../../core/utils/resources/image_manager.dart';
 import '../../../notification/presentaion/views/notification_screen.dart';
+import 'filter_data.dart';
 
 class AppbarSearch extends StatefulWidget implements PreferredSizeWidget {
   final TextEditingController? controller;
   final Function(String)? onSubmitted;
+  String categoryValue;
+  final Function(String?) onCategoryChanged;
 
-  const AppbarSearch({
+  AppbarSearch({
+    required this.categoryValue,
+    required this.onCategoryChanged,
     super.key,
     this.controller,
     this.onSubmitted,
@@ -25,6 +32,13 @@ class AppbarSearch extends StatefulWidget implements PreferredSizeWidget {
 class _AppbarSearchState extends State<AppbarSearch> {
   late final TextEditingController _internalController;
   late final bool _usingExternalController;
+  List<String> categories = [
+    "All",
+    "Engineering",
+    "Medicine",
+    "Veterinary",
+    "Agriculture",
+  ];
 
   @override
   void initState() {
@@ -70,7 +84,18 @@ class _AppbarSearchState extends State<AppbarSearch> {
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 hintText: "Search Here",
-                suffixIcon: const Icon(Icons.sync_alt),
+                suffixIcon: DropdownButton<String>(
+                  value: widget.categoryValue,
+                  onChanged: widget.onCategoryChanged,
+                  icon: SvgPicture.asset(IconManager.filter),
+                  dropdownColor: Colors.white,
+                  items: categories.map((category) {
+                    return DropdownMenuItem<String>(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }).toList(),
+                ),
                 fillColor: ColorManager.PrimaryColor,
                 filled: true,
                 border: OutlineInputBorder(

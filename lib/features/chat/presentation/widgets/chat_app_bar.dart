@@ -1,14 +1,17 @@
+import 'package:campus_trade/core/utils/resources/color_manager.dart';
+import 'package:campus_trade/core/utils/resources/image_manager.dart';
+import 'package:campus_trade/core/utils/resources/text_styles.dart';
+import 'package:campus_trade/features/notification/presentaion/views/notification_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../utils/resources/color_manager.dart';
-import '../utils/resources/image_manager.dart';
-import '../utils/resources/text_styles.dart';
-import '../../features/notification/presentaion/views/notification_screen.dart';
+import '../../../product/presentaion/cubit/present_product_cubit.dart';
+import '../../../product/presentaion/home/view/home_screen.dart';
 
-class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
+class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  const CommonAppBar({super.key, required this.title});
+  const ChatAppBar({super.key, required this.title});
   @override
   Size get preferredSize => Size.fromHeight(140.h);
   @override
@@ -25,7 +28,13 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           InkWell(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return BlocProvider.value(
+                  value: context
+                      .read<ProductCubit>(), // استخدمي نفس الـ Cubit الموجود
+                  child: const HomeScreen(),
+                );
+              }));
             },
             child: Image.asset(
               ImageManager.backButton,
@@ -51,9 +60,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: ColorManager.PrimaryColor,
               size: 30,
             ),
-          ),
-          InkWell(
-            child: Image.asset(ImageManager.cartButton),
           ),
         ],
       ),

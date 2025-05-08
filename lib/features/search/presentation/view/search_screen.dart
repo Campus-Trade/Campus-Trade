@@ -1,4 +1,3 @@
-import 'package:campus_trade/features/product/presentaion/details/view/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../product/presentaion/cubit/present_product_cubit.dart';
@@ -16,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = "";
+  String selectedCategory = "All";
 
   @override
   void initState() {
@@ -30,22 +30,39 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
+  // void _onSearchChanged() {
+  //   final query = _searchController.text;
+  //   context.read<ProductCubit>().searchProducts(query, selectedCategory);
+  //   setState(() {
+  //     searchQuery = query;
+  //   });
+  // }
   void _onSearchChanged() {
     final query = _searchController.text;
-    context.read<ProductCubit>().searchProducts(query);
     setState(() {
       searchQuery = query;
     });
+    context.read<ProductCubit>().searchProducts(query, selectedCategory);
+  }
+
+  void _onCategoryChanged(String? category) {
+    if (category == null) return;
+    setState(() {
+      selectedCategory = category;
+    });
+    context.read<ProductCubit>().searchProducts(searchQuery, category);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppbarSearch(
+        categoryValue: selectedCategory,
+        onCategoryChanged: _onCategoryChanged,
         controller: _searchController,
         onSubmitted: (_) => _onSearchChanged(), // Handle Enter key press
       ),
-      body: searchQuery.isEmpty
+      body: searchQuery.isEmpty && selectedCategory == "All"
           ? SearchCardList()
           : ProductSearchResults(query: searchQuery),
     );

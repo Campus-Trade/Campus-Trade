@@ -8,7 +8,7 @@ import '../cubit/forget_password_cubit/forget_password_cubit.dart';
 import '../../../../core/shared_widgets/custom_button.dart';
 
 class ForgetPasswordViewBody extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   ForgetPasswordViewBody({super.key});
 
   @override
@@ -27,7 +27,7 @@ class ForgetPasswordViewBody extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: ColorManager.SecondaryColor,
                       ),
@@ -44,7 +44,7 @@ class ForgetPasswordViewBody extends StatelessWidget {
                   ),
                 ],
               ),
-              Center(
+              const Center(
                 child: Text(
                   textAlign: TextAlign.center,
                   "Enter the email associated with your \n account.",
@@ -56,13 +56,13 @@ class ForgetPasswordViewBody extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               CustomTextFormField(
                 hintText: "Email",
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
               ),
-              Spacer(),
+              const Spacer(),
               CustomButton(
                 labelText: 'send',
                 backgroundColor: ColorManager.SecondaryColor,
@@ -74,7 +74,7 @@ class ForgetPasswordViewBody extends StatelessWidget {
                     context.read<ForgetPasswordCubit>().forgetPassword(email);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Please enter your email')),
+                      const SnackBar(content: Text('Please enter your email')),
                     );
                   }
                 },

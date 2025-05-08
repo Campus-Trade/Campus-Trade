@@ -15,7 +15,7 @@ import '../widgets/item_card_list.dart';
 import '../widgets/item_show_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<PreferredSizeWidget?> appBar = [
     AppbarHome(),
     null,
-    CommonAppBar(title: ""),
+    const CommonAppBar(title: ""),
     const AppbarProfile()
   ];
 
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: const CircleBorder(),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return UploadProductScreen();
+            return const UploadProductScreen();
           }));
         },
         child: const Icon(
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: screens[selectedIndex],
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         notchMargin: 6.0,
         color: ColorManager.SecondaryColor,
         child: Row(

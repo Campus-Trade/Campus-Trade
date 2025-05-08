@@ -21,5 +21,5 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setup();
-  runApp(CampusTradeApp());
+  runApp(const CampusTradeApp());
 }

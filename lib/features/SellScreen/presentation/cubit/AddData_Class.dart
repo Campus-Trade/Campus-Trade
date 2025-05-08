@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../Data/model/Sell_Product_Model.dart';
@@ -17,10 +15,12 @@ class AddDataCubit extends Cubit<AddDataState> {
     required String price,
     required String address,
     required String imageUrl,
+    required String category,
   }) async {
     emit(AddLoading());
 
     final product = SellProductModel(
+      category: category,
       productId: '',
       productName: productName,
       description: description,

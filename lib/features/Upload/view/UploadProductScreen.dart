@@ -46,7 +46,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarUpload(isvisible: true),
+      appBar: const AppBarUpload(isvisible: true),
       body: BlocConsumer<UploadCubit, UploadState>(
         listener: (context, state) {
           if (state is UploadFailure) {
@@ -60,7 +60,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
             );
           }
           if (state is UploadLoading) {
-            Center(
+            const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -69,8 +69,8 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
           return Column(
             children: [
               Padding(
-                padding:
-                    EdgeInsets.only(top: 20, right: 20, bottom: 8, left: 20),
+                padding: const EdgeInsets.only(
+                    top: 20, right: 20, bottom: 8, left: 20),
                 child: Center(
                   child: Text(
                     "Upload a photo of your product",
@@ -79,8 +79,8 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(top: 8, right: 20, left: 20, bottom: 43),
+                padding: const EdgeInsets.only(
+                    top: 8, right: 20, left: 20, bottom: 43),
                 child: Center(
                   child: Text(
                     textAlign: TextAlign.center,
@@ -94,7 +94,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                 UploadImage: () => pickImage(ImageSource.gallery),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 20, left: 20, top: 60),
+                padding: const EdgeInsets.only(right: 20, left: 20, top: 60),
                 child: Row(
                   children: [
                     Container(
@@ -127,7 +127,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                     context.read<UploadCubit>().uploadImage(_image);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return SellScreen();
+                      return const SellScreen();
                     }));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

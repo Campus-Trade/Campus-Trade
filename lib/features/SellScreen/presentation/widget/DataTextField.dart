@@ -78,7 +78,7 @@ class Datatextfield extends StatelessWidget {
               validator: _validateField,
               controller: controller,
               keyboardType: isPriceField
-                  ? TextInputType.numberWithOptions(decimal: true)
+                  ? const TextInputType.numberWithOptions(decimal: true)
                   : TextInputType.text,
               decoration: InputDecoration(
                 border: OutlineInputBorder(

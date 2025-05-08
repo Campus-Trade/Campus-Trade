@@ -16,8 +16,8 @@ class ForgetPasswordView extends StatelessWidget {
       create: (context) => ForgetPasswordCubit(
         getIt<AuthRepo>(),
       ),
-      child: Scaffold(
-        body: const ForgetPasswordViewBodyBlocConsumer(),
+      child: const Scaffold(
+        body: ForgetPasswordViewBodyBlocConsumer(),
       ),
     );
   }

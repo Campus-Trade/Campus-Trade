@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class SellProductModel {
   final String productName;
   final String description;
@@ -9,8 +7,10 @@ class SellProductModel {
   final String productId;
   final String productState;
   final String userId;
+  final String category;
 
   SellProductModel({
+    required this.category,
     required this.productName,
     required this.description,
     required this.productState,
@@ -23,6 +23,7 @@ class SellProductModel {
 
   factory SellProductModel.fromMap(Map<String, dynamic> map) {
     return SellProductModel(
+      category: map['category'] as String? ?? '',
       productState: map['productState'] as String? ?? '',
       userId: map['userId'] as String? ?? '',
       productName: map['productName'] as String? ?? '',
@@ -30,18 +31,19 @@ class SellProductModel {
       price: map['price'] as String? ?? '',
       imageUrl: map['imageUrl'] as String? ?? '',
       address: map['address'] as String? ?? '',
-      productId: map['productId'] as String? ?? '', // هنا صححناها
+      productId: map['productId'] as String? ?? '',
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
+      'category': category,
       'productName': productName,
       'description': description,
       'price': price,
       'imageUrl': imageUrl,
       'address': address,
-      'productId': productId, // هنا برضو صححناها
+      'productId': productId,
       'userId': userId,
       'productState': productState,
     };

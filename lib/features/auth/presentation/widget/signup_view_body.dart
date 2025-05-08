@@ -13,7 +13,6 @@ import '../../../../core/utils/resources/text_styles.dart';
 import '../cubit/signup_cubit/signup_cubit.dart';
 import '../view/signin_view.dart';
 import '../../../../core/shared_widgets/custom_button.dart';
-import 'package:provider/provider.dart';
 
 class SignUpViewBody extends StatelessWidget {
   SignUpViewBody({super.key});
@@ -62,6 +61,7 @@ class SignUpViewBody extends StatelessWidget {
                             if (value == null || value.isEmpty) {
                               return 'field can\'t be empty';
                             }
+                            return null;
                           }),
                     ),
                     SizedBox(width: 16.w),
@@ -74,6 +74,7 @@ class SignUpViewBody extends StatelessWidget {
                             if (value == null || value.isEmpty) {
                               return 'field can\'t be empty';
                             }
+                            return null;
                           }),
                     ),
                   ],
@@ -87,6 +88,7 @@ class SignUpViewBody extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'field can\'t be empty';
                       }
+                      return null;
                     }),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
@@ -97,6 +99,7 @@ class SignUpViewBody extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'field can\'t be empty';
                       }
+                      return null;
                     }),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
@@ -108,6 +111,7 @@ class SignUpViewBody extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'field can\'t be empty';
                       }
+                      return null;
                     }),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
@@ -133,6 +137,7 @@ class SignUpViewBody extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'field can\'t be empty';
                       }
+                      return null;
                     }),
                 SizedBox(height: 16.h),
                 CustomTextFormField(
@@ -143,6 +148,7 @@ class SignUpViewBody extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'field can\'t be empty';
                       }
+                      return null;
                     }),
                 SizedBox(height: 30.h),
                 CustomButton(
@@ -156,7 +162,7 @@ class SignUpViewBody extends StatelessWidget {
                       final imageFile = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UploadPhoto(),
+                          builder: (context) => const UploadPhoto(),
                         ),
                       );
 
@@ -188,7 +194,8 @@ class SignUpViewBody extends StatelessWidget {
                     GestureDetector(
                       onTap: () => Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SigninView()),
+                        MaterialPageRoute(
+                            builder: (context) => const SigninView()),
                       ),
                       child: Text(
                         'Sign In',

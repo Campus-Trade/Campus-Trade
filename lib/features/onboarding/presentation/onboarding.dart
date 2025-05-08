@@ -44,7 +44,7 @@ class _OnboardingState extends State<Onboarding> {
       if (pageIndex < _onboardingData.length - 1) {
         pageIndex++;
       } else {
-        context.navigateReplacementTo(SignupView());
+        context.navigateReplacementTo(const SignupView());
       }
     });
   }
@@ -52,12 +52,12 @@ class _OnboardingState extends State<Onboarding> {
   void _skipOnboarding() {
     setState(() {
       pageIndex = _onboardingData.length - 1;
-      context.navigateReplacementTo(SignupView());
+      context.navigateReplacementTo(const SignupView());
     });
   }
 
   void function() {
-    context.navigateReplacementTo(SigninView());
+    context.navigateReplacementTo(const SigninView());
   }
 
   @override
