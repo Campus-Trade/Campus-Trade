@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<PreferredSizeWidget?> appBar = [
     AppbarHome(),
     null,
-    CommonAppBar(title: ""),
+    const CommonAppBar(title: ""),
     const AppbarProfile()
   ];
 

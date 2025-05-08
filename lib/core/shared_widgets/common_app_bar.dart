@@ -7,8 +7,8 @@ import '../utils/resources/text_styles.dart';
 import '../../features/notification/presentaion/views/notification_screen.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
-  String title;
-  CommonAppBar({super.key, required this.title});
+  final String title;
+  const CommonAppBar({super.key, required this.title});
   @override
   Size get preferredSize => Size.fromHeight(140.h);
   @override

@@ -8,7 +8,7 @@ import '../cubit/forget_password_cubit/forget_password_cubit.dart';
 import '../../../../core/shared_widgets/custom_button.dart';
 
 class ForgetPasswordViewBody extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   ForgetPasswordViewBody({super.key});
 
   @override

@@ -1,10 +1,14 @@
 import 'package:campus_trade/core/utils/resources/color_manager.dart';
 import 'package:campus_trade/core/utils/resources/text_styles.dart';
+import 'package:campus_trade/features/chat/data/models/message_model.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubbleWithOther extends StatelessWidget {
-  const ChatBubbleWithOther({super.key});
-
+  const ChatBubbleWithOther({
+    super.key,
+    required this.messageModel,
+  });
+  final MessageModel messageModel;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -18,7 +22,7 @@ class ChatBubbleWithOther extends StatelessWidget {
                 topRight: Radius.circular(12),
                 bottomLeft: Radius.circular(12))),
         child: Text(
-          "what is your name ?",
+          messageModel.message,
           style: TextStyles.White16Meduim,
         ),
       ),

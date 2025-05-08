@@ -13,7 +13,6 @@ import '../../../../core/utils/resources/text_styles.dart';
 import '../cubit/signup_cubit/signup_cubit.dart';
 import '../view/signin_view.dart';
 import '../../../../core/shared_widgets/custom_button.dart';
-import 'package:provider/provider.dart';
 
 class SignUpViewBody extends StatelessWidget {
   SignUpViewBody({super.key});

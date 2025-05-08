@@ -64,7 +64,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Column(
                       children: [
                         // AppBar
-                        CommonAppBar(title: "Description"),
+                        const CommonAppBar(title: "Description"),
 
                         SizedBox(height: 300.h),
 

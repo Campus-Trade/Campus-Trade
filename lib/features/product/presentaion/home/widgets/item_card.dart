@@ -7,12 +7,12 @@ import '../../../../../core/utils/resources/text_styles.dart';
 
 class ItemCard extends StatelessWidget {
   final Widget sellerNameWidget;
-  String productName;
-  String productPrice;
-  String productAddress;
-  String productImage;
-  String productId;
-  ItemCard({
+  final String productName;
+  final String productPrice;
+  final String productAddress;
+  final String productImage;
+  final String productId;
+  const ItemCard({
     super.key,
     required this.sellerNameWidget,
     required this.productName,
