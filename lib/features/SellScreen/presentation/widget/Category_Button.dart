@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/resources/color_manager.dart';
@@ -16,10 +17,19 @@ List<String> categories = [
   "Medicine",
   "Veterinary",
   "Agriculture",
+  "Dentistry",
+  "Pharmacy",
 ];
+String? SelectedCategory;
 
 class _CategoryButtonState extends State<CategoryButton> {
   @override
+  @override
+  void initState() {
+    super.initState();
+    SelectedCategory = null;
+  }
+
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +61,7 @@ class _CategoryButtonState extends State<CategoryButton> {
                 borderRadius: BorderRadius.circular(8.r),
               ),
             ),
-            value: "Select Category",
+            value: SelectedCategory,
             items: categories.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(value: value, child: Text(value));
             }).toList(),

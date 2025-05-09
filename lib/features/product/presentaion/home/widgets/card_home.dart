@@ -56,7 +56,7 @@ class CardHome extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
                           return const SearchScreen();

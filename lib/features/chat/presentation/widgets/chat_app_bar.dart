@@ -1,13 +1,8 @@
 import 'package:campus_trade/core/utils/resources/color_manager.dart';
-import 'package:campus_trade/core/utils/resources/image_manager.dart';
 import 'package:campus_trade/core/utils/resources/text_styles.dart';
 import 'package:campus_trade/features/notification/presentaion/views/notification_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../product/presentaion/cubit/present_product_cubit.dart';
-import '../../../product/presentaion/home/view/home_screen.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -26,20 +21,6 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.h, 30.h),
       child: Row(
         children: [
-          InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return BlocProvider.value(
-                  value: context
-                      .read<ProductCubit>(), // استخدمي نفس الـ Cubit الموجود
-                  child: const HomeScreen(),
-                );
-              }));
-            },
-            child: Image.asset(
-              ImageManager.backButton,
-            ),
-          ),
           const Spacer(),
           Text(
             title,

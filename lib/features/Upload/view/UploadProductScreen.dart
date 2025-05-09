@@ -60,84 +60,86 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
             );
           }
           if (state is UploadLoading) {
-            const Center(
-              child: CircularProgressIndicator(),
-            );
+            // const Center(
+            //   child: CircularProgressIndicator(),
+            // );
           }
         },
         builder: (context, state) {
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, right: 20, bottom: 8, left: 20),
-                child: Center(
-                  child: Text(
-                    "Upload a photo of your product",
-                    style: TextStyles.black22Bold,
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, right: 20, bottom: 8, left: 20),
+                  child: Center(
+                    child: Text(
+                      "Upload a photo of your product",
+                      style: TextStyles.black22Bold,
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 8, right: 20, left: 20, bottom: 43),
-                child: Center(
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    "Please upload a clear, well-lit photo of your product. Use a clean background.",
-                    style: TextStyles.black14Regular400,
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 8, right: 20, left: 20, bottom: 43),
+                  child: Center(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      "Please upload a clear, well-lit photo of your product. Use a clean background.",
+                      style: TextStyles.black14Regular400,
+                    ),
                   ),
                 ),
-              ),
-              Selectfile(
-                image: _image,
-                UploadImage: () => pickImage(ImageSource.gallery),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20, left: 20, top: 60),
-                child: Row(
-                  children: [
-                    Container(
-                        width: 170.w,
-                        height: 1.h,
-                        color: ColorManager.greyColor),
-                    Text("OR", style: TextStyles.grey12Regular),
-                    Container(
-                        width: 170.w,
-                        height: 1.h,
-                        color: ColorManager.greyColor),
-                  ],
+                Selectfile(
+                  image: _image,
+                  UploadImage: () => pickImage(ImageSource.gallery),
                 ),
-              ),
-              Customselectbutton(
-                UploadImage: () => pickImage(ImageSource.camera),
-                icon: Icons.photo_camera,
-                text: "Open Camera",
-                top: 40,
-              ),
-              if (state is UploadLoading)
-                const Padding(
-                  padding: EdgeInsets.all(20),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20, left: 20, top: 60),
+                  child: Row(
+                    children: [
+                      Container(
+                          width: 170.w,
+                          height: 1.h,
+                          color: ColorManager.greyColor),
+                      Text("OR", style: TextStyles.grey12Regular),
+                      Container(
+                          width: 170.w,
+                          height: 1.h,
+                          color: ColorManager.greyColor),
+                    ],
+                  ),
                 ),
-              Customselectbutton(
-                text: "Continue",
-                top: 130,
-                UploadImage: () {
-                  if (_image != null) {
-                    context.read<UploadCubit>().uploadImage(_image);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const SellScreen();
-                    }));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text("Please select an image first!")),
-                    );
-                  }
-                },
-              ),
-            ],
+                Customselectbutton(
+                  UploadImage: () => pickImage(ImageSource.camera),
+                  icon: Icons.photo_camera,
+                  text: "Open Camera",
+                  top: 40,
+                ),
+                if (state is UploadLoading)
+                  const Padding(
+                    padding: EdgeInsets.all(20),
+                  ),
+                Customselectbutton(
+                  text: "Continue",
+                  top: 130,
+                  UploadImage: () {
+                    if (_image != null) {
+                      context.read<UploadCubit>().uploadImage(_image);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const SellScreen();
+                      }));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("Please select an image first!")),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           );
         },
       ),

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/utils/resources/color_manager.dart';
 import '../../../../core/utils/resources/icon_manager.dart';
 import '../../../../core/utils/resources/image_manager.dart';
 import '../../../notification/presentaion/views/notification_screen.dart';
-import 'filter_data.dart';
 
 class AppbarSearch extends StatefulWidget implements PreferredSizeWidget {
   final TextEditingController? controller;
@@ -38,6 +36,8 @@ class _AppbarSearchState extends State<AppbarSearch> {
     "Medicine",
     "Veterinary",
     "Agriculture",
+    "Dentistry",
+    "Pharmacy",
   ];
 
   @override
@@ -70,12 +70,6 @@ class _AppbarSearchState extends State<AppbarSearch> {
       padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.h, 30.h),
       child: Row(
         children: [
-          InkWell(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: Image.asset(ImageManager.backButton),
-          ),
           SizedBox(width: 10.w),
           Expanded(
             child: TextField(
