@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/resources/image_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';
 
-class NoteficationCard extends StatelessWidget {
-  String? title;
-  String? subtitle;
-  String? image;
-  void Function()? onpressed;
-  NoteficationCard({
-    required this.subtitle,
-    required this.title,
-    this.image,
-    this.onpressed,
-  });
-  final bool issuccess = true;
+class PendingProductCard extends StatefulWidget {
+  final String productName;
+  final String productPrice;
+  final String productAddress;
+  final String productImage;
+  final String productId;
+  final String productState;
+  const PendingProductCard(
+      {super.key,
+      required this.productName,
+      required this.productPrice,
+      required this.productAddress,
+      required this.productImage,
+      required this.productId,
+      required this.productState});
+
+  @override
+  State<PendingProductCard> createState() => _PendingProductCardState();
+}
+
+class _PendingProductCardState extends State<PendingProductCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,15 +33,10 @@ class NoteficationCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            image != null
-                ? Image.network(
-                    image!,
-                    height: 100.h,
-                  )
-                : Image.asset(
-                    ImageManager.rectangleT,
-                    height: 100.h,
-                  ),
+            Image.network(
+              widget.productImage,
+              height: 100.h,
+            ),
             SizedBox(width: 8.w),
             Expanded(
               child: Column(
@@ -48,7 +51,7 @@ class NoteficationCard extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: Text(
-                              title!,
+                              widget.productName,
                               style: TextStyles.black16Regular.copyWith(
                                 fontWeight: FontWeight.w700,
                               ),
@@ -57,18 +60,12 @@ class NoteficationCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        IconButton(
-                          onPressed: onpressed,
-                          icon: const Icon(Icons.close),
-                        ),
                       ],
                     ),
                   ),
                   Text(
-                    subtitle!,
-                    style: TextStyles.white14regulare.copyWith(
-                      color: issuccess ? Colors.green : Colors.red,
-                    ),
+                    widget.productState,
+                    style: TextStyles.black14Regular400,
                   ),
                 ],
               ),
@@ -77,5 +74,6 @@ class NoteficationCard extends StatelessWidget {
         ),
       ),
     );
+    ;
   }
 }

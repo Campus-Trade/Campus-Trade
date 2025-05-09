@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final String? iconPath;
-  final VoidCallback onPressed;
+  final void Function()? onPressed;
 
   const CustomButton({
     super.key,

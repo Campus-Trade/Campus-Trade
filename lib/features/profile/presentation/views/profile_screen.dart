@@ -2,6 +2,7 @@ import 'package:campus_trade/core/services/get_it_sevice.dart';
 import 'package:campus_trade/core/utils/resources/icon_manager.dart';
 import 'package:campus_trade/features/auth/data/repos/user_repo_impl.dart';
 import 'package:campus_trade/features/auth/presentation/view/signin_view.dart';
+import 'package:campus_trade/features/profile/presentation/widgets/pendind_products_screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PendingProducts()),
+                );
+              },
               child: const ProfileFeature(
                 title: "Pending Uploads",
                 iconPath: IconManager.pending,

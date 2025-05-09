@@ -9,4 +9,5 @@ class IconManager {
   static const String pending = '${path}pending.svg';
   static const String arrow = '${path}arrow.svg';
   static const String exit = '${path}exit.svg';
+  static const String filter = '${path}filter.svg';
 }

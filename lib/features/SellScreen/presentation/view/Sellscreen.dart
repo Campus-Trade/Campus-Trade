@@ -8,6 +8,7 @@ import '../cubit/AddData_Class.dart';
 import '../cubit/TestProduct.dart';
 import '../../../product/presentaion/home/view/home_screen.dart';
 import '../../../Upload/widget/AppBar_Upload.dart';
+import '../widget/Category_Button.dart';
 import '../widget/DataTextField.dart';
 import '../widget/DoneButton.dart';
 import '../widget/SegmentSellButton.dart';
@@ -26,6 +27,7 @@ class _SellscreenState extends State<SellScreen> {
   TextEditingController priceController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   String? imageUrl;
+  String? category;
 
   @override
   void dispose() {
@@ -69,13 +71,13 @@ class _SellscreenState extends State<SellScreen> {
                 builder: (context, state) {
                   return Container(
                     width: double.infinity,
-                    height: 377.h,
+                    height: 380.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: imageUrl != null
                           ? DecorationImage(
                               image: NetworkImage(imageUrl!),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             )
                           : null,
                       color: Colors.grey[300],
@@ -85,9 +87,9 @@ class _SellscreenState extends State<SellScreen> {
               ),
               const AppBarUpload(isvisible: true),
             ]),
-            SizedBox(height: 20.h),
+            SizedBox(height: 40.h),
             const Segmentsellbutton(),
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             BlocConsumer<Testproduct, productState>(listener: (context, state) {
               if (state == productState.Sell) {}
             }, builder: (context, state) {
@@ -102,6 +104,13 @@ class _SellscreenState extends State<SellScreen> {
                     hinttext: "Description",
                     controller: descriptionController,
                     currentState: state,
+                  ),
+                  CategoryButton(
+                    onCategorySelected: (value) {
+                      setState(() {
+                        category = value;
+                      });
+                    },
                   ),
                   Datatextfield(
                     hinttext: "Price",
@@ -121,6 +130,7 @@ class _SellscreenState extends State<SellScreen> {
                       if (_formKey.currentState!.validate()) {
                         if (mounted) {
                           context.read<AddDataCubit>().addProduct(
+                              category: category!,
                               productName: productNameController.text,
                               description: descriptionController.text,
                               price: priceController.text,

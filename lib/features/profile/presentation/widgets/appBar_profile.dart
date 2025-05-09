@@ -26,13 +26,9 @@ class AppbarProfile extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.h, 30.h),
       child: Row(
         children: [
-          InkWell(
-            onTap: () {},
-            child: Image.asset(
-              ImageManager.backButton,
-            ),
+          SizedBox(
+            width: 150.w,
           ),
-          const Spacer(),
           Text(
             'Profile',
             style: TextStyles.white24Bold,

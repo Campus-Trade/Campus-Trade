@@ -15,10 +15,12 @@ class AddDataCubit extends Cubit<AddDataState> {
     required String price,
     required String address,
     required String imageUrl,
+    required String category,
   }) async {
     emit(AddLoading());
 
     final product = SellProductModel(
+      category: category,
       productId: '',
       productName: productName,
       description: description,

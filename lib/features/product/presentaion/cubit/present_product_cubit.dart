@@ -13,18 +13,18 @@ class ProductCubit extends Cubit<PresentProductState> {
 
   ProductCubit(this.productRepository) : super(PresentProductInitial());
 
-  Future<void> fetchAllProducts() async {
+  fetchAllProducts() async {
     emit(PresentProductLoading());
     try {
-      final result = await productRepository.getAllProducts();
-
-      result.fold(
-        (failure) => emit(PresentProductError(failure.message)),
-        (products) {
-          emit(PresentProductLoaded(productModel: products));
-          _allProducts = products;
-        },
-      );
+      await productRepository.getAllProducts().listen((result) {
+        result.fold(
+          (failure) => emit(PresentProductError(failure.message)),
+          (products) {
+            emit(PresentProductLoaded(productModel: products));
+            _allProducts = products;
+          },
+        );
+      });
     } catch (e) {
       emit(PresentProductError("Failed to load products: ${e.toString()}"));
     }
@@ -45,20 +45,43 @@ class ProductCubit extends Cubit<PresentProductState> {
     return sellerName;
   }
 
-  void searchProducts(String query) {
+//   void searchProducts(String query, String selectedCategory) {
+//     if (state is! PresentProductLoaded) return;
+
+//     if (query.isEmpty) {
+//     } else {
+//       final allApprovedProducts = _allProducts
+//           .where((product) =>
+//               product.productState == "approved" &&
+//               product.category == selectedCategory)
+//           .toList();
+//       final filtered = allApprovedProducts.where((product) {
+//         return product.name.toLowerCase().contains(query.toLowerCase()) ||
+//             product.description.toLowerCase().contains(query.toLowerCase());
+//       }).toList();
+
+//       emit(PresentProductLoaded(productModel: filtered));
+//     }
+//   }
+// }
+  void searchProducts(String query, String selectedCategory) {
     if (state is! PresentProductLoaded) return;
 
-    if (query.isEmpty) {
-    } else {
-      final allApprovedProducts = _allProducts
-          .where((product) => product.productState == "approved")
-          .toList();
-      final filtered = allApprovedProducts.where((product) {
-        return product.name.toLowerCase().contains(query.toLowerCase()) ||
-            product.description.toLowerCase().contains(query.toLowerCase());
-      }).toList();
+    final allApprovedProducts = _allProducts
+        .where((product) => product.productState == "approved")
+        .toList();
+    final categoryFiltered = selectedCategory == "All"
+        ? allApprovedProducts
+        : allApprovedProducts
+            .where((product) => product.category == selectedCategory)
+            .toList();
+    final filtered = query.isEmpty
+        ? categoryFiltered
+        : categoryFiltered.where((product) {
+            return product.name.toLowerCase().contains(query.toLowerCase()) ||
+                product.description.toLowerCase().contains(query.toLowerCase());
+          }).toList();
 
-      emit(PresentProductLoaded(productModel: filtered));
-    }
+    emit(PresentProductLoaded(productModel: filtered));
   }
 }

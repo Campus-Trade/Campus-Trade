@@ -81,7 +81,9 @@ class AppbarHome extends StatelessWidget implements PreferredSizeWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, '/CartScreen');
+                        },
                         child: Image.asset(
                           ImageManager.cartButton,
                         ),

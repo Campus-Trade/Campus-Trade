@@ -1,5 +1,4 @@
 import 'package:campus_trade/core/utils/resources/color_manager.dart';
-import 'package:campus_trade/core/utils/resources/image_manager.dart';
 import 'package:campus_trade/core/utils/resources/text_styles.dart';
 import 'package:campus_trade/features/notification/presentaion/views/notification_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +21,6 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.fromLTRB(16.w, 70.h, 16.h, 30.h),
       child: Row(
         children: [
-          InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Image.asset(
-              ImageManager.backButton,
-            ),
-          ),
           const Spacer(),
           Text(
             title,

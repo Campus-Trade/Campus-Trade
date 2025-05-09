@@ -9,22 +9,25 @@ class PresentDataRepo {
 
   PresentDataRepo({required this.firestore});
 
-  Future<Either<Failure, List<ProductModel>>> getAllProducts() async {
+  Stream<Either<Failure, List<ProductModel>>> getAllProducts() async* {
     try {
-      final querySnapshot = await firestore.collection('products').get();
+      final querySnapshot = await firestore.collection('products').snapshots();
 
-      if (querySnapshot.docs.isNotEmpty) {
-        final products = querySnapshot.docs
-            .map((doc) => ProductModel.fromMap(doc.data()))
-            .toList();
-        return right(products);
-      } else {
-        return left(ServerFailure("No products found!"));
+      await for (final snapshot in querySnapshot) {
+        if (snapshot.docs.isEmpty) {
+          yield Left(ServerFailure("No products found!"));
+          return;
+        } else {
+          final products = snapshot.docs
+              .map((doc) => ProductModel.fromMap(doc.data()))
+              .toList();
+          yield Right(products);
+        }
       }
     } on FirebaseException catch (e) {
-      return left(ServerFailure("Firestore error: ${e.message}"));
+      yield Left(ServerFailure("Firestore error: ${e.message}"));
     } catch (e) {
-      return left(
+      yield Left(
           ServerFailure("An unexpected error occurred: ${e.toString()}"));
     }
   }

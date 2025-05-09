@@ -9,6 +9,7 @@ class SellProductRepo {
     try {
       final collectionRef = FirebaseFirestore.instance.collection("products");
       final docRef = await collectionRef.add({
+        "category": sellProductModel.category,
         "productState": sellProductModel.productState,
         "name": sellProductModel.productName,
         "description": sellProductModel.description,
@@ -21,6 +22,7 @@ class SellProductRepo {
 
       // Create a new instance with the updated productId
       final updatedProduct = SellProductModel(
+        category: sellProductModel.category,
         productId: docRef.id,
         productState: sellProductModel.productState,
         productName: sellProductModel.productName,

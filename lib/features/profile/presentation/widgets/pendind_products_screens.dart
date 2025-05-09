@@ -1,20 +1,19 @@
-import 'package:campus_trade/core/shared_widgets/common_app_bar.dart';
+import 'package:campus_trade/features/profile/presentation/widgets/pending_product_card.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../profile/presentation/current_user_product_cubit.dart';
-import '../../../profile/presentation/widgets/pending_product_card.dart';
+import '../../../../core/shared_widgets/common_app_bar.dart';
+import '../current_user_product_cubit.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+class PendingProducts extends StatefulWidget {
+  const PendingProducts({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  State<PendingProducts> createState() => _PendingProductsState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _PendingProductsState extends State<PendingProducts> {
   @override
   void initState() {
     super.initState();
@@ -27,7 +26,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     final currentUserProductsCubit = GetIt.instance<CurrentUserProductsCubit>();
 
     return Scaffold(
-      appBar: CommonAppBar(title: 'Notofications'),
+      appBar: CommonAppBar(title: 'Pending Uploads'),
       body: BlocProvider(
         create: (context) => currentUserProductsCubit,
         child: BlocBuilder<CurrentUserProductsCubit, CurrentUserProductsState>(

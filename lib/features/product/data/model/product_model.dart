@@ -7,8 +7,10 @@ class ProductModel {
   final String userId;
   final String productId;
   final String productState;
+  final String category;
 
   ProductModel({
+    required this.category,
     required this.productId,
     required this.productState,
     required this.address,
@@ -21,6 +23,7 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
+      category: map['category'] as String? ?? '',
       address: map['address'] as String? ?? '',
       description: map['description'] as String? ?? '',
       imageUrl: map['imageUrl'] as String? ?? '',
@@ -34,6 +37,7 @@ class ProductModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'category': category,
       'address': address,
       'description': description,
       'imageUrl': imageUrl,

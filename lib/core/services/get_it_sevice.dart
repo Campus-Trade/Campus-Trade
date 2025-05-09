@@ -4,11 +4,14 @@ import 'package:campus_trade/features/SellScreen/presentation/cubit/AddData_Clas
 import 'package:campus_trade/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/auth/data/repos/user_repo_impl.dart';
 import '../../features/auth/presentation/cubit/logout_cubit/logout_cubit.dart';
 import '../../features/product/data/repo/present_product_repo.dart';
 import '../../features/product/presentaion/cubit/present_product_cubit.dart';
+import '../../features/profile/data/current_user_product.dart';
+import '../../features/profile/presentation/current_user_product_cubit.dart';
 
 final getIt = GetIt.instance;
 void setup() {
@@ -29,4 +32,10 @@ void setup() {
     () => AddDataCubit(getIt<SellProductRepo>()),
   );
   getIt.registerFactory(() => LogoutCubit(getIt<AuthRepo>()));
+  getIt.registerLazySingleton<CurrentUserProductRepo>(
+    () => CurrentUserProductRepo(FirebaseFirestore.instance),
+  );
+  GetIt.instance.registerLazySingleton<CurrentUserProductsCubit>(
+    () => CurrentUserProductsCubit(GetIt.instance<CurrentUserProductRepo>()),
+  );
 }
