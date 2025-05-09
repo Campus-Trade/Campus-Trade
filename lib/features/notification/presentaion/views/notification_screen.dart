@@ -7,13 +7,18 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CommonAppBar(
+    return Scaffold(
+      appBar: const CommonAppBar(
         title: 'Notifications',
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [NoteficationCard()],
+          children: [
+            NoteficationCard(
+              title: "Ati T580A - KT800R Plastic T Ruler, 80 cm Length",
+              subtitle: "Upload Request Accepted",
+            )
+          ],
         ),
       ),
     );

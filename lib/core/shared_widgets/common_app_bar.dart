@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../features/Cart/presentation/view/Cart_Screen.dart';
 import '../utils/resources/color_manager.dart';
 import '../utils/resources/image_manager.dart';
 import '../utils/resources/text_styles.dart';
@@ -53,6 +54,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/CartScreen');
+            },
             child: Image.asset(ImageManager.cartButton),
           ),
         ],

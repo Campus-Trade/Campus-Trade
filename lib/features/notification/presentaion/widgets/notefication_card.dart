@@ -5,7 +5,16 @@ import '../../../../core/utils/resources/image_manager.dart';
 import '../../../../core/utils/resources/text_styles.dart';
 
 class NoteficationCard extends StatelessWidget {
-  const NoteficationCard({super.key});
+  String? title;
+  String? subtitle;
+  String? image;
+  void Function()? onpressed;
+  NoteficationCard({
+    required this.subtitle,
+    required this.title,
+    this.image,
+    this.onpressed,
+  });
   final bool issuccess = true;
   @override
   Widget build(BuildContext context) {
@@ -16,10 +25,15 @@ class NoteficationCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              ImageManager.rectangleT,
-              height: 100.h,
-            ),
+            image != null
+                ? Image.network(
+                    image!,
+                    height: 100.h,
+                  )
+                : Image.asset(
+                    ImageManager.rectangleT,
+                    height: 100.h,
+                  ),
             SizedBox(width: 8.w),
             Expanded(
               child: Column(
@@ -34,7 +48,7 @@ class NoteficationCard extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: Text(
-                              'Ati T580A - KT800R Plastic T Ruler, 80 cm Length',
+                              title!,
                               style: TextStyles.black16Regular.copyWith(
                                 fontWeight: FontWeight.w700,
                               ),
@@ -44,14 +58,14 @@ class NoteficationCard extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: onpressed,
                           icon: const Icon(Icons.close),
                         ),
                       ],
                     ),
                   ),
                   Text(
-                    'Upload Request Accepted',
+                    subtitle!,
                     style: TextStyles.white14regulare.copyWith(
                       color: issuccess ? Colors.green : Colors.red,
                     ),

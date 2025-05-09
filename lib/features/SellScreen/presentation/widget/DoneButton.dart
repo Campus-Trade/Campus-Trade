@@ -26,7 +26,7 @@ class _CustomselectbuttonState extends State<DoneButton> {
         onTap: widget.Continue,
         child: Padding(
             padding: EdgeInsets.only(
-                left: 150.5.r, right: 150.5.r, top: 10.r, bottom: 10.r),
+                left: 125.5.r, right: 125.5.r, top: 10.r, bottom: 10.r),
             child: Text(
               widget.text,
               style: TextStyles.white14Bold,

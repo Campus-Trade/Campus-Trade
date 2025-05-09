@@ -4,6 +4,7 @@ import 'package:campus_trade/features/auth/domain/repos/auth_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'features/Cart/presentation/view/Cart_Screen.dart';
 import 'features/Upload/Cubit/UploadCubit_class.dart';
 import 'features/SellScreen/presentation/cubit/AddData_Class.dart';
 import 'features/SellScreen/presentation/cubit/TestProduct.dart';
@@ -12,6 +13,8 @@ import 'features/auth/presentation/cubit/signin_cubit/signin_cubit.dart';
 import 'features/auth/presentation/cubit/signup_cubit/signup_cubit.dart';
 import 'features/product/data/repo/present_product_repo.dart';
 import 'features/product/presentaion/cubit/present_product_cubit.dart';
+import 'features/product/presentaion/details/view/detail_screen.dart';
+import 'features/product/presentaion/home/view/home_screen.dart';
 import 'features/splash/splash.dart';
 
 class CampusTradeApp extends StatelessWidget {
@@ -43,9 +46,16 @@ class CampusTradeApp extends StatelessWidget {
         child: ScreenUtilInit(
           designSize: const Size(393, 852),
           minTextAdapt: true,
-          builder: (context, child) => const MaterialApp(
+          builder: (context, child) => MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: Splash(),
+            initialRoute: '/',
+            routes: {
+              '/': (context) => const Splash(),
+              '/HomeScreen': (context) => const HomeScreen(),
+              '/CartScreen': (context) => CartScreen(
+                    productList: productList,
+                  ),
+            },
           ),
         ));
   }

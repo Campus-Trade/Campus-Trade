@@ -7,6 +7,8 @@ import '../../../../../core/services/get_it_sevice.dart';
 import '../../../../../core/shared_widgets/common_app_bar.dart';
 import '../../../../../core/shared_widgets/custom_button.dart';
 import '../../../../../core/utils/resources/text_styles.dart';
+import '../../../../Cart/presentation/view/Cart_Screen.dart';
+import '../../../data/model/product_model.dart';
 import '../../../data/repo/present_product_repo.dart';
 import '../widgets/user_data_row.dart';
 
@@ -17,6 +19,8 @@ class DetailScreen extends StatefulWidget {
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
+
+List<ProductModel> productList = [];
 
 class _DetailScreenState extends State<DetailScreen> {
   @override
@@ -112,7 +116,17 @@ class _DetailScreenState extends State<DetailScreen> {
                                 backgroundColor: ColorManager.SecondaryColor,
                                 textStyle: TextStyles.white14Bold,
                                 labelText: "Add to Cart",
-                                onPressed: () {},
+                                onPressed: () {
+                                  productList.add((product));
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CartScreen(productList: productList),
+                                    ),
+                                  );
+                                },
                                 width: 353.w,
                                 height: 42.h,
                               ),
