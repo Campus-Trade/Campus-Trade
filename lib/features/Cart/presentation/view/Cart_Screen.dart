@@ -32,53 +32,60 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(title: "Cart"),
-      body: SingleChildScrollView(
-          child: Column(children: [
-        SizedBox(
-          height: 300.h,
-          child: ListView.builder(
-            itemCount: widget.productList.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailScreen(
-                                productId: widget.productList[index].productId,
-                              )));
-                },
-                child: NoteficationCard(
-                  onpressed: () {
-                    setState(() {
-                      widget.productList.removeAt(index);
-                    });
+      body: widget.productList.isEmpty
+          ? Center(
+              child: Text(
+              "Your Cart is Empty",
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+            ))
+          : SingleChildScrollView(
+              child: Column(children: [
+              SizedBox(
+                height: 300.h,
+                child: ListView.builder(
+                  itemCount: widget.productList.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailScreen(
+                                      productId:
+                                          widget.productList[index].productId,
+                                    )));
+                      },
+                      child: NoteficationCard(
+                        onpressed: () {
+                          setState(() {
+                            widget.productList.removeAt(index);
+                          });
+                        },
+                        title: widget.productList[index].name,
+                        subtitle: "${widget.productList[index].price} EGP",
+                        image: widget.productList[index].imageUrl,
+                      ),
+                    );
                   },
-                  title: widget.productList[index].name,
-                  subtitle: "${widget.productList[index].price} EGP",
-                  image: widget.productList[index].imageUrl,
                 ),
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: 160.h,
-        ),
-        CheckoutContainer(
-          productPrice: calculateTotalPrice(widget.productList),
-        ),
-        SizedBox(
-          height: 70.h,
-        ),
-        DoneButton(
-          text: "Go to Checkout",
-          Continue: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
-          },
-        ),
-      ])),
+              ),
+              SizedBox(
+                height: 160.h,
+              ),
+              CheckoutContainer(
+                productPrice: calculateTotalPrice(widget.productList),
+              ),
+              SizedBox(
+                height: 70.h,
+              ),
+              DoneButton(
+                text: "Go to Checkout",
+                Continue: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                },
+              ),
+            ])),
     );
   }
 }
